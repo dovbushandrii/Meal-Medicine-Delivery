@@ -1,4 +1,4 @@
-Library Loan System
+Mean and Medicine Delivery System
 ------
 Basic info:
 - Authors: Andrii Dovbush, Samuel Hribik, Rastislav Budinsky
