@@ -20,7 +20,7 @@ class Meal {
 
 	double price;
 
-	//Represents weight in gramms.
+	//Represents weight in grams.
 	unsigned weight;
 
 public:

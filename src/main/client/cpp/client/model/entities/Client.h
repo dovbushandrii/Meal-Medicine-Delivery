@@ -2,7 +2,7 @@
 * @file Client.h
 * @author Andrii Dovbush
 * @brief Client class declaration
-* 
+*
 * Part of Meal-Medicine Delivery System
 * This file contains Client class declaration.
 */
@@ -13,6 +13,8 @@
 #include <string>
 
 class Client {
+
+    long id;
 
 	//Must be up to 30 characters
 	std::string name;
@@ -29,7 +31,8 @@ public:
 
 	Client() {}
 
-	Client(	std::string name,
+	Client(	long getId();
+	        std::string name,
 			std::string surname,
 			std::string phoneNumber,
 			std::string email,
@@ -41,6 +44,8 @@ public:
 		this->email = email;
 		this->password = password;
 	}
+
+    long getId();
 
 	std::string getName();
 	void setName(std::string name);

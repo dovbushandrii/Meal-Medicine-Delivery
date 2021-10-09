@@ -1,26 +1,26 @@
 /**
- * @file MealRestController.java
+ * @file OrderRestController.java
  * @author Andrii Dovbush
- * @brief REST Controller for Meal objects
+ * @brief REST Controller for Order objects
  * <p>
  * Part of Meal-Medicine Delivery System.
- * This file contains REST Controller for Meal objects.
+ * This file contains REST Controller for Order objects.
  */
 
 package cloudserver.api.controllers;
 
-import cloudserver.model.daos.MealDAO;
+import cloudserver.model.daos.OrderDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MealRestController {
+public class OrderRestController {
 
-    private MealDAO dao;
+    private OrderDAO dao;
 
     @Autowired
-    public MealRestController(@Qualifier("mealDAO") MealDAO dao) {
+    public OrderRestController(@Qualifier("orderDAO") OrderDAO dao) {
         this.dao = dao;
     }
 }

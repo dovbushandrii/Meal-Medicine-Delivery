@@ -1,3 +1,12 @@
+/**
+ * @file SecurityConfig.java
+ * @author Andrii Dovbush
+ * @brief Security Configuration
+ * <p>
+ * Part of Meal-Medicine Delivery System.
+ * This file contains Security configuration.
+ */
+
 package cloudserver.config;
 
 import org.springframework.context.annotation.Bean;

@@ -1,3 +1,12 @@
+/**
+ * @file WebConfig.java
+ * @author Andrii Dovbush
+ * @brief Application Configuration
+ * <p>
+ * Part of Meal-Medicine Delivery System.
+ * This file contains Application Configuration.
+ */
+
 package cloudserver.config;
 
 import org.springframework.beans.factory.annotation.Autowired;

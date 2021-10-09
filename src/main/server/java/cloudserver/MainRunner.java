@@ -1,3 +1,12 @@
+/**
+ * @file MainRunner.java
+ * @author Andrii Dovbush
+ * @brief Main runner class for the server
+ * <p>
+ * Part of Meal-Medicine Delivery System.
+ * This file contains Main runner class for server.
+ */
+
 package cloudserver;
 
 import org.springframework.boot.SpringApplication;
