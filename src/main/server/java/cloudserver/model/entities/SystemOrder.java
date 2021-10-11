@@ -1,10 +1,10 @@
 /**
- * @file Order.java
+ * @file SystemOrder.java
  * @author Andrii Dovbush
  * @brief Order class for server
  * <p>
  * Part of Meal-Medicine Delivery System.
- * This file contains Order class.
+ * This file contains SystemOrder class.
  */
 
 package cloudserver.model.entities;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Order {
+public class SystemOrder {
     @Id
     @GeneratedValue
     private Long id;
@@ -30,9 +30,9 @@ public class Order {
     @ManyToOne
     private Client client;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Meal> meals;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Medicine> medicines;
 }

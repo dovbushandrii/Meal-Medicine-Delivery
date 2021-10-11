@@ -10,7 +10,7 @@
 package cloudserver.api.controllers;
 
 import cloudserver.model.daos.OrderDAO;
-import cloudserver.model.entities.Order;
+import cloudserver.model.entities.SystemOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/orders")
 public class OrderRestController {
 
     private OrderDAO dao;
@@ -28,28 +29,28 @@ public class OrderRestController {
     }
 
     @PostMapping()
-    public Order saveOrder(Order order) {
-        return dao.create(order);
+    public SystemOrder saveOrder(SystemOrder systemOrder) {
+        return dao.create(systemOrder);
     }
 
     @GetMapping("/{id}")
-    public Order getOrder(@PathVariable("id") Long id) {
+    public SystemOrder getOrder(@PathVariable("id") Long id) {
         return dao.read(id);
     }
 
     @GetMapping()
-    public List<Order> getOrders() {
+    public List<SystemOrder> getOrders() {
         return dao.read();
     }
 
     @PatchMapping()
-    public Order updateOrder(Order order) {
-        return dao.update(order);
+    public SystemOrder updateOrder(SystemOrder systemOrder) {
+        return dao.update(systemOrder);
     }
 
     @PatchMapping("/upsert")
-    public Order upsertOrder(Order order) {
-        return dao.upsert(order);
+    public SystemOrder upsertOrder(SystemOrder systemOrder) {
+        return dao.upsert(systemOrder);
     }
 
     @DeleteMapping("/{id}")

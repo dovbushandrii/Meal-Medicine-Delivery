@@ -9,7 +9,7 @@
 
 package cloudserver.model.daos;
 
-import cloudserver.model.entities.Order;
+import cloudserver.model.entities.SystemOrder;
 import cloudserver.model.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,29 +27,29 @@ public class OrderDAO {
         this.repo = repo;
     }
 
-    public Order create(Order order) {
-        return repo.save(order);
+    public SystemOrder create(SystemOrder systemOrder) {
+        return repo.save(systemOrder);
     }
 
-    public Order read(Long id) {
+    public SystemOrder read(Long id) {
         return repo.findById(id).get();
     }
 
-    public List<Order> read() {
+    public List<SystemOrder> read() {
         return repo.findAll();
     }
 
-    public Order upsert(Order order) {
-        repo.deleteById(order.getId());
-        return repo.save(order);
+    public SystemOrder upsert(SystemOrder systemOrder) {
+        repo.deleteById(systemOrder.getId());
+        return repo.save(systemOrder);
     }
 
-    public Order update(Order order) {
-        if (repo.findById(order.getId()).isPresent()) {
-            repo.deleteById(order.getId());
-            return repo.save(order);
+    public SystemOrder update(SystemOrder systemOrder) {
+        if (repo.findById(systemOrder.getId()).isPresent()) {
+            repo.deleteById(systemOrder.getId());
+            return repo.save(systemOrder);
         }
-        throw new NoSuchElementException("There is no Client with ID: " + order.getId());
+        throw new NoSuchElementException("There is no Client with ID: " + systemOrder.getId());
     }
 
     public void delete(Long id) {

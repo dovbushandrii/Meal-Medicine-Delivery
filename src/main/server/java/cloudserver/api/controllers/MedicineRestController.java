@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/medicines")
 public class MedicineRestController {
 
     private MedicineDAO dao;

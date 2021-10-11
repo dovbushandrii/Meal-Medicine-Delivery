@@ -40,5 +40,5 @@ public class Client {
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Order> orders;
+    private List<SystemOrder> systemOrders;
 }
