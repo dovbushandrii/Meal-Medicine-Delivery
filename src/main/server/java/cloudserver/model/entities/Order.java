@@ -9,11 +9,14 @@
 
 package cloudserver.model.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 @Entity
 public class Order {
     @Id
