@@ -43,5 +43,6 @@ public class Client {
     @OneToMany(fetch = FetchType.LAZY)
     private List<SystemOrder> systemOrders;
 
-    @ManyToAny
+    @ManyToMany
+    private List<Alergen> alergens;
 }
