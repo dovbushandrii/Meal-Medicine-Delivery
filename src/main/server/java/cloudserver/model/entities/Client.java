@@ -10,6 +10,7 @@
 package cloudserver.model.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -41,4 +42,6 @@ public class Client {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<SystemOrder> systemOrders;
+
+    @ManyToAny
 }

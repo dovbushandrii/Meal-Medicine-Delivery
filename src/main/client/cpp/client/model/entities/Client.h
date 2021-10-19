@@ -11,6 +11,8 @@
 #define _CLIENT_H_
 
 #include <string>
+#include <vector>
+#include "Alergen.h"
 
 class Client {
 
@@ -27,6 +29,8 @@ class Client {
 
 	std::string email;
 
+	std::vector<Alergen> alergens;
+
 public:
 
 	Client() {}
@@ -36,13 +40,15 @@ public:
 			std::string surname,
 			std::string phoneNumber,
 			std::string email,
-			std::string password) {
+			std::string password,
+			std::vector<Alergen> alergens) {
 
 		this->name = name;
 		this->surname = surname;
 		this->phoneNumber = phoneNumber;
 		this->email = email;
 		this->password = password;
+		this->alergens = alergens;
 	}
 
     long getId();
@@ -58,6 +64,9 @@ public:
 
 	std::string getEmail();
 	void setEmail(std::string email);
+
+	std::vector<Alergen> getAlergens();
+	void setAlergens(std::vector<Alergen> alergens);
 };
 
 #endif // !_CLIENT_H_
