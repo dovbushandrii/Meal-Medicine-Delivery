@@ -53,22 +53,50 @@ public:
 
 	}
 
-	long getId();
+	long getId() {
+		return this->id;
+	}
 
-	tm getDateAndTime();
-	void setDateAndTime(tm dateAndTime);
+	tm getDateAndTime() {
+		return this->dateAndTime;
+	}
+	void setDateAndTime(tm dateAndTime) {
+		this->dateAndTime = dateAndTime;
+	}
 
-	double getTotalSum();
-	void updateTotalSum();
+	double getTotalSum() {
+		return this->totalSum;
+	}
+	void updateTotalSum() {
+		this->totalSum = 0.0;
+		for (int i = 0; i < this->meals.size(); i++) {
+			this->totalSum += this->meals[i].getPrice();
+		}
+		for (int i = 0; i < this->medicines.size(); i++) {
+			this->totalSum += this->medicines[i].getPrice();
+		}
+	}
 
-	Client getClient();
-	void setClient(Client client);
+	Client getClient() {
+		return this->getClient;
+	}
+	void setClient(Client client) {
+		this->client = client;
+	}
 
-	std::vector<Meal> getMeals();
-	void setMeals(std::vector<Meal> meals);
+	std::vector<Meal> getMeals() {
+		return this->meals;
+	}
+	void setMeals(std::vector<Meal> meals) {
+		this->meals = meals;
+	}
 
-	std::vector<Medicine> getMedicines();
-	void setMedicines(std::vector<Medicine> medicines);
+	std::vector<Medicine> getMedicines() {
+		return this->medicines;
+	}
+	void setMedicines(std::vector<Medicine> medicines) {
+		this->medicines = medicines;
+	}
 
 };
 

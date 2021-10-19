@@ -53,20 +53,40 @@ public:
 
     long getId();
 
-	std::string getName();
-	void setName(std::string name);
+	std::string getName() {
+		return this->name;
+	}
+	void setName(std::string name) {
+		this->name = name;
+	}
 
-	std::string getSurname();
-	void setSurname(std::string surname);
+	std::string getSurname() {
+		return this->surname
+	}
+	void setSurname(std::string surname) {
+		this->surname = surname;
+	}
 
-	std::string getPhoneNumber();
-	void setPhoneNumber(std::string phoneNumber);
+	std::string getPhoneNumber() {
+		return this->phoneNumber;
+	}
+	void setPhoneNumber(std::string phoneNumber) {
+		this->phoneNumber = phoneNumber;
+	}
 
-	std::string getEmail();
-	void setEmail(std::string email);
+	std::string getEmail() {
+		return this->email;
+	}
+	void setEmail(std::string email) {
+		this->email = email;
+	}
 
-	std::vector<Alergen> getAlergens();
-	void setAlergens(std::vector<Alergen> alergens);
+	std::vector<Alergen> getAlergens() {
+		return this->alergens;
+	}
+	void setAlergens(std::vector<Alergen> alergens) {
+		this->alergens = alergens;
+	}
 };
 
 #endif // !_CLIENT_H_

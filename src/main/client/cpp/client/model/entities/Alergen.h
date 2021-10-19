@@ -21,11 +21,12 @@ public:
 		this->name = name;
 	}
 
-	std::string getName();
-	void setName(std::string name);
-
-private:
-
+	std::string getName()
+		return this->name;
+	}
+	void setName(std::string name) {
+		this->name = name
+	}
 };
 
 #endif //!_ALERGEN_H_

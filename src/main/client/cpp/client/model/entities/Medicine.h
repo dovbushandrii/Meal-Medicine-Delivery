@@ -33,13 +33,23 @@ public:
 		this->price = price;
 	}
 
-	long getId();
+	long getId() {
+		return this->id;
+	}
 
-	std::string getDescription();
-	void setDescription(std::string description);
+	std::string getDescription() {
+		return this->description;
+	}
+	void setDescription(std::string description) {
+		this->description = description;
+	}
 
-	double getPrice();
-	void setPrice(double price);
+	double getPrice() {
+		return this->price;
+	}
+	void setPrice(double price) {
+		this->price = price;
+	}
 
 };
 
