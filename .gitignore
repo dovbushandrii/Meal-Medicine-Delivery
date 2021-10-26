@@ -34,3 +34,5 @@
 target/
 out/
 /src/main/server/resources/application-dev.properties
+/src/main/client/cpp/client/build-GUI-Desktop_x86_windows_msvc2019_pe_64bit-Debug/debug
+/src/main/client/cpp/client/build-GUI-Desktop_x86_windows_msvc2019_pe_64bit-Debug/release
