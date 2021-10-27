@@ -41,19 +41,23 @@ MovingBar::MovingBar(MainWindow *parent) : QWidget(parent)
 
 void MovingBar::mousePressEvent(QMouseEvent *event)
 {
-    (void) event;
-    pressed = true;
-    setCursor(Qt::ClosedHandCursor);
-    mouseNow = QCursor::pos();
+    if (event->button()==Qt::LeftButton)
+    {
+        pressed = true;
+        setCursor(Qt::ClosedHandCursor);
+        mouseNow = QCursor::pos();
+    }
 }
 
 void MovingBar::mouseReleaseEvent(QMouseEvent *event)
 {
-    (void) event;
-    pressed = false;
-    setCursor(Qt::OpenHandCursor);
-    if (QCursor::pos().y() == 0)
-        emit movedToTop();
+    if (event->button()==Qt::LeftButton)
+    {
+        pressed = false;
+        setCursor(Qt::OpenHandCursor);
+        if (QCursor::pos().y() == 0)
+            emit movedToTop();
+    }
 }
 
 void MovingBar::mouseMoveEvent(QMouseEvent *event)
