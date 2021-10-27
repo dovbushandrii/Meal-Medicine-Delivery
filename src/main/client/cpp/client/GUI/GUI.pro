@@ -13,6 +13,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     movingbar.cpp \
+    nextmeal.cpp \
+    personaldata.cpp \
     returnbar.cpp \
     titlebar.cpp
 
@@ -20,6 +22,8 @@ HEADERS += \
     infopanel.h \
     mainwindow.h \
     movingbar.h \
+    nextmeal.h \
+    personaldata.h \
     returnbar.h \
     titlebar.h
 
