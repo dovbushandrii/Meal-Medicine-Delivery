@@ -19,9 +19,9 @@ TitleBar::TitleBar(MainWindow *window, QApplication *app) : QWidget(window)
     maximize->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     minimize->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    close->setStyleSheet("* {border-bottom-left-radius: 10px; background-color: rgba(200,0,0,140); image: url(../imgs/close_transparent.png);}");
-    maximize->setStyleSheet("* {border-bottom-left-radius: 10px; background-color: rgba(0,200,0,140); image: url(../imgs/maximize_transparent.png);}");
-    minimize->setStyleSheet("* {border-bottom-left-radius: 10px; background-color: rgba(0,0,200,140); image: url(../imgs/minimize_transparent.png);}");
+    close->setStyleSheet("* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(200,0,0,140); image: url(../imgs/close_transparent.png);}");
+    maximize->setStyleSheet("* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,200,0,140); image: url(../imgs/maximize_transparent.png);}");
+    minimize->setStyleSheet("* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,0,200,140); image: url(../imgs/minimize_transparent.png);}");
 
     QGraphicsBlurEffect *blur_close = new QGraphicsBlurEffect;
     blur_close->setBlurRadius(1.5);

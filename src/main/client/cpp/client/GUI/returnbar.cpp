@@ -8,7 +8,7 @@ ReturnBar::ReturnBar(MainWindow *parent) : QWidget(parent)
     back_button = new QPushButton("Krok Späť", this);
     setLayout(layout);
     back_button->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
-    back_button->setStyleSheet("* {border-bottom-right-radius: 10px; background-color: rgba(230,230,0,180); image: url(../imgs/return_mirrored_transparent.png);}");
+    back_button->setStyleSheet("* {font-size: 9.2pt; color: black; border-bottom-right-radius: 10px; background-color: rgba(230,230,0,180); image: url(../imgs/return_mirrored_transparent.png);}");
 
     // create effects
     QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
