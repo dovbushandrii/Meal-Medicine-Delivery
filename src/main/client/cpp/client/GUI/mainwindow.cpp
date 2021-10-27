@@ -3,20 +3,19 @@
 #include "titlebar.h"
 #include "returnbar.h"
 #include "movingbar.h"
+#include "infopanel.h"
 
-#include <QDesktopWidget>
 #include <QCursor>
 #include <QDebug>
+#include <QTimer>
 
 void MainWindow::setScreenSize(bool fullscreen = false)
 {
-    QDesktopWidget desktop;
-    QRect screen =  desktop.availableGeometry(this);
     setFixedSize(fullscreen ? QSize(screen.width(), screen.height()) : size);
     name_label->setFixedWidth((width() - 4 * TITLE_WIDTH) / 2);
     emit changeMovingBar((width() - 4 * TITLE_WIDTH) / 2); //  4 as there are total of 4 buttons in title bar
     // signal to let other widgets know their new available space
-    emit sizeChanged(getAvailableSize());
+    emit sizeChanged_s(getAvailableSize());
 }
 
 MainWindow::MainWindow(QWidget *parent, QApplication *app)
@@ -32,23 +31,29 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     name_label = new QLabel(window_name, this);
     name_label->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     name_label->setContentsMargins(50, 0, 0, 0);
-    name_label->setStyleSheet("QLabel{color: black; background: transparent; font: bold italic \"Times New Roman\"; font-size:25pt}");
+    name_label->setStyleSheet("QLabel{color: black; background: transparent; text-decoration: underline; font: bold italic underline \"Times New Roman\"; font-size:25pt}");
 
-    QDesktopWidget desktop;
-    QRect screen =  desktop.availableGeometry(this);
+    screen =  desktop.availableGeometry(this);
     size = QSize(screen.width() * RATIO, screen.height() * RATIO);
 
     // initialize title of the window
     TitleBar *titleBar = new TitleBar(this, app);
     ReturnBar *returnBar = new ReturnBar(this);
     MovingBar *movingBar = new MovingBar(this);
+    InfoPanel *infoPanel = new InfoPanel(this);
     QObject::connect(this, SIGNAL(changeMovingBar(int)), movingBar, SLOT(changeWidth(int)));
     QObject::connect(this, SIGNAL(toggleDescription_s()), titleBar, SLOT(toggleDescription()));
     QObject::connect(this, SIGNAL(toggleDescription_s()), returnBar, SLOT(toggleDescription()));
+    QObject::connect(this, SIGNAL(sizeChanged_s(QSize)), infoPanel, SLOT(sizeChanged(QSize)));
+
+    QTimer *timer = new QTimer(this);
+    QObject::connect(timer, SIGNAL(timeout()), infoPanel, SLOT(updateTime()));
+    timer->start(1000);
 
     QHBoxLayout *layoutTitle = new QHBoxLayout();
     QHBoxLayout *layoutTitleBar = new QHBoxLayout();
     QHBoxLayout *layoutReturnBar = new QHBoxLayout();
+    QHBoxLayout *layoutMiddle = new QHBoxLayout();
 
     // set partial title layouts
     layoutReturnBar->setAlignment(Qt::AlignLeft);
@@ -58,15 +63,22 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     layoutTitleBar->addWidget(movingBar);
     layoutTitleBar->addWidget(titleBar);
 
+    // middle layouts
+    layoutMiddle->setAlignment(Qt::AlignRight);
+    layoutMiddle->addWidget(infoPanel);
+
     // add partial layouts to the title layout
     layoutTitle->addLayout(layoutReturnBar);
     layoutTitle->addLayout(layoutTitleBar);
 
     // setup main layout
+    layoutMain->setSizeConstraint(QLayout::SetFixedSize);
     layoutMain->setSpacing(0);
-    layoutMain->addLayout(layoutTitle);
     layoutMain->setAlignment(Qt::AlignTop);
     layoutMain->setContentsMargins(0, 0, 0, 0);
+
+    layoutMain->addLayout(layoutTitle);
+    layoutMain->addLayout(layoutMiddle);
 
     // set attributes of MainWindow
     setStyleSheet("* {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));"
@@ -103,7 +115,7 @@ void MainWindow::addWidget(QWidget *new_widget, QString widget_name)
 
 QSize MainWindow::getAvailableSize()
 {
-    return QSize(size.height() - TITLE_WIDTH, size.width());
+    return QSize(width() - TITLE_WIDTH, height());
 }
 
 bool MainWindow::canResize()
@@ -132,7 +144,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     {
         resizing = false;
         // max() to maintain minimal size
-        size = QSize(std::max(width() + (QCursor::pos().x() - resizeStart.x()), 15 * TITLE_WIDTH), std::max(height() + (QCursor::pos().y() - resizeStart.y()), 12 * TITLE_HEIGHT));
+        size = QSize(std::max(width() + (QCursor::pos().x() - resizeStart.x()), static_cast<int> ((float)screen.width() * RATIO)), std::max(height() + (QCursor::pos().y() - resizeStart.y()), static_cast<int> ((float)screen.height() * RATIO)));
         setScreenSize();
         unsetCursor();
     }
@@ -156,9 +168,6 @@ void MainWindow::StepBack()
 
 void MainWindow::MoveWindow(QPair<int, int> offset)
 {
-    QDesktopWidget desktop;
-    QRect screen =  desktop.availableGeometry(this);
-
     // we are fullscreen, need to move to the right top corner
     if (width() == screen.width())
     {
@@ -179,8 +188,6 @@ void MainWindow::MoveWindow(QPair<int, int> offset)
 
 void MainWindow::FullScreen()
 {
-    QDesktopWidget desktop;
-    QRect screen =  desktop.availableGeometry(this);
     if (screen.width() == width())
         move(
             ((width() / RATIO) - width()) / 2,

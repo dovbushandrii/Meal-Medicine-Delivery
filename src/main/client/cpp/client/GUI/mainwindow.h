@@ -7,6 +7,7 @@
 #include <QSize>
 #include <QString>
 #include <QLabel>
+#include <QDesktopWidget>
 
 #define TITLE_HEIGHT 50
 #define TITLE_WIDTH 70
@@ -37,6 +38,8 @@ private:
     QString window_name;
     QVBoxLayout *layoutMain;
     QLabel *name_label;
+    QDesktopWidget desktop;
+    QRect screen;
 
     void setScreenSize(bool);
     bool canResize();
@@ -49,9 +52,11 @@ signals:
     // movingbar is listening to this signal
     void changeMovingBar(int);
     // other widgets should listen to this signal to be informed about resize of main window
-    void sizeChanged(QSize);
+    void sizeChanged_s(QSize);
     // other widgets should listen to toggle descriptions
     void toggleDescription_s();
+    // for updating time every second
+    void updateTime_s();
 
 public slots:
     void FullScreen();

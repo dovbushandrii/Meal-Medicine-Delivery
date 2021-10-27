@@ -8,7 +8,7 @@ TitleBar::TitleBar(MainWindow *window, QApplication *app) : QWidget(window)
 {
     setFixedSize(3 * TITLE_WIDTH, TITLE_HEIGHT);    // 3 as there are 3 buttons
     layout = new QHBoxLayout(this);
-    close = new QPushButton("Zatvoriť", this);
+    close = new QPushButton("Zavrieť", this);
     maximize = new QPushButton("Zväčšiť", this);
     minimize = new QPushButton("Skryť", this);
 
@@ -19,9 +19,15 @@ TitleBar::TitleBar(MainWindow *window, QApplication *app) : QWidget(window)
     maximize->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     minimize->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    close->setStyleSheet("* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(200,0,0,140); image: url(../imgs/close_transparent.png);}");
-    maximize->setStyleSheet("* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,200,0,140); image: url(../imgs/maximize_transparent.png);}");
-    minimize->setStyleSheet("* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,0,200,140); image: url(../imgs/minimize_transparent.png);}");
+    close->setStyleSheet(
+                        "* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(200,0,0,140); image: url(../imgs/close_transparent.png);} \
+                        *::hover {border: 1.5px solid black; color: white; background-color: rgba(100,0,0,210);}");
+    maximize->setStyleSheet(
+                        "* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,200,0,140); image: url(../imgs/maximize_transparent.png);} \
+                        *::hover {border: 1.5px solid black; color: white; background-color: rgba(0,100,0,210);}");
+    minimize->setStyleSheet(
+                        "* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,0,200,140); image: url(../imgs/minimize_transparent.png);} \
+                        *::hover {border: 1.5px solid black; color: white; background-color: rgba(0,0,100,210);}");
 
     QGraphicsBlurEffect *blur_close = new QGraphicsBlurEffect;
     blur_close->setBlurRadius(1.5);
@@ -56,7 +62,7 @@ void TitleBar::toggleDescription()
 {
     if (close->text() == "")
     {
-        close->setText("Zatvoriť");
+        close->setText("Zavrieť");
         maximize->setText("Zväčšiť");
         minimize->setText("Skryť");
     }
