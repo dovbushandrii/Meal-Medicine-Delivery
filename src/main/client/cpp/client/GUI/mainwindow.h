@@ -57,6 +57,8 @@ signals:
     void toggleDescription_s();
     // for updating time every second
     void updateTime_s();
+    // for updating Client data
+    void updateClientData_s(long);
 
 public slots:
     void FullScreen();

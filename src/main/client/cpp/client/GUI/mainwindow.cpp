@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     resizing = false;
     QWidget *widget = new QWidget(this);
     layoutMain = new QVBoxLayout(widget);
-    window_name = "Objednanie jedla";
+    window_name = "Domov";
     name_label = new QLabel(window_name, this);
     name_label->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     name_label->setContentsMargins(50, 0, 0, 0);
@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     QObject::connect(this, SIGNAL(toggleDescription_s()), titleBar, SLOT(toggleDescription()));
     QObject::connect(this, SIGNAL(toggleDescription_s()), returnBar, SLOT(toggleDescription()));
     QObject::connect(this, SIGNAL(sizeChanged_s(QSize)), infoPanel, SLOT(sizeChanged(QSize)));
+    QObject::connect(this, SIGNAL(updateClientData_s(long)), infoPanel, SLOT(updateClientData(long)));
 
     QTimer *timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), infoPanel, SLOT(updateTime()));
