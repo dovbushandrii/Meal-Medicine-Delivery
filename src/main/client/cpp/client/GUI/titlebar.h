@@ -24,6 +24,9 @@ private:
 signals:
     void toFullScreen();
 
+public slots:
+    void toggleDescription();
+
 private slots:
     void Maximize();
 };

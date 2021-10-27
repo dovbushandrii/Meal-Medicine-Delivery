@@ -17,6 +17,9 @@ public:
 private:
     QHBoxLayout *layout;
     QPushButton *back_button;
+
+public slots:
+    void toggleDescription();
 };
 
 #endif // RETURNBAR_H

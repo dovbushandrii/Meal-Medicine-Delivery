@@ -8,9 +8,9 @@ TitleBar::TitleBar(MainWindow *window, QApplication *app) : QWidget(window)
 {
     setFixedSize(3 * TITLE_WIDTH, TITLE_HEIGHT);    // 3 as there are 3 buttons
     layout = new QHBoxLayout(this);
-    close = new QPushButton("Exit", this);
-    maximize = new QPushButton("Maximize", this);
-    minimize = new QPushButton("Minimize", this);
+    close = new QPushButton("Zatvoriť", this);
+    maximize = new QPushButton("Zväčšiť", this);
+    minimize = new QPushButton("Na lištu", this);
 
     close->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
     maximize->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
@@ -50,6 +50,22 @@ TitleBar::TitleBar(MainWindow *window, QApplication *app) : QWidget(window)
     QObject::connect(minimize, SIGNAL(clicked()), window, SLOT(showMinimized()));
     QObject::connect(maximize, SIGNAL(clicked()), this, SLOT(Maximize()));
     QObject::connect(this, SIGNAL(toFullScreen()), window, SLOT(FullScreen()));
+}
+
+void TitleBar::toggleDescription()
+{
+    if (close->text() == "")
+    {
+        close->setText("Zatvoriť");
+        maximize->setText("Zväčšiť");
+        minimize->setText("Na lištu");
+    }
+    else
+    {
+        close->setText("");
+        maximize->setText("");
+        minimize->setText("");
+    }
 }
 
 void TitleBar::Maximize()

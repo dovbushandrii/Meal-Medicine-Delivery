@@ -43,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     ReturnBar *returnBar = new ReturnBar(this);
     MovingBar *movingBar = new MovingBar(this);
     QObject::connect(this, SIGNAL(changeMovingBar(int)), movingBar, SLOT(changeWidth(int)));
+    QObject::connect(this, SIGNAL(toggleDescription_s()), titleBar, SLOT(toggleDescription()));
+    QObject::connect(this, SIGNAL(toggleDescription_s()), returnBar, SLOT(toggleDescription()));
 
     QHBoxLayout *layoutTitle = new QHBoxLayout();
     QHBoxLayout *layoutTitleBar = new QHBoxLayout();
@@ -86,6 +88,11 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::toggleDesciptions()
+{
+    emit toggleDescription_s();
 }
 
 void MainWindow::addWidget(QWidget *new_widget, QString widget_name)

@@ -25,6 +25,7 @@ public:
     MainWindow(QWidget *, QApplication*);
     ~MainWindow();
 
+    void toggleDesciptions();
     void addWidget(QWidget *, QString);
     QSize getAvailableSize();
 
@@ -49,6 +50,8 @@ signals:
     void changeMovingBar(int);
     // other widgets should listen to this signal to be informed about resize of main window
     void sizeChanged(QSize);
+    // other widgets should listen to toggle descriptions
+    void toggleDescription_s();
 
 public slots:
     void FullScreen();
