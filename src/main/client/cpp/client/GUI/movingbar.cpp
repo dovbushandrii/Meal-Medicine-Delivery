@@ -20,14 +20,14 @@ MovingBar::MovingBar(MainWindow *parent) : QWidget(parent)
     layout->setAlignment(Qt::AlignRight);
 
     // create label for moving bar, initialize effects
-    label = new QLabel(this);
+    label = new QLabel("Pohyb Okna", this);
     label->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
     label->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     QGraphicsBlurEffect *blur = new QGraphicsBlurEffect;
     blur->setBlurRadius(1.5);
     label->setGraphicsEffect(blur);
-    label->setStyleSheet("QLabel{border-bottom-left-radius: 30px; background-color: rgba(97,63,135,180); background-image: url(../imgs/dots_transparent.png) no-repeat center center fixed;}");
+    label->setStyleSheet("QLabel{font-size: 16pt; color: black; qproperty-alignment: AlignCenter;; border-bottom-left-radius: 30px; background-color: rgba(97,63,135,180); background-image: url(../imgs/dots_transparent.png) no-repeat center center fixed;}");
 
     layout->addWidget(label);
 
@@ -69,4 +69,16 @@ void MovingBar::changeWidth(int width)
 {
     setFixedSize(width, TITLE_HEIGHT);
     label->setFixedSize(width, TITLE_HEIGHT);
+}
+
+void MovingBar::toggleDescription()
+{
+    if (label->text() == "")
+    {
+        label->setText("Pohyb Okna");
+    }
+    else
+    {
+        label->setText("");
+    }
 }

@@ -29,6 +29,7 @@ signals:
 
 public slots:
     void changeWidth(int);
+    void toggleDescription();
 };
 
 #endif // MOVINGBAR_H
