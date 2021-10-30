@@ -4,6 +4,8 @@
 #include "returnbar.h"
 #include "movingbar.h"
 #include "infopanel.h"
+#include "settings.h"
+#include "foodtab.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -13,25 +15,35 @@ void MainWindow::setScreenSize(bool fullscreen = false)
 {
     setFixedSize(fullscreen ? QSize(screen.width(), screen.height()) : size);
     name_label->setFixedWidth((width() - 4 * TITLE_WIDTH) / 2);
+    resize_label->move(width()-RESIZE_WIDGET, height()-RESIZE_WIDGET);
     emit changeMovingBar((width() - 4 * TITLE_WIDTH) / 2); //  4 as there are total of 4 buttons in title bar
     // signal to let other widgets know their new available space
     emit sizeChanged_s(getAvailableSize());
 }
 
 MainWindow::MainWindow(QWidget *parent, QApplication *app)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QWidget(parent)
 {
     // initialize variables
-    ui->setupUi(this);
+    // get facilityID
+    facilityID = 0;
+
     resizing = false;
-    QWidget *widget = new QWidget(this);
-    layoutMain = new QVBoxLayout(widget);
-    window_name = "Domov";
-    name_label = new QLabel(window_name, this);
+
+    setStyleSheet(".MainWindow {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255)); background: qlineargradient( x1:0 y1:0, x2:1 y2:1, stop:1 #009900, stop:0 #003300);}");
+
+    layoutMain = new QVBoxLayout(this);
+    name_label = new QLabel(QString::fromStdString("Domov"), this);
     name_label->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     name_label->setContentsMargins(50, 0, 0, 0);
     name_label->setStyleSheet("QLabel{color: black; background: transparent; text-decoration: underline; font: bold italic underline \"Times New Roman\"; font-size:25pt}");
+
+    resize_label = new QLabel(this);
+    resize_label->setStyleSheet("QLabel{color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255)); background: qlineargradient( x1:0 y1:0, x2:1 y2:1, stop:0 #003300, stop:0.33 #004400, stop:0.66 #006600, stop:1 #007700);}");
+    resize_label->setFixedSize(RESIZE_WIDGET, RESIZE_WIDGET);
+
+    settings = new Settings(this);
+    settings->hide();
 
     screen =  desktop.availableGeometry(this);
     size = QSize(screen.width() * RATIO, screen.height() * RATIO);
@@ -44,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     QObject::connect(this, SIGNAL(changeMovingBar(int)), movingBar, SLOT(changeWidth(int)));
     QObject::connect(this, SIGNAL(toggleDescription_s()), titleBar, SLOT(toggleDescription()));
     QObject::connect(this, SIGNAL(toggleDescription_s()), returnBar, SLOT(toggleDescription()));
+    QObject::connect(this, SIGNAL(toggleDescription_s()), movingBar, SLOT(toggleDescription()));
     QObject::connect(this, SIGNAL(sizeChanged_s(QSize)), infoPanel, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(updateClientData_s(long)), infoPanel, SLOT(updateClientData(long)));
 
@@ -66,6 +79,8 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 
     // middle layouts
     layoutMiddle->setAlignment(Qt::AlignRight);
+    FoodTab *foodTab = new FoodTab(this, 0, 0);
+    layoutMiddle->addWidget(foodTab);
     layoutMiddle->addWidget(infoPanel);
 
     // add partial layouts to the title layout
@@ -73,22 +88,14 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     layoutTitle->addLayout(layoutTitleBar);
 
     // setup main layout
-    layoutMain->setSizeConstraint(QLayout::SetFixedSize);
+    layoutMain->setContentsMargins(0, 0, 0, 0);
     layoutMain->setSpacing(0);
     layoutMain->setAlignment(Qt::AlignTop);
-    layoutMain->setContentsMargins(0, 0, 0, 0);
 
     layoutMain->addLayout(layoutTitle);
     layoutMain->addLayout(layoutMiddle);
 
-    // set attributes of MainWindow
-    setStyleSheet("* {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));"
-                           "background: qlineargradient( x1:0 y1:0, x2:1 y2:1, stop:1 #009900, stop:0 #003300);}");
-    setCentralWidget(widget);
-    setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    // removes resize handle
-    statusBar()->setSizeGripEnabled(false);
-    setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
+    setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint | Qt::Window | Qt::FramelessWindowHint);
     show();
 
     // function for custom recalculation of items
@@ -100,17 +107,25 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+
 }
 
-void MainWindow::toggleDesciptions()
+void MainWindow::openSettings()
+{
+    if (settings->isVisible())
+        settings->hide();
+    else
+        settings->show();
+}
+
+void MainWindow::toggleDescriptions()
 {
     emit toggleDescription_s();
 }
 
 void MainWindow::addWidget(QWidget *new_widget, QString widget_name)
 {
-    window_name = widget_name;
+    name_label->setText(widget_name);
     layoutMain->addWidget(new_widget);
 }
 
@@ -123,9 +138,9 @@ bool MainWindow::canResize()
 {
     // bottom right corner of window
     resizeStart = QCursor::pos();
-    if (resizeStart.x() < pos().x() + width() - 20 || resizeStart.x() > pos().x() + width())
+    if (resizeStart.x() < pos().x() + width() - RESIZE_WIDGET || resizeStart.x() > pos().x() + width())
         return false;
-    if (resizeStart.y() < pos().y() + height() - 20 || resizeStart.y() > pos().y() + height())
+    if (resizeStart.y() < pos().y() + height() - RESIZE_WIDGET || resizeStart.y() > pos().y() + height())
         return false;
     return true;
 }

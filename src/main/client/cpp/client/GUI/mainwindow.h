@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include <QVBoxLayout>
 #include <QPair>
 #include <QSize>
@@ -12,12 +11,14 @@
 #define TITLE_HEIGHT 50
 #define TITLE_WIDTH 70
 #define RATIO 0.8
+#define TAB_WIDTH 400
+#define TAB_HEIGHT 500
+#define PIC_WIDTH 300
+#define PIC_HEIGHT 300
+#define MAX_AMOUNT 10
+#define RESIZE_WIDGET 20
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow
+class MainWindow : public QWidget
 {
     Q_OBJECT
 
@@ -26,20 +27,22 @@ public:
     MainWindow(QWidget *, QApplication*);
     ~MainWindow();
 
-    void toggleDesciptions();
     void addWidget(QWidget *, QString);
     QSize getAvailableSize();
 
 private:
-    Ui::MainWindow *ui;
     bool resizing;
     QPoint resizeStart;
     QSize size;
-    QString window_name;
     QVBoxLayout *layoutMain;
     QLabel *name_label;
+    QLabel *resize_label;
     QDesktopWidget desktop;
     QRect screen;
+
+    QWidget *settings;
+
+    long facilityID;
 
     void setScreenSize(bool);
     bool canResize();
@@ -64,5 +67,7 @@ public slots:
     void FullScreen();
     void StepBack();
     void MoveWindow(QPair<int, int>);
+    void openSettings();
+    void toggleDescriptions();
 };
 #endif // MAINWINDOW_H
