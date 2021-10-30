@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "personaldata.h"
 #include "nextmeal.h"
+#include "settingsbutton.h"
 
 #include <QObject>
 #include <QWidget>
@@ -30,6 +31,7 @@ private:
     Client client;
     PersonalData *personalData;
     NextMeal *nextMeal;
+    SettingsButton *settings;
 
     QVBoxLayout *layout;
     QVBoxLayout *layoutMiddle;

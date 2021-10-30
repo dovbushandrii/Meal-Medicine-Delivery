@@ -13,6 +13,7 @@ InfoPanel::InfoPanel(MainWindow *parent, long id) : QWidget(parent)
 
     layoutMiddle = new QVBoxLayout(mainPanel);
     layoutMiddle->setSpacing(0);
+    layoutMiddle->setAlignment(Qt::AlignTop);
 
     personalData = new PersonalData(mainPanel);
     QObject::connect(this, SIGNAL(updateClientData_s(long)), personalData, SLOT(updateClientData(long)));
@@ -20,9 +21,12 @@ InfoPanel::InfoPanel(MainWindow *parent, long id) : QWidget(parent)
     nextMeal = new NextMeal(mainPanel);
     QObject::connect(this, SIGNAL(updateTime_s()), nextMeal, SLOT(updateTime()));
 
+    settings = new SettingsButton(mainPanel);
+    QObject::connect(settings, SIGNAL(openSettings_s()), parent, SLOT(openSettings()));
 
     layoutMiddle->addWidget(personalData);
     layoutMiddle->addWidget(nextMeal);
+    layoutMiddle->addWidget(settings);
 
     layout = new QVBoxLayout(this);
 
