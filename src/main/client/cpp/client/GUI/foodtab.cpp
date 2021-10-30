@@ -14,7 +14,6 @@ FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent
     setFixedSize(TAB_WIDTH, TAB_HEIGHT);
     setAttribute(Qt::WA_StyledBackground, true);
     setStyleSheet(".FoodTab {background-color: rgba(0,0,0,30); border-radius: 10px;}");
-    raise();
 
 
     picture = new QLabel(this);

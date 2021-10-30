@@ -80,11 +80,7 @@ void MovingBar::changeWidth(int width)
 void MovingBar::toggleDescription()
 {
     if (label->text() == "")
-    {
         label->setText("Pohyb Okna");
-    }
     else
-    {
         label->setText("");
-    }
 }
