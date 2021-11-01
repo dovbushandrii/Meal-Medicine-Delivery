@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "title.h"
+
 #include <QVBoxLayout>
 #include <QPair>
 #include <QSize>
@@ -27,19 +29,16 @@ public:
     MainWindow(QWidget *, QApplication*);
     ~MainWindow();
 
-    void addWidget(QWidget *, QString);
-    QSize getAvailableSize();
-
 private:
     bool resizing;
     QPoint resizeStart;
     QSize size;
     QVBoxLayout *layoutMain;
-    QLabel *name_label;
     QLabel *resize_label;
     QDesktopWidget desktop;
     QRect screen;
 
+    Title *title;
     QWidget *settings;
 
     long facilityID;
@@ -62,12 +61,15 @@ signals:
     void updateTime_s();
     // for updating Client data
     void updateClientData_s(long);
+    // for changing name of window
+    void changeName_s(QString);
 
 public slots:
-    void FullScreen();
-    void StepBack();
-    void MoveWindow(QPair<int, int>);
+    void fullScreen();
+    void stepBack();
+    void moveWindow(QPair<int, int>);
     void openSettings();
     void toggleDescriptions();
+    void changeName(QString);
 };
 #endif // MAINWINDOW_H
