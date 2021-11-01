@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "infopanel.h"
 #include "settings.h"
-#include "foodtab.h"
+#include "foodwindow.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -54,8 +54,8 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 
     // middle layouts
     layoutMiddle->setAlignment(Qt::AlignRight);
-    FoodTab *foodTab = new FoodTab(this, 0, 0);
-    layoutMiddle->addWidget(foodTab);
+    FoodWindow *foodWindow = new FoodWindow(this, 0);
+    layoutMiddle->addWidget(foodWindow);
     layoutMiddle->addWidget(infoPanel);
 
     // setup main layout

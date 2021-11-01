@@ -37,10 +37,6 @@ private:
 
     void paintEvent(QPaintEvent *);
 
-public slots:
-    void updateMeal();
-    void updateFacility(long, long);
-
 private slots:
     void minusClicked();
     void plusClicked();

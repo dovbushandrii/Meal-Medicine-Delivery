@@ -15,6 +15,7 @@ FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent
     QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
     setGraphicsEffect(shadow);
 
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setFixedSize(TAB_WIDTH, TAB_HEIGHT);
     setAttribute(Qt::WA_StyledBackground, true);
     setStyleSheet(".FoodTab {background-color: rgba(0,0,0,40); border-radius: 10px;}");
@@ -70,7 +71,17 @@ FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent
     layout->addWidget(price);
     layout->addLayout(layoutAmount);
 
-    updateMeal();
+    //    MealDAO mealDAO;
+    //    Meal meal = mealDAO.readMeal(mealID);
+    Meal meal;
+
+    // check for available food picture from facility
+    // TODO
+    picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
+    description->setText(QString::fromStdString(meal.getDescription()));
+    weight->setText(QString::fromStdString("Hmotnosť: "+std::to_string(meal.getWeight())));
+    price->setText(QString::fromStdString("Cena za porciu: "+std::to_string(meal.getPrice())));
+    amount->setText("0");
 }
 
 FoodTab::~FoodTab()
@@ -94,25 +105,4 @@ void FoodTab::minusClicked()
 void FoodTab::plusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
-}
-
-void FoodTab::updateMeal()
-{
-//    MealDAO mealDAO;
-//    Meal meal = mealDAO.readMeal(mealID);
-    Meal meal;
-
-    // check for available food picture from facility
-    // TODO
-    picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
-    description->setText(QString::fromStdString(meal.getDescription()));
-    weight->setText(QString::fromStdString("Hmotnosť: "+std::to_string(meal.getWeight())));
-    price->setText(QString::fromStdString("Cena za porciu: "+std::to_string(meal.getPrice())));
-    amount->setText("0");
-}
-
-void FoodTab::updateFacility(long newFacilityID, long newMealID)
-{
-    facilityID = newFacilityID;
-    mealID = newMealID;
 }
