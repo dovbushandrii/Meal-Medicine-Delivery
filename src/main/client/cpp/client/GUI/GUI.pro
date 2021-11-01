@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     foodtab.cpp \
+    foodwindow.cpp \
     infopanel.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -19,10 +20,12 @@ SOURCES += \
     returnbar.cpp \
     settings.cpp \
     settingsbutton.cpp \
+    title.cpp \
     titlebar.cpp
 
 HEADERS += \
     foodtab.h \
+    foodwindow.h \
     infopanel.h \
     mainwindow.h \
     movingbar.h \
@@ -31,6 +34,7 @@ HEADERS += \
     returnbar.h \
     settings.h \
     settingsbutton.h \
+    title.h \
     titlebar.h
 
 FORMS += \
