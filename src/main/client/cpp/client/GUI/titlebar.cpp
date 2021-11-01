@@ -1,10 +1,12 @@
 #include "titlebar.h"
 
+#include "mainwindow.h"
+
 #include <QIcon>
 #include <QSize>
 #include <QGraphicsBlurEffect>
 
-TitleBar::TitleBar(MainWindow *window, QApplication *app) : QWidget(window)
+TitleBar::TitleBar(QWidget *parent, QApplication *app) : QWidget(parent)
 {
     setFixedSize(3 * TITLE_WIDTH, TITLE_HEIGHT);    // 3 as there are 3 buttons
     layout = new QHBoxLayout(this);
@@ -53,9 +55,9 @@ TitleBar::TitleBar(MainWindow *window, QApplication *app) : QWidget(window)
     setLayout(layout);
 
     QObject::connect(close, SIGNAL(clicked()), app, SLOT(quit()));
-    QObject::connect(minimize, SIGNAL(clicked()), window, SLOT(showMinimized()));
+    QObject::connect(minimize, SIGNAL(clicked()), parent, SLOT(showMinimized()));
     QObject::connect(maximize, SIGNAL(clicked()), this, SLOT(Maximize()));
-    QObject::connect(this, SIGNAL(toFullScreen()), window, SLOT(FullScreen()));
+    QObject::connect(this, SIGNAL(toFullScreen()), parent, SLOT(fullScreen()));
 }
 
 void TitleBar::toggleDescription()

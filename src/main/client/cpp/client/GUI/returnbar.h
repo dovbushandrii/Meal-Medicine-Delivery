@@ -1,8 +1,6 @@
 #ifndef RETURNBAR_H
 #define RETURNBAR_H
 
-#include "mainwindow.h"
-
 #include <QObject>
 #include <QWidget>
 #include <QPushButton>
@@ -12,7 +10,7 @@ class ReturnBar : public QWidget
 {
     Q_OBJECT
 public:
-    ReturnBar(MainWindow *);
+    ReturnBar(QWidget *);
 
 private:
     QHBoxLayout *layout;

@@ -1,8 +1,10 @@
 #include "returnbar.h"
 
+#include "mainwindow.h"
+
 #include <QGraphicsBlurEffect>
 
-ReturnBar::ReturnBar(MainWindow *parent) : QWidget(parent)
+ReturnBar::ReturnBar(QWidget *parent) : QWidget(parent)
 {
     layout = new QHBoxLayout(this);
     back_button = new QPushButton("Krok Späť", this);
@@ -24,7 +26,7 @@ ReturnBar::ReturnBar(MainWindow *parent) : QWidget(parent)
     layout->setDirection(QBoxLayout::LeftToRight);
     layout->addWidget(back_button);
 
-    QObject::connect(back_button, SIGNAL(clicked()), parent, SLOT(StepBack()));
+    QObject::connect(back_button, SIGNAL(clicked()), parent, SLOT(stepBack()));
 }
 
 void ReturnBar::toggleDescription()

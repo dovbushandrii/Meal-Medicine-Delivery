@@ -1,8 +1,6 @@
 #ifndef MOVINGBAR_H
 #define MOVINGBAR_H
 
-#include "mainwindow.h"
-
 #include <QObject>
 #include <QWidget>
 #include <QPair>
@@ -12,7 +10,7 @@ class MovingBar : public QWidget
 {
     Q_OBJECT
 public:
-    MovingBar(MainWindow *parent);
+    MovingBar(QWidget *parent);
 
 private:
     QPoint mouseNow;
@@ -28,7 +26,7 @@ signals:
     void movedToTop();
 
 public slots:
-    void changeWidth(int);
+    void changeWidth(QSize);
     void toggleDescription();
 };
 

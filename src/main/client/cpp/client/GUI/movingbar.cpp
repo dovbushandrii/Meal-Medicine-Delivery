@@ -1,11 +1,13 @@
 #include "movingbar.h"
 
+#include "mainwindow.h"
+
 #include <QMouseEvent>
 #include <QHBoxLayout>
 #include <QCursor>
 #include <QGraphicsBlurEffect>
 
-MovingBar::MovingBar(MainWindow *parent) : QWidget(parent)
+MovingBar::MovingBar(QWidget *parent) : QWidget(parent)
 {
     pressed = false;
     setCursor(Qt::OpenHandCursor);
@@ -35,8 +37,8 @@ MovingBar::MovingBar(MainWindow *parent) : QWidget(parent)
 
     setLayout(layout);
 
-    QObject::connect(this, SIGNAL(moved(QPair<int, int>)), parent, SLOT(MoveWindow(QPair<int, int>)));
-    QObject::connect(this, SIGNAL(movedToTop()), parent, SLOT(FullScreen()));
+    QObject::connect(this, SIGNAL(moved(QPair<int, int>)), parent, SLOT(moveWindow(QPair<int, int>)));
+    QObject::connect(this, SIGNAL(movedToTop()), parent, SLOT(fullScreen()));
 }
 
 void MovingBar::mousePressEvent(QMouseEvent *event)
@@ -71,10 +73,11 @@ void MovingBar::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void MovingBar::changeWidth(int width)
+void MovingBar::changeWidth(QSize size)
 {
-    setFixedSize(width, TITLE_HEIGHT);
-    label->setFixedSize(width, TITLE_HEIGHT);
+    //  4 as there are total of 4 buttons in title bar
+    setFixedSize((size.width() - 4 * TITLE_WIDTH) / 2, TITLE_HEIGHT);
+    label->setFixedSize((size.width() - 4 * TITLE_WIDTH) / 2, TITLE_HEIGHT);
 }
 
 void MovingBar::toggleDescription()

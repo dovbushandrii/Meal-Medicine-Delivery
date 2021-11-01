@@ -1,8 +1,6 @@
 #ifndef TITLEBAR_H
 #define TITLEBAR_H
 
-#include "mainwindow.h"
-
 #include <QHBoxLayout>
 #include <QObject>
 #include <QWidget>
@@ -13,7 +11,7 @@ class TitleBar: public QWidget
 {
     Q_OBJECT
 public:
-    TitleBar(MainWindow *, QApplication *);
+    TitleBar(QWidget *, QApplication *);
 
 private:
     QHBoxLayout *layout;

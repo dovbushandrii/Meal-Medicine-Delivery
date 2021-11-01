@@ -5,15 +5,19 @@
 
 #include <QStyleOption>
 #include <QPainter>
+#include <QGraphicsDropShadowEffect>
 
 FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent)
 {
     this->facilityID = facilityID;
     this->mealID = mealID;
 
+    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
+    setGraphicsEffect(shadow);
+
     setFixedSize(TAB_WIDTH, TAB_HEIGHT);
     setAttribute(Qt::WA_StyledBackground, true);
-    setStyleSheet(".FoodTab {background-color: rgba(0,0,0,30); border-radius: 10px;}");
+    setStyleSheet(".FoodTab {background-color: rgba(0,0,0,40); border-radius: 10px;}");
 
 
     picture = new QLabel(this);
