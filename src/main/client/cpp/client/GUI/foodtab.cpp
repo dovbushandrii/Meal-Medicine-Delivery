@@ -20,6 +20,8 @@ FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent
     setAttribute(Qt::WA_StyledBackground, true);
     setStyleSheet(".FoodTab {background-color: rgba(0,0,0,40); border-radius: 10px;}");
 
+    QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
+    QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
 
     picture = new QLabel(this);
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
@@ -89,6 +91,11 @@ FoodTab::~FoodTab()
 
 }
 
+std::pair<long, int> FoodTab::getAmount()
+{
+    return {mealID, amount->text().toInt()};
+}
+
 void FoodTab::paintEvent(QPaintEvent *)
 {
      QStyleOption opt;
@@ -99,10 +106,12 @@ void FoodTab::paintEvent(QPaintEvent *)
 
 void FoodTab::minusClicked()
 {
-    amount->setText(QString::fromStdString(std::to_string(std::max(0, std::stoi(amount->text().toStdString()) - 1))));
+    amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
+    emit minusClicked_s();
 }
 
 void FoodTab::plusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
+    emit plusClicked_s();
 }

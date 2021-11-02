@@ -18,6 +18,8 @@ public:
     FoodTab(QWidget *, long, long);
     ~FoodTab();
 
+    std::pair<long, int> getAmount();
+
 private:
     long facilityID;
     long mealID;
@@ -36,6 +38,10 @@ private:
     QHBoxLayout *layoutPicture;
 
     void paintEvent(QPaintEvent *);
+
+signals:
+    void minusClicked_s();
+    void plusClicked_s();
 
 private slots:
     void minusClicked();

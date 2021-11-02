@@ -20,7 +20,7 @@ public:
 
 	std::vector<Client> readClients();
 
-	Client readClient(long id);
+    Client readClient(long id) { Client client = Client(0, "First Name", "Surname", "123456789", "some@email.com", "pswd", {} ); return client; }
 
 	void updateClient(Client client);
 
