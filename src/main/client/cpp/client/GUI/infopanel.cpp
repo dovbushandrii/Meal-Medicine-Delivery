@@ -46,7 +46,7 @@ InfoPanel::~InfoPanel()
 void InfoPanel::sizeChanged(QSize size)
 {
     timePanel->setFixedSize(QSize(INFO_PANEL_WIDTH, TITLE_HEIGHT));
-    mainPanel->setFixedSize(QSize(INFO_PANEL_WIDTH, size.height() - 4 * TITLE_HEIGHT));
+    mainPanel->setFixedSize(QSize(INFO_PANEL_WIDTH, size.height() - 2 * TITLE_HEIGHT));
     supportPanel->setFixedSize(QSize(INFO_PANEL_WIDTH, TITLE_HEIGHT));
 }
 

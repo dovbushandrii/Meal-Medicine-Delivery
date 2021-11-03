@@ -2,6 +2,7 @@
 #include "infopanel.h"
 #include "settings.h"
 #include "foodwindow.h"
+#include "orderwindow.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -13,7 +14,7 @@ void MainWindow::setScreenSize(bool fullscreen = false)
     resize_label->move(width()-RESIZE_WIDGET, height()-RESIZE_WIDGET);
 
     // signal to let other widgets know their new available space
-    emit sizeChanged_s(QSize(width(), height()));
+    emit sizeChanged_s(QSize(width(), height() - 2 * TITLE_HEIGHT));
 }
 
 MainWindow::MainWindow(QWidget *parent, QApplication *app)
@@ -54,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 
     // middle layouts
     layoutMiddle->setAlignment(Qt::AlignRight);
+//    OrderWindow *orderWindow = new OrderWindow(this, 0, 0);
+//    layoutMiddle->addWidget(orderWindow);
     FoodWindow *foodWindow = new FoodWindow(this, 0);
     layoutMiddle->addWidget(foodWindow);
     layoutMiddle->addWidget(infoPanel);

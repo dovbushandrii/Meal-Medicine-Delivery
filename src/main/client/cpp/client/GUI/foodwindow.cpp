@@ -105,10 +105,10 @@ void FoodWindow::sizeChanged(QSize size)
         layout->removeWidget(widget);
 
     // +4 @width for offsetting the borders and scrollbar
-    setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height() - 2 * TITLE_HEIGHT);
+    setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
     order->setContentsMargins(width() - TITLE_WIDTH, height() - TITLE_HEIGHT, 0, 0);
 
-    scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), size.height() - 2 * TITLE_HEIGHT);
+    scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), height());
     int columns = size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) - (2 * layout->margin());
     columns = std::floor(1.0 * columns / (TAB_WIDTH + DEFAULT_SPACE));
     int rows = std::ceil(1.0 * foodTabs.size() / columns);
