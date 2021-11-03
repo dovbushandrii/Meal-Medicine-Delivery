@@ -14,6 +14,9 @@
 
 OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidget(parent)
 {
+    this->facilityID = facilityID;
+    this->orderID = orderID;
+
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
@@ -32,7 +35,7 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidg
     tabs->setStyleSheet(".QWidget {background-color: transparent;}");
 
     order = new QPushButton("Objednať", this);
-    order->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
+    order->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
     order->setStyleSheet(
                              "* {font-size: 9.2pt; color: black; border-radius: 20px; background-color: rgba(0,100,0,150);} \
                              *::hover {background-color: rgba(0,180,0,230);}");
@@ -87,7 +90,6 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidg
 
     layoutMain->addLayout(layoutUpper);
     layoutMain->addWidget(scrollArea);
-    updateFacility(facilityID);
 
     emit changeName_s(QString::fromStdString("Prehľad objednávky"));
 }

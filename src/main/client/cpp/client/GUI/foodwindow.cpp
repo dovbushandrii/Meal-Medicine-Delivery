@@ -10,15 +10,27 @@
 #include <QStyleOption>
 #include <QPainter>
 #include <QStackedLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #define DEFAULT_SPACE 25
 
 FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
 {
+    this->facilityID = facilityID;
+
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
-    setStyleSheet(".FoodWindow {border: 2px solid black; border-radius: 10px; background-color: rgba(0,0,0,60);}");
+    setStyleSheet(".FoodWindow {background-color: transparent}");
+
+    mainWidget = new QWidget(this);
+    mainWidget->setStyleSheet("*{background-color: transparent}");
+    mainWidget->setFixedSize(width(), height());
+
+    totalPreview = new QLabel(this);
+    totalPreview->setStyleSheet("* {font-size: 12pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,60);}");
+    totalPreview->setFixedSize(TAB_WIDTH, TITLE_HEIGHT);
 
     tabs = new QWidget(this);
     tabs->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
@@ -26,7 +38,7 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
 
     totalOrder = 0;
     order = new QPushButton("Objednať", this);
-    order->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
+    order->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
     order->setStyleSheet(
                              "* {font-size: 9.2pt; color: black; border-radius: 20px; background-color: rgba(0,100,0,150);} \
                              *::hover {background-color: rgba(0,180,0,230);}");
@@ -35,7 +47,7 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
 //    QObject::connect(this, SIGNAL(makeOrder_s(std::vector<Order>)), parent, SLOT(makeOrder(std::vector<Order>)));
 
     scrollArea = new QScrollArea(this);
-    scrollArea->setStyleSheet("* {border: 0px; background: transparent;}");
+    scrollArea->setStyleSheet(".QScrollArea {border: 2px solid black; border-radius: 10px; background-color: rgba(0,0,0,60);}");
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     scrollArea->setWidgetResizable(true);
@@ -75,13 +87,25 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
     QStackedLayout *layoutStacked = new QStackedLayout(scrollArea);
     layoutStacked->setStackingMode(QStackedLayout::StackAll);
     layoutStacked->setContentsMargins(50, 50, 50, 50);
-    layoutStacked->addWidget(order);
 
     layout = new QGridLayout(tabs);
     layout->setSpacing(DEFAULT_SPACE);
     layout->setMargin(20);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     updateFacility(facilityID);
+
+    QVBoxLayout *layoutMain = new QVBoxLayout(mainWidget);
+    layoutMain->setContentsMargins(0, 0, DEFAULT_SPACE, 0);
+    layoutMain->setSpacing(DEFAULT_SPACE);
+
+    QHBoxLayout *layoutUpper = new QHBoxLayout();
+    layoutUpper->addWidget(totalPreview);
+    layoutUpper->addWidget(order);
+    layoutUpper->setSpacing(DEFAULT_SPACE);
+    layoutUpper->setMargin(0);
+
+    layoutMain->addLayout(layoutUpper);
+    layoutMain->addWidget(scrollArea);
 
     emit changeName_s(QString::fromStdString("Objednávanie jedla"));
 }
@@ -106,6 +130,7 @@ void FoodWindow::sizeChanged(QSize size)
 
     // +4 @width for offsetting the borders and scrollbar
     setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
+    mainWidget->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
     order->setContentsMargins(width() - TITLE_WIDTH, height() - TITLE_HEIGHT, 0, 0);
 
     scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), height());

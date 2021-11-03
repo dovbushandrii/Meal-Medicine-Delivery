@@ -20,10 +20,12 @@ public:
 
 private:
     long facilityID;
+    QWidget *mainWidget;
     QScrollArea *scrollArea;
     QGridLayout *layout;
     QWidget *tabs;
     QPushButton *order;
+    QLabel *totalPreview;
     std::vector<FoodTab *> foodTabs;
     void paintEvent(QPaintEvent *);
 
