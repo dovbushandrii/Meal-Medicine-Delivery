@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QWidget>
 #include <QPushButton>
-#include <QHBoxLayout>
 
 class ReturnBar : public QWidget
 {
@@ -13,7 +12,6 @@ public:
     ReturnBar(QWidget *);
 
 private:
-    QHBoxLayout *layout;
     QPushButton *back_button;
 
 public slots:
