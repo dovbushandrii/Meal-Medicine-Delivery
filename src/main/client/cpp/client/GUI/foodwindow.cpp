@@ -13,14 +13,13 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-#define DEFAULT_SPACE 25
-
 FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
 {
     this->facilityID = facilityID;
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
+    QObject::connect(this, SIGNAL(makeOrder_s(long)), parent, SLOT(makeOrder(long)));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
     setStyleSheet(".FoodWindow {background-color: transparent}");
 
@@ -54,32 +53,26 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
     scrollArea->setWidget(tabs);
     QScrollBar *bar = new QScrollBar(scrollArea);
 
-    // from https://forum.qt.io/topic/961/style-the-scrollbar-of-qlistview/6
-    bar->setStyleSheet(QString::fromUtf8("QScrollBar:vertical {\
-                                         background: darkgreen;\
-                                         width: 15px;\
+    bar->setStyleSheet(QString::fromUtf8("\
+                                         QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\
+                                         border-radius: 5px;\
+                                         background: rgba(0,0,0,40);\
+                                         }\
+                                         QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\
+                                         background: none;\
+                                         }\
+                                         QScrollBar:vertical {\
+                                         border: none;\
+                                         color: none;\
+                                         background: transparent;\
+                                         width: 12px;    \
                                          margin: 20px 0px 20px 0px;\
-                                         border-radius: 10px;\
                                          }\
                                          QScrollBar::handle:vertical {\
                                          background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\
                                          stop: 0 rgba(183, 210, 192, 255), stop: 0.5 rgba(105, 165, 5, 255), stop:1 rgba(203, 225, 0, 255));\
                                          min-height: 20px;\
-                                         border-radius: 10px;\
-                                         }\
-                                         QScrollBar::add-line:vertical {\
-                                         background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\
-                                         stop: 0 rgba(183, 210, 192, 255), stop: 0.5 rgba(105, 165, 5, 255), stop:1 rgba(203, 225, 0, 255));\
-                                         height: 0px;\
-                                         subcontrol-position: bottom;\
-                                         subcontrol-origin: margin;\
-                                         }\
-                                         QScrollBar::sub-line:vertical {\
-                                         background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\
-                                         stop: 0 rgba(183, 210, 192, 255), stop: 0.5 rgba(105, 165, 5, 255), stop:1 rgba(203, 225, 0, 255));\
-                                         height: 0px;\
-                                         subcontrol-position: top;\
-                                         subcontrol-origin: margin;\
+                                         border-radius: 5px;\
                                          }"
                                          ));
     scrollArea->setVerticalScrollBar(bar);
@@ -92,7 +85,6 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
     layout->setSpacing(DEFAULT_SPACE);
     layout->setMargin(20);
     layout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    updateFacility(facilityID);
 
     QVBoxLayout *layoutMain = new QVBoxLayout(mainWidget);
     layoutMain->setContentsMargins(0, 0, DEFAULT_SPACE, 0);
@@ -106,6 +98,8 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
 
     layoutMain->addLayout(layoutUpper);
     layoutMain->addWidget(scrollArea);
+
+    updateFacility(facilityID);
 
     emit changeName_s(QString::fromStdString("Objednávanie jedla"));
 }
@@ -133,7 +127,7 @@ void FoodWindow::sizeChanged(QSize size)
     mainWidget->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
     order->setContentsMargins(width() - TITLE_WIDTH, height() - TITLE_HEIGHT, 0, 0);
 
-    scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), height());
+    scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), size.height() - (2 * TITLE_HEIGHT));
     int columns = size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) - (2 * layout->margin());
     columns = std::floor(1.0 * columns / (TAB_WIDTH + DEFAULT_SPACE));
     int rows = std::ceil(1.0 * foodTabs.size() / columns);
@@ -141,7 +135,7 @@ void FoodWindow::sizeChanged(QSize size)
     layout->setHorizontalSpacing(columns <= 0 ? DEFAULT_SPACE :
                                       (size.width() - (2 * layout->margin() + TITLE_WIDTH + INFO_PANEL_WIDTH + columns * TAB_WIDTH)) / columns);
 
-    tabs->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), (rows + 1) * TAB_HEIGHT);
+    tabs->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), rows * TAB_HEIGHT + (3 * DEFAULT_SPACE));
 
     if (rows == 0 || columns == 0)
         return;
@@ -191,7 +185,8 @@ void FoodWindow::makeOrder()
 //        std::pair<long, int> orderedMeal = meal->getAmount();
 //        // add meals to order;
 //    }
-//    emit ordered_s(meals);
+    // TODO
+    emit makeOrder_s(0);
 }
 
 void FoodWindow::minusClicked()

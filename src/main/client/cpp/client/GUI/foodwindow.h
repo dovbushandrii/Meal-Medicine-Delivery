@@ -34,7 +34,7 @@ private:
 signals:
     // for changing name of window
     void changeName_s(QString);
-//    void makeOrder_s(std::vector<Order>);
+    void makeOrder_s(long);
 
 public slots:
     void sizeChanged(QSize);

@@ -9,7 +9,6 @@
 #include <QStyleOption>
 #include <QPainter>
 
-#define DEFAULT_SPACE 25
 #define ORDER_TAB_HEIGHT 350
 
 OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidget(parent)
@@ -41,7 +40,7 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidg
                              *::hover {background-color: rgba(0,180,0,230);}");
 
     QObject::connect(order, SIGNAL(clicked()), this, SLOT(confirmOrder()));
-    QObject::connect(this, SIGNAL(confirmOrder_s(std::vector<Order>)), parent, SLOT(confirmOrder(std::vector<Order>)));
+    QObject::connect(this, SIGNAL(confirmOrder_s(long)), parent, SLOT(confirmOrder(long)));
 
     scrollArea = new QScrollArea(this);
     scrollArea->setStyleSheet(".QScrollArea {border: 2px solid black; border-radius: 10px; background-color: rgba(0,0,0,60);}");
@@ -51,24 +50,26 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidg
     scrollArea->setWidget(tabs);
     QScrollBar *bar = new QScrollBar(scrollArea);
 
-    // from https://forum.qt.io/topic/961/style-the-scrollbar-of-qlistview/6
-    bar->setStyleSheet(QString::fromUtf8("QScrollBar:vertical {\
-                                         background: darkgreen;\
-                                         width: 15px;\
+    bar->setStyleSheet(QString::fromUtf8("\
+                                         QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\
+                                         border-radius: 5px;\
+                                         background: rgba(0,0,0,40);\
+                                         }\
+                                         QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\
+                                         background: none;\
+                                         }\
+                                         QScrollBar:vertical {\
+                                         border: none;\
+                                         color: none;\
+                                         background: transparent;\
+                                         width: 12px;    \
                                          margin: 20px 0px 20px 0px;\
-                                         border-radius: 10px;\
                                          }\
                                          QScrollBar::handle:vertical {\
                                          background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\
                                          stop: 0 rgba(183, 210, 192, 255), stop: 0.5 rgba(105, 165, 5, 255), stop:1 rgba(203, 225, 0, 255));\
                                          min-height: 20px;\
-                                         border-radius: 10px;\
-                                         }\
-                                         QScrollBar::add-line:vertical {\
-                                         height: 0px;\
-                                         }\
-                                         QScrollBar::sub-line:vertical {\
-                                         height: 0px;\
+                                         border-radius: 5px;\
                                          }"
                                          ));
     scrollArea->setVerticalScrollBar(bar);
@@ -91,6 +92,8 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidg
     layoutMain->addLayout(layoutUpper);
     layoutMain->addWidget(scrollArea);
 
+    updateAll();
+
     emit changeName_s(QString::fromStdString("Prehľad objednávky"));
 }
 
@@ -105,7 +108,7 @@ void OrderWindow::sizeChanged(QSize size)
     setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
     mainWidget->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
     order->setContentsMargins(width() - TITLE_WIDTH, height() - TITLE_HEIGHT, 0, 0);
-    scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), size.height() - 4 * DEFAULT_SPACE);
+    scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), size.height() - (2 * TITLE_HEIGHT));
 
     emit sizeChanged_s(QSize(width() - 2 * DEFAULT_SPACE, ORDER_TAB_HEIGHT));
 }
@@ -160,6 +163,7 @@ void OrderWindow::updateOrder(long new_id)
 void OrderWindow::confirmOrder()
 {
     // TODO
+    emit confirmOrder_s(0);
 }
 
 void OrderWindow::minusClicked()
