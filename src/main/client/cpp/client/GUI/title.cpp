@@ -4,12 +4,11 @@
 
 Title::Title(QWidget *parent, QApplication *app) : QWidget(parent)
 {
-    TitleBar *titleBar = new TitleBar(this, app);
-    ReturnBar *returnBar = new ReturnBar(this);
-    MovingBar *movingBar = new MovingBar(this);
+    titleBar = new TitleBar(this, app);
+    returnBar = new ReturnBar(this);
+    movingBar = new MovingBar(this);
     name_label = new QLabel(this);
 
-    name_label = new QLabel(QString::fromStdString("Domov"), this);
     name_label->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     name_label->setContentsMargins(50, 0, 0, 0);
     name_label->setStyleSheet("QLabel{color: black; background: transparent; text-decoration: underline; font: bold italic underline \"Times New Roman\"; font-size:25pt}");
