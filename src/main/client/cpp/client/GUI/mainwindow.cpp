@@ -3,6 +3,7 @@
 #include "settings.h"
 #include "foodwindow.h"
 #include "orderwindow.h"
+#include "welcomewindow.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -23,7 +24,6 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     // initialize variables
     // get facilityID
     facilityID = 0;
-
     resizing = false;
 
     setStyleSheet(".MainWindow {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255)); background: qlineargradient( x1:0 y1:0, x2:1 y2:1, stop:1 #009900, stop:0 #003300);}");
@@ -51,14 +51,12 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     QObject::connect(timer, SIGNAL(timeout()), infoPanel, SLOT(updateTime()));
     timer->start(1000);
 
-    QHBoxLayout *layoutMiddle = new QHBoxLayout();
+    layoutMiddle = new QHBoxLayout();
 
     // middle layouts
     layoutMiddle->setAlignment(Qt::AlignRight);
-//    OrderWindow *orderWindow = new OrderWindow(this, 0, 0);
-//    layoutMiddle->addWidget(orderWindow);
-    FoodWindow *foodWindow = new FoodWindow(this, 0);
-    layoutMiddle->addWidget(foodWindow);
+    current = new WelcomeWindow(this);
+    layoutMiddle->addWidget(current);
     layoutMiddle->addWidget(infoPanel);
 
     // setup main layout
@@ -82,6 +80,36 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::orderFood()
+{
+    replaceWidget(new FoodWindow(this, 0));
+}
+
+void MainWindow::orderMedicine()
+{
+
+}
+
+void MainWindow::previewOrders()
+{
+
+}
+
+void MainWindow::previewMedicines()
+{
+
+}
+
+void MainWindow::makeOrder(long orderID)
+{
+    replaceWidget(new OrderWindow(this, 0, 0));
+}
+
+void MainWindow::confirmOrder(long orderID)
+{
+    replaceWidget(new WelcomeWindow(this));
 }
 
 void MainWindow::openSettings()
@@ -182,3 +210,10 @@ void MainWindow::fullScreen()
     setScreenSize(width() == screen.width() ? false : true);
 }
 
+void MainWindow::replaceWidget(QWidget *next)
+{
+    layoutMiddle->replaceWidget(current, next);
+    delete current;
+    current = next;
+    emit sizeChanged_s(QSize(width(), height() - 2 * TITLE_HEIGHT));
+}

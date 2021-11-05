@@ -4,6 +4,7 @@
 #include "title.h"
 
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QPair>
 #include <QSize>
 #include <QString>
@@ -19,6 +20,7 @@
 #define PIC_HEIGHT 300
 #define MAX_AMOUNT 10
 #define RESIZE_WIDGET 20
+#define DEFAULT_SPACE 25
 
 class MainWindow : public QWidget
 {
@@ -34,17 +36,20 @@ private:
     QPoint resizeStart;
     QSize size;
     QVBoxLayout *layoutMain;
+    QHBoxLayout *layoutMiddle;
     QLabel *resize_label;
     QDesktopWidget desktop;
     QRect screen;
 
     Title *title;
     QWidget *settings;
+    QWidget *current;
 
     long facilityID;
 
     void setScreenSize(bool);
     bool canResize();
+    void replaceWidget(QWidget *);
 
     void mousePressEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
@@ -71,5 +76,11 @@ public slots:
     void openSettings();
     void toggleDescriptions();
     void changeName(QString);
+    void orderFood();
+    void orderMedicine();
+    void previewOrders();
+    void previewMedicines();
+    void makeOrder(long);
+    void confirmOrder(long);
 };
 #endif // MAINWINDOW_H
