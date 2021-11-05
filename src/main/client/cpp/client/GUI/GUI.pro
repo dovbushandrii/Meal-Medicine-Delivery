@@ -23,7 +23,8 @@ SOURCES += \
     settings.cpp \
     settingsbutton.cpp \
     title.cpp \
-    titlebar.cpp
+    titlebar.cpp \
+    welcomewindow.cpp
 
 HEADERS += \
     foodtab.h \
@@ -39,7 +40,8 @@ HEADERS += \
     settings.h \
     settingsbutton.h \
     title.h \
-    titlebar.h
+    titlebar.h \
+    welcomewindow.h
 
 FORMS += \
     mainwindow.ui
