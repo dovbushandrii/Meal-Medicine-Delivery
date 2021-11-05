@@ -35,15 +35,15 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, OrderTabType t
     picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
 
     description = new QLabel(this);
-    description->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,0)}");
+    description->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setMinimumWidth(2 * TITLE_WIDTH);
 
     price = new QLabel(this);
-    price->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,0)}");
+    price->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
 
     totalPrice = new QLabel(this);
-    totalPrice->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,0)}");
+    totalPrice->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
 
     amount = new QLabel(QString::fromStdString(std::to_string(initialAmount)), this);
