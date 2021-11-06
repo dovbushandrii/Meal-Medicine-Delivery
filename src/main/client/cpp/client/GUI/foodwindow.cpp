@@ -36,7 +36,7 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
     tabs->setStyleSheet(".QWidget {background-color: transparent;}");
 
     totalOrder = 0;
-    order = new QPushButton("Objednať", this);
+    order = new QPushButton("Prehľad objednávky", this);
     order->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
     order->setStyleSheet(
                              "* {font-size: 9.2pt; color: black; border-radius: 20px; background-color: rgba(0,100,0,150);} \

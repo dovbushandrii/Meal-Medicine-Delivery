@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "title.h"
+#include "infopanel.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -41,6 +42,7 @@ private:
     QDesktopWidget desktop;
     QRect screen;
 
+    QWidget *infoPanel;
     Title *title;
     QWidget *settings;
     QWidget *current;
@@ -69,6 +71,8 @@ signals:
     // for changing name of window
     void changeName_s(QString);
 
+    void start_s();
+
 public slots:
     void fullScreen();
     void stepBack();
@@ -82,5 +86,6 @@ public slots:
     void previewMedicines();
     void makeOrder(long);
     void confirmOrder(long);
+    void finishedWaiting();
 };
 #endif // MAINWINDOW_H

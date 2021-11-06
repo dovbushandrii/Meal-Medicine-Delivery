@@ -1,9 +1,9 @@
 #include "mainwindow.h"
-#include "infopanel.h"
 #include "settings.h"
 #include "foodwindow.h"
 #include "orderwindow.h"
 #include "welcomewindow.h"
+#include "waitingscreen.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -42,8 +42,15 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     screen =  desktop.availableGeometry(this);
     size = QSize(screen.width() * RATIO, screen.height() * RATIO);
 
+    layoutMiddle = new QHBoxLayout();
+
+    // middle layouts
+    layoutMiddle->setAlignment(Qt::AlignRight);
+    current = new WelcomeWindow(this);
+    layoutMiddle->addWidget(current);
+
     // initialize title of the window
-    InfoPanel *infoPanel = new InfoPanel(this);
+    infoPanel = new InfoPanel(this);
     QObject::connect(this, SIGNAL(sizeChanged_s(QSize)), infoPanel, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(updateClientData_s(long)), infoPanel, SLOT(updateClientData(long)));
 
@@ -51,12 +58,6 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     QObject::connect(timer, SIGNAL(timeout()), infoPanel, SLOT(updateTime()));
     timer->start(1000);
 
-    layoutMiddle = new QHBoxLayout();
-
-    // middle layouts
-    layoutMiddle->setAlignment(Qt::AlignRight);
-    current = new WelcomeWindow(this);
-    layoutMiddle->addWidget(current);
     layoutMiddle->addWidget(infoPanel);
 
     // setup main layout
@@ -89,7 +90,9 @@ void MainWindow::orderFood()
 
 void MainWindow::orderMedicine()
 {
-
+    infoPanel->hide();
+    replaceWidget(new WaitingScreen(this, "testing"));
+    emit start_s();
 }
 
 void MainWindow::previewOrders()
@@ -110,6 +113,12 @@ void MainWindow::makeOrder(long orderID)
 void MainWindow::confirmOrder(long orderID)
 {
     replaceWidget(new WelcomeWindow(this));
+}
+
+void MainWindow::finishedWaiting()
+{
+    replaceWidget(new WelcomeWindow(this));
+    infoPanel->show();
 }
 
 void MainWindow::openSettings()

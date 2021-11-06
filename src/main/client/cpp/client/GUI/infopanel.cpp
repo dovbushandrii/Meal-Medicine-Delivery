@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-InfoPanel::InfoPanel(MainWindow *parent, long id) : QWidget(parent)
+InfoPanel::InfoPanel(QWidget *parent, long id) : QWidget(parent)
 {
     timePanel = new QLabel(dateTime.currentDateTime().toString("H:mm:ss dd.MM.yyyy"), this);
     mainPanel = new QWidget(parent);

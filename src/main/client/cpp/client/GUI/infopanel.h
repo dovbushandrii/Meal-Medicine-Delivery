@@ -19,7 +19,7 @@ class InfoPanel : public QWidget
 {
     Q_OBJECT
 public:
-    InfoPanel(MainWindow *, long = 0L);
+    InfoPanel(QWidget *, long = 0L);
     ~InfoPanel();
 
 private:
