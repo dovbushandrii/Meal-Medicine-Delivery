@@ -41,7 +41,7 @@ private:
 signals:
     void minusClicked_s();
     void plusClicked_s();
-    void deleteOrderItem_s();
+    void deleteOrderItem_s(OrderTab *);
 
 public slots:
     void sizeChanged(QSize);

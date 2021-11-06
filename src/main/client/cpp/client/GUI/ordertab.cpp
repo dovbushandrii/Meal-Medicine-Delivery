@@ -28,6 +28,7 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, OrderTabType t
 
     QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
     QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
+    QObject::connect(this, SIGNAL(deleteOrderItem_s(OrderTab *)), parent, SLOT(deleteOrderItem(OrderTab *)));
 
     picture = new QLabel(this);
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
@@ -123,5 +124,5 @@ void OrderTab::plusClicked()
 
 void OrderTab::deleteOrderItem()
 {
-    emit deleteOrderItem_s();
+    emit deleteOrderItem_s(this);
 }

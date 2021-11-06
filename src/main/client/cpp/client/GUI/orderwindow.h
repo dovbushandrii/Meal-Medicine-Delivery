@@ -43,7 +43,7 @@ public slots:
     void updateOrder(long);
     void minusClicked();
     void plusClicked();
-//    void cancelOrder(OrderTab *);
+    void deleteOrderItem(OrderTab *);
     void confirmOrder();
 };
 

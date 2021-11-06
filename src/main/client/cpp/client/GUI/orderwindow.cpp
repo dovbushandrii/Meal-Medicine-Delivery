@@ -186,4 +186,10 @@ void OrderWindow::paintEvent(QPaintEvent *)
      style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+void OrderWindow::deleteOrderItem(OrderTab *to_delete)
+{
+    layout->removeWidget(to_delete);
+    delete to_delete;
+}
+
 
