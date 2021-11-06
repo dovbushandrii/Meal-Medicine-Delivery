@@ -659,18 +659,19 @@ debug\moc_infopanel.cpp: ..\GUI\infopanel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
+		..\GUI\infopanel.h \
 		..\GUI\personaldata.h \
 		..\model\entities\Client.h \
 		..\model\entities\Alergen.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
 		..\GUI\nextmeal.h \
 		..\model\entities\Meal.h \
 		..\GUI\settingsbutton.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		debug\moc_predefs.h \
 		C:\Qt\5.15.2\msvc2019_64\bin\moc.exe
 	C:\Qt\5.15.2\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/rasti/Desktop/ostatne/school/predmety/2bit-zima/ITU/projekt/repos/src/main/client/cpp/client/build-GUI-Desktop_x86_windows_msvc2019_pe_64bit-Debug/debug/moc_predefs.h -IC:/Qt/5.15.2/msvc2019_64/mkspecs/win32-msvc -IC:/Users/rasti/Desktop/ostatne/school/predmety/2bit-zima/ITU/projekt/repos/src/main/client/cpp/client/GUI -IC:/Qt/5.15.2/msvc2019_64/include -IC:/Qt/5.15.2/msvc2019_64/include/QtWidgets -IC:/Qt/5.15.2/msvc2019_64/include/QtGui -IC:/Qt/5.15.2/msvc2019_64/include/QtANGLE -IC:/Qt/5.15.2/msvc2019_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt" ..\GUI\infopanel.h -o debug\moc_infopanel.cpp
@@ -804,10 +805,20 @@ debug\moc_mainwindow.cpp: ..\GUI\mainwindow.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
+		..\GUI\infopanel.h \
+		..\GUI\mainwindow.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		debug\moc_predefs.h \
 		C:\Qt\5.15.2\msvc2019_64\bin\moc.exe
 	C:\Qt\5.15.2\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Users/rasti/Desktop/ostatne/school/predmety/2bit-zima/ITU/projekt/repos/src/main/client/cpp/client/build-GUI-Desktop_x86_windows_msvc2019_pe_64bit-Debug/debug/moc_predefs.h -IC:/Qt/5.15.2/msvc2019_64/mkspecs/win32-msvc -IC:/Users/rasti/Desktop/ostatne/school/predmety/2bit-zima/ITU/projekt/repos/src/main/client/cpp/client/GUI -IC:/Qt/5.15.2/msvc2019_64/include -IC:/Qt/5.15.2/msvc2019_64/include/QtWidgets -IC:/Qt/5.15.2/msvc2019_64/include/QtGui -IC:/Qt/5.15.2/msvc2019_64/include/QtANGLE -IC:/Qt/5.15.2/msvc2019_64/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt" ..\GUI\mainwindow.h -o debug\moc_mainwindow.cpp
@@ -1653,7 +1664,16 @@ debug\moc_settings.cpp: ..\GUI\settings.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
@@ -2407,11 +2427,19 @@ debug\foodtab.obj: ..\GUI\foodtab.cpp ..\GUI\foodtab.h \
 		..\GUI\returnbar.h \
 		..\GUI\movingbar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QPair \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\model\daos\MealDAO.h \
-		..\model\entities\Meal.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QStyleOption \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qstyleoption.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qabstractspinbox.h \
@@ -2874,7 +2902,16 @@ debug\main.obj: ..\GUI\main.cpp ..\GUI\mainwindow.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
@@ -3017,19 +3054,19 @@ debug\mainwindow.obj: ..\GUI\mainwindow.cpp ..\GUI\mainwindow.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\GUI\infopanel.h \
 		..\GUI\personaldata.h \
 		..\model\entities\Client.h \
 		..\model\entities\Alergen.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
 		..\GUI\nextmeal.h \
 		..\model\entities\Meal.h \
 		..\GUI\settingsbutton.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\GUI\settings.h \
 		..\GUI\foodwindow.h \
 		..\GUI\foodtab.h \
@@ -3176,7 +3213,16 @@ debug\movingbar.obj: ..\GUI\movingbar.cpp ..\GUI\movingbar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtGui\qguiapplication.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtGui\qinputmethod.h \
 		..\GUI\returnbar.h \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
@@ -3317,9 +3363,6 @@ debug\nextmeal.obj: ..\GUI\nextmeal.cpp ..\GUI\nextmeal.h \
 		..\GUI\returnbar.h \
 		..\GUI\movingbar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QPair \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\GUI\infopanel.h \
 		..\GUI\personaldata.h \
 		..\model\entities\Client.h \
@@ -3327,6 +3370,9 @@ debug\nextmeal.obj: ..\GUI\nextmeal.cpp ..\GUI\nextmeal.h \
 		..\GUI\settingsbutton.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\model\daos\MealDAO.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QStyleOption \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qstyleoption.h \
@@ -3477,11 +3523,19 @@ debug\ordertab.obj: ..\GUI\ordertab.cpp ..\GUI\ordertab.h \
 		..\GUI\returnbar.h \
 		..\GUI\movingbar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QPair \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\model\daos\MealDAO.h \
-		..\model\entities\Meal.h \
 		..\model\daos\MedicineDAO.h \
 		..\model\entities\Medicine.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QStyleOption \
@@ -3636,9 +3690,6 @@ debug\orderwindow.obj: ..\GUI\orderwindow.cpp ..\GUI\orderwindow.h \
 		..\GUI\returnbar.h \
 		..\GUI\movingbar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QPair \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\GUI\infopanel.h \
 		..\GUI\personaldata.h \
 		..\model\entities\Client.h \
@@ -3648,6 +3699,9 @@ debug\orderwindow.obj: ..\GUI\orderwindow.cpp ..\GUI\orderwindow.h \
 		..\GUI\settingsbutton.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QScrollBar \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qscrollbar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qabstractslider.h \
@@ -3800,15 +3854,15 @@ debug\personaldata.obj: ..\GUI\personaldata.cpp ..\GUI\personaldata.h \
 		..\GUI\returnbar.h \
 		..\GUI\movingbar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QPair \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\GUI\infopanel.h \
 		..\GUI\nextmeal.h \
 		..\model\entities\Meal.h \
 		..\GUI\settingsbutton.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\model\daos\ClientDAO.h
 
 debug\returnbar.obj: ..\GUI\returnbar.cpp ..\GUI\returnbar.h \
@@ -3940,7 +3994,16 @@ debug\returnbar.obj: ..\GUI\returnbar.cpp ..\GUI\returnbar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
@@ -4077,7 +4140,16 @@ debug\settings.obj: ..\GUI\settings.cpp ..\GUI\settings.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget
@@ -4212,18 +4284,18 @@ debug\settingsbutton.obj: ..\GUI\settingsbutton.cpp ..\GUI\settingsbutton.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\GUI\infopanel.h \
 		..\GUI\personaldata.h \
 		..\model\entities\Client.h \
 		..\model\entities\Alergen.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
 		..\GUI\nextmeal.h \
 		..\model\entities\Meal.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QStyleOption \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qstyleoption.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qabstractspinbox.h \
@@ -4371,7 +4443,16 @@ debug\title.obj: ..\GUI\title.cpp ..\GUI\title.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
 		..\GUI\mainwindow.h \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget
@@ -4505,7 +4586,16 @@ debug\titlebar.obj: ..\GUI\titlebar.cpp ..\GUI\titlebar.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
@@ -4643,7 +4733,16 @@ debug\waitingscreen.obj: ..\GUI\waitingscreen.cpp ..\GUI\waitingscreen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
+		..\GUI\infopanel.h \
+		..\GUI\personaldata.h \
+		..\model\entities\Client.h \
+		..\model\entities\Alergen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
+		..\GUI\nextmeal.h \
+		..\model\entities\Meal.h \
+		..\GUI\settingsbutton.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
@@ -4656,7 +4755,6 @@ debug\waitingscreen.obj: ..\GUI\waitingscreen.cpp ..\GUI\waitingscreen.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qjsonobject.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qjsonvalue.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qcborvalue.h \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qcborcommon.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qregularexpression.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\quuid.h \
@@ -4807,19 +4905,19 @@ debug\welcomewindow.obj: ..\GUI\welcomewindow.cpp ..\GUI\welcomewindow.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QLabel \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qlabel.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qframe.h \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
-		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
-		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		..\GUI\infopanel.h \
 		..\GUI\personaldata.h \
 		..\model\entities\Client.h \
 		..\model\entities\Alergen.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QVBoxLayout \
 		..\GUI\nextmeal.h \
 		..\model\entities\Meal.h \
 		..\GUI\settingsbutton.h \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QDateTime \
 		C:\Qt\5.15.2\msvc2019_64\include\QtCore\qdatetime.h \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QSize \
+		C:\Qt\5.15.2\msvc2019_64\include\QtCore\QString \
+		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QDesktopWidget \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QGridLayout \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\QStyleOption \
 		C:\Qt\5.15.2\msvc2019_64\include\QtWidgets\qstyleoption.h \

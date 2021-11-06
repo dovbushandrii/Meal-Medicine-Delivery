@@ -14,6 +14,7 @@ WaitingScreen::WaitingScreen(QWidget *parent, QString description) : QWidget(par
     mainWidget->setStyleSheet(".QWidget{background-color: transparent;}");
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
+    QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
     QObject::connect(this, SIGNAL(finishedWaiting_s()), parent, SLOT(finishedWaiting()));
     QObject::connect(parent, SIGNAL(start_s()), this, SLOT(start()));
 
@@ -30,6 +31,8 @@ WaitingScreen::WaitingScreen(QWidget *parent, QString description) : QWidget(par
 
     layout->addWidget(loader);
     layout->addWidget(label);
+
+    emit changeName_s("Načítavanie");
 }
 
 WaitingScreen::~WaitingScreen()

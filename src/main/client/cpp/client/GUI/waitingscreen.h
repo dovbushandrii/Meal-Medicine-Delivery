@@ -18,6 +18,7 @@ private:
 signals:
     void finishedWaiting_s();
     void wait();
+    void changeName_s(QString);
 
 public slots:
     void sizeChanged(QSize);
