@@ -4,6 +4,7 @@
 #include "orderwindow.h"
 #include "welcomewindow.h"
 #include "waitingscreen.h"
+#include "orderpreviewwindow.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -46,8 +47,7 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 
     // middle layouts
     layoutMiddle->setAlignment(Qt::AlignRight);
-    current = new WelcomeWindow(this);
-    layoutMiddle->addWidget(current);
+    layoutMiddle->addWidget(current = new WelcomeWindow(this));
 
     // initialize title of the window
     infoPanel = new InfoPanel(this);
@@ -80,7 +80,11 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 
 MainWindow::~MainWindow()
 {
-
+    while (!past.empty())
+    {
+        delete past.back();
+        past.pop_back();
+    }
 }
 
 void MainWindow::orderFood()
@@ -97,7 +101,7 @@ void MainWindow::orderMedicine()
 
 void MainWindow::previewOrders()
 {
-
+    replaceWidget(new OrderPreviewWindow(this, 0));
 }
 
 void MainWindow::previewMedicines()
@@ -119,6 +123,11 @@ void MainWindow::finishedWaiting()
 {
     replaceWidget(new WelcomeWindow(this));
     infoPanel->show();
+}
+
+void MainWindow::openOrder(long orderID)
+{
+    replaceWidget(new OrderWindow(this, 0, 0, EDIT));
 }
 
 void MainWindow::openSettings()
@@ -184,7 +193,18 @@ void MainWindow::mouseMoveEvent(QMouseEvent *)
 
 void MainWindow::stepBack()
 {
-    // TO DO
+    if (past.empty())
+        return;
+
+    if (infoPanel->isHidden())
+        infoPanel->show();
+
+    layoutMiddle->replaceWidget(current, past.back());
+    delete current;
+    current = past.back();
+    current->show();
+    past.pop_back();
+    emit sizeChanged_s(QSize(width(), height() - 2 * TITLE_HEIGHT));
 }
 
 void MainWindow::moveWindow(QPair<int, int> offset)
@@ -222,7 +242,10 @@ void MainWindow::fullScreen()
 void MainWindow::replaceWidget(QWidget *next)
 {
     layoutMiddle->replaceWidget(current, next);
-    delete current;
+    // we dont want to get back to WaitingScreen
+    if (dynamic_cast<WaitingScreen *>(current) == nullptr)
+        past.push_back(current);
+    current->hide();
     current = next;
     emit sizeChanged_s(QSize(width(), height() - 2 * TITLE_HEIGHT));
 }

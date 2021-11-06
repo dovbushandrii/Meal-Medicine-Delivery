@@ -11,6 +11,7 @@
 #include <QString>
 #include <QLabel>
 #include <QDesktopWidget>
+#include <vector>
 
 #define TITLE_HEIGHT 50
 #define TITLE_WIDTH 70
@@ -22,6 +23,8 @@
 #define MAX_AMOUNT 10
 #define RESIZE_WIDGET 20
 #define DEFAULT_SPACE 25
+#define AMOUNT_WIDTH 40
+#define AMOUNT_HEIGHT AMOUNT_WIDTH
 
 class MainWindow : public QWidget
 {
@@ -46,6 +49,9 @@ private:
     Title *title;
     QWidget *settings;
     QWidget *current;
+
+    // for steps back
+    std::vector<QWidget *> past;
 
     long facilityID;
 
@@ -87,5 +93,6 @@ public slots:
     void makeOrder(long);
     void confirmOrder(long);
     void finishedWaiting();
+    void openOrder(long);
 };
 #endif // MAINWINDOW_H
