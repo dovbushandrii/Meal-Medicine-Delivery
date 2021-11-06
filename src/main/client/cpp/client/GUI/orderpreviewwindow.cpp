@@ -65,6 +65,7 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
     layout = new QGridLayout(tabs);
     layout->setSpacing(DEFAULT_SPACE);
     layout->setAlignment(Qt::AlignCenter);
+    layout->setMargin(DEFAULT_SPACE);
 
     layoutMain->addWidget(scrollArea);
 
@@ -100,14 +101,22 @@ void OrderPreviewWindow::sizeChanged(QSize size)
     if (orders.empty())
         return;
 
-    int columns = size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) - (2 * layout->margin() + 2 * DEFAULT_SPACE);
+    updateAll();
+}
+
+void OrderPreviewWindow::updateAll()
+{
+    if (orders.empty())
+        return;
+
+    int columns = width() - (2 * layout->margin() + 2 * DEFAULT_SPACE);
     columns = std::floor(1.0 * columns / (orders[0]->width() + DEFAULT_SPACE));
     int rows = std::ceil(1.0 * orders.size() / columns);
 
     layout->setHorizontalSpacing(columns <= 0 ? DEFAULT_SPACE :
-                                      (size.width() - (2 * layout->margin() + TITLE_WIDTH + INFO_PANEL_WIDTH + columns * (orders[0]->width() + DEFAULT_SPACE))) / columns);
+                                      (width() - (2 * layout->margin() + columns * (orders[0]->width() + DEFAULT_SPACE))) / columns);
 
-    tabs->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), rows * (orders[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
+    tabs->setFixedSize(width(), rows * (orders[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
 
     if (rows == 0 || columns == 0)
         return;
@@ -122,7 +131,14 @@ void OrderPreviewWindow::sizeChanged(QSize size)
 void OrderPreviewWindow::deleteOrderItem(OrderPreview *to_delete)
 {
     layout->removeWidget(to_delete);
+    for (int i = 0; i < orders.size(); i++)
+        if (orders[i] == to_delete)
+        {
+            orders.erase(orders.begin() + i);
+            break;
+        }
     delete to_delete;
+    updateAll();
 }
 
 void OrderPreviewWindow::paintEvent(QPaintEvent *)

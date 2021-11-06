@@ -43,8 +43,8 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID, OrderWi
 
     order->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
     order->setStyleSheet(
-                             "* {font-size: 9.2pt; color: black; border-radius: 20px; background-color: rgba(0,100,0,150);} \
-                             *::hover {background-color: rgba(0,180,0,230);}");
+                             "* {font-size: 9.2pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,80);} \
+                             *::hover {border: solid black 2px; background-color: rgba(0,0,0,120);}");
 
     QObject::connect(order, SIGNAL(clicked()), this, SLOT(confirmOrder()));
     QObject::connect(this, SIGNAL(confirmOrder_s(long)), parent, SLOT(confirmOrder(long)));

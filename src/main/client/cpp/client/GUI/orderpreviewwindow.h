@@ -26,6 +26,7 @@ private:
 
     std::vector<OrderPreview *> orders;
     void paintEvent(QPaintEvent *);
+    void updateAll();
 
 signals:
     // for changing name of window
