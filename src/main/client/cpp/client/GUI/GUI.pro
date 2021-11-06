@@ -16,6 +16,8 @@ SOURCES += \
     mainwindow.cpp \
     movingbar.cpp \
     nextmeal.cpp \
+    orderpreview.cpp \
+    orderpreviewwindow.cpp \
     ordertab.cpp \
     orderwindow.cpp \
     personaldata.cpp \
@@ -34,6 +36,8 @@ HEADERS += \
     mainwindow.h \
     movingbar.h \
     nextmeal.h \
+    orderpreview.h \
+    orderpreviewwindow.h \
     ordertab.h \
     orderwindow.h \
     personaldata.h \
