@@ -8,9 +8,6 @@
 #include <QLabel>
 #include <QPushButton>
 
-#define AMOUNT_WIDTH 30
-#define AMOUNT_HEIGHT AMOUNT_WIDTH
-
 class FoodTab : public QWidget
 {
     Q_OBJECT

@@ -8,9 +8,6 @@
 #include <QLabel>
 #include <QPushButton>
 
-#define AMOUNT_ORDER_WIDTH 40
-#define AMOUNT_ORDER_HEIGHT AMOUNT_ORDER_WIDTH
-
 enum OrderTabType {MEAL, MEDICINE};
 
 class OrderTab : public QWidget
