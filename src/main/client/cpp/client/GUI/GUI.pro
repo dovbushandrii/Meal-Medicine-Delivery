@@ -24,6 +24,7 @@ SOURCES += \
     settingsbutton.cpp \
     title.cpp \
     titlebar.cpp \
+    waitingscreen.cpp \
     welcomewindow.cpp
 
 HEADERS += \
@@ -41,6 +42,7 @@ HEADERS += \
     settingsbutton.h \
     title.h \
     titlebar.h \
+    waitingscreen.h \
     welcomewindow.h
 
 FORMS += \
