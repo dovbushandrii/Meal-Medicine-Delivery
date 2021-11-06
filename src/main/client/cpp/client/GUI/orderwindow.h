@@ -9,14 +9,17 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
+enum OrderWindowType {ORDER, EDIT};
+
 class OrderWindow : public QWidget
 {
     Q_OBJECT
 public:
-    OrderWindow(QWidget *, long, long);
+    OrderWindow(QWidget *, long, long, OrderWindowType = ORDER);
     ~OrderWindow();
 
 private:
+    OrderWindowType type;
     long facilityID;
     long orderID;
     QWidget *mainWidget;

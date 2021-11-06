@@ -11,10 +11,11 @@
 
 #define ORDER_TAB_HEIGHT 350
 
-OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidget(parent)
+OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID, OrderWindowType type) : QWidget(parent)
 {
     this->facilityID = facilityID;
     this->orderID = orderID;
+    this->type = type;
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
@@ -33,7 +34,13 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID) : QWidg
     tabs->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     tabs->setStyleSheet(".QWidget {background-color: transparent;}");
 
-    order = new QPushButton("Objednať", this);
+    order = new QPushButton(this);
+
+    if (type == ORDER)
+        order->setText("Objednať");
+    else if (type == EDIT)
+        order->setText("Upraviť");
+
     order->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
     order->setStyleSheet(
                              "* {font-size: 9.2pt; color: black; border-radius: 20px; background-color: rgba(0,100,0,150);} \
@@ -163,6 +170,7 @@ void OrderWindow::updateOrder(long new_id)
 void OrderWindow::confirmOrder()
 {
     // TODO
+    // based on type
     emit confirmOrder_s(0);
 }
 
