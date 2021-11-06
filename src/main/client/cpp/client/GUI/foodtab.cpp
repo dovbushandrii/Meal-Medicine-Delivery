@@ -12,13 +12,12 @@ FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent
     this->facilityID = facilityID;
     this->mealID = mealID;
 
-    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
-    setGraphicsEffect(shadow);
+//    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
+//    setGraphicsEffect(shadow);
 
-    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setFixedSize(TAB_WIDTH, TAB_HEIGHT);
     setAttribute(Qt::WA_StyledBackground, true);
-    setStyleSheet(".FoodTab {background-color: rgba(0,0,0,40); border-radius: 10px;}");
+    setStyleSheet(".FoodTab {background-color: rgba(0,0,0,20); border-radius: 30px;}");
 
     QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
     QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
@@ -28,29 +27,29 @@ FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent
     picture->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     description = new QLabel(this);
-    description->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,0)}");
+    description->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setFixedWidth(TAB_WIDTH);
 
     weight = new QLabel(this);
-    weight->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,0)}");
+    weight->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     weight->setFixedWidth(TAB_WIDTH);
 
     price = new QLabel(this);
-    price->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,0)}");
+    price->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setFixedWidth(TAB_WIDTH);
 
     amount = new QLabel(this);
-    amount->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black;}");
+    amount->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
 
     minus = new QPushButton("-",this);
     minus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    minus->setStyleSheet("*{background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    minus->setStyleSheet("*{border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(minus, SIGNAL(clicked()), this, SLOT(minusClicked()));
 
     plus = new QPushButton("+", this);
     plus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    plus->setStyleSheet("*{background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    plus->setStyleSheet("*{border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(plus, SIGNAL(clicked()), this, SLOT(plusClicked()));
 
     layoutAmount = new QHBoxLayout();
@@ -61,6 +60,7 @@ FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent
     layoutAmount->addWidget(plus);
 
     layoutPicture = new QHBoxLayout();
+    layoutPicture->setContentsMargins(0, DEFAULT_SPACE, 0, 0);
     layoutPicture->addWidget(picture);
 
     layout = new QVBoxLayout(this);

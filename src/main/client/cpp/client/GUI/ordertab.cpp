@@ -24,7 +24,7 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, OrderTabType t
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
 
     setAttribute(Qt::WA_StyledBackground, true);
-    setStyleSheet(".OrderTab {background-color: rgba(0,0,0,40); border-radius: 30px;}");
+    setStyleSheet(".OrderTab {background-color: rgba(0,0,0,20); border-radius: 30px;}");
 
     QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
     QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
@@ -36,34 +36,34 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, OrderTabType t
     picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
 
     description = new QLabel(this);
-    description->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setMinimumWidth(2 * TITLE_WIDTH);
 
     price = new QLabel(this);
-    price->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    price->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
 
     totalPrice = new QLabel(this);
-    totalPrice->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    totalPrice->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
 
     amount = new QLabel(QString::fromStdString(std::to_string(initialAmount)), this);
-    amount->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black;}");
-    amount->setFixedSize(AMOUNT_ORDER_WIDTH, 2 * AMOUNT_ORDER_HEIGHT);
+    amount->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black;}");
+    amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
 
     minus = new QPushButton("-",this);
-    minus->setFixedSize(AMOUNT_ORDER_WIDTH, AMOUNT_ORDER_HEIGHT);
-    minus->setStyleSheet("*{background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    minus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
+    minus->setStyleSheet("*{border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(minus, SIGNAL(clicked()), this, SLOT(minusClicked()));
 
     plus = new QPushButton("+", this);
-    plus->setFixedSize(AMOUNT_ORDER_WIDTH, AMOUNT_ORDER_HEIGHT);
-    plus->setStyleSheet("*{background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    plus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
+    plus->setStyleSheet("*{border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(plus, SIGNAL(clicked()), this, SLOT(plusClicked()));
 
     cancel = new QPushButton("X",this);
-    cancel->setFixedSize(AMOUNT_ORDER_WIDTH, AMOUNT_ORDER_HEIGHT);
-    cancel->setStyleSheet("*{color: red; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    cancel->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
+    cancel->setStyleSheet("*{border-radius: 10px; color: red; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
 
     QHBoxLayout *layout = new QHBoxLayout(this);
@@ -71,8 +71,8 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, OrderTabType t
     QHBoxLayout *layoutRightTop = new QHBoxLayout();
     QVBoxLayout *layoutAmount = new QVBoxLayout();
 
-    layout->setSpacing(25);
-    layout->setContentsMargins(25, 25, 25, 25);
+    layout->setSpacing(DEFAULT_SPACE);
+    layout->setMargin(DEFAULT_SPACE);
     layout->setAlignment(Qt::AlignCenter);
 
     layoutAmount->setSpacing(0);

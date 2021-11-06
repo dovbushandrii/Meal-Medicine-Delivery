@@ -21,10 +21,10 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
     QObject::connect(this, SIGNAL(makeOrder_s(long)), parent, SLOT(makeOrder(long)));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
-    setStyleSheet(".FoodWindow {background-color: transparent}");
+    setStyleSheet(".FoodWindow {background-color: rgba(0,0,0,0);}");
 
     mainWidget = new QWidget(this);
-    mainWidget->setStyleSheet("*{background-color: transparent}");
+    mainWidget->setStyleSheet(".QWidget{background-color: rgba(0,0,0,0);}");
     mainWidget->setFixedSize(width(), height());
 
     totalPreview = new QLabel(this);
@@ -99,7 +99,12 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
     layoutMain->addLayout(layoutUpper);
     layoutMain->addWidget(scrollArea);
 
-    updateFacility(facilityID);
+    // fill foodTabs
+    // for testing purposes only
+    for (int i = 0; i < 5; i++)
+    {
+        foodTabs.push_back(new FoodTab(this, facilityID, 0));
+    }
 
     emit changeName_s(QString::fromStdString("Objednávanie jedla"));
 }
@@ -128,14 +133,18 @@ void FoodWindow::sizeChanged(QSize size)
     order->setContentsMargins(width() - TITLE_WIDTH, height() - TITLE_HEIGHT, 0, 0);
 
     scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), size.height() - (2 * TITLE_HEIGHT));
+
+    if (foodTabs.empty())
+        return;
+
     int columns = size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) - (2 * layout->margin());
-    columns = std::floor(1.0 * columns / (TAB_WIDTH + DEFAULT_SPACE));
+    columns = std::floor(1.0 * columns / (foodTabs[0]->width() + DEFAULT_SPACE));
     int rows = std::ceil(1.0 * foodTabs.size() / columns);
 
     layout->setHorizontalSpacing(columns <= 0 ? DEFAULT_SPACE :
-                                      (size.width() - (2 * layout->margin() + TITLE_WIDTH + INFO_PANEL_WIDTH + columns * TAB_WIDTH)) / columns);
+                                      (size.width() - (2 * layout->margin() + TITLE_WIDTH + INFO_PANEL_WIDTH + columns * (foodTabs[0]->width() + DEFAULT_SPACE))) / columns);
 
-    tabs->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), rows * TAB_HEIGHT + (3 * DEFAULT_SPACE));
+    tabs->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), rows * (foodTabs[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
 
     if (rows == 0 || columns == 0)
         return;
