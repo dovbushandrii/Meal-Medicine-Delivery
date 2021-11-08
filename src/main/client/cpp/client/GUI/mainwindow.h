@@ -68,6 +68,8 @@ signals:
     void changeMovingBar(int);
     // other widgets should listen to this signal to be informed about resize of main window
     void sizeChanged_s(QSize);
+    // other widgets from Title should listen to this signal to be informed about resize of main window
+    void sizeChangedTitle_s(QSize);
     // other widgets should listen to toggle descriptions
     void toggleDescription_s();
     // for updating time every second

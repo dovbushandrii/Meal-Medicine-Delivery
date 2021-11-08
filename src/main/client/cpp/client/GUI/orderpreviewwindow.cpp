@@ -94,9 +94,9 @@ void OrderPreviewWindow::openOrder(long orderID)
 void OrderPreviewWindow::sizeChanged(QSize size)
 {
     // +4 @width for offsetting the borders and scrollbar
-    setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
-    mainWidget->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
-    scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), size.height() - (2 * TITLE_HEIGHT));
+    setFixedSize(size.width() + 4, size.height());
+    mainWidget->setFixedSize(size.width() + 4, size.height());
+    scrollArea->setFixedSize(size.width(), size.height() - (2 * TITLE_HEIGHT));
 
     if (orders.empty())
         return;

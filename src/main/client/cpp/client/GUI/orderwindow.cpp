@@ -112,10 +112,10 @@ OrderWindow::~OrderWindow()
 void OrderWindow::sizeChanged(QSize size)
 {
     // +4 @width for offsetting the borders and scrollbar
-    setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
-    mainWidget->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH) + 4, size.height());
-    order->setContentsMargins(width() - TITLE_WIDTH, height() - TITLE_HEIGHT, 0, 0);
-    scrollArea->setFixedSize(size.width() - (TITLE_WIDTH + INFO_PANEL_WIDTH), size.height() - (2 * TITLE_HEIGHT));
+    setFixedSize(size.width() + 4, size.height());
+    mainWidget->setFixedSize(size.width() + 4, size.height());
+    order->setContentsMargins(width(), height() - TITLE_HEIGHT, 0, 0);
+    scrollArea->setFixedSize(size.width(), size.height() - (2 * TITLE_HEIGHT));
 
     emit sizeChanged_s(QSize(width() - 2 * DEFAULT_SPACE, ORDER_TAB_HEIGHT));
 }

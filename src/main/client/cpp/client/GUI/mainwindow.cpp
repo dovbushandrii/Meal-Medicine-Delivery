@@ -15,8 +15,13 @@ void MainWindow::setScreenSize(bool fullscreen = false)
     setFixedSize(fullscreen ? QSize(screen.width(), screen.height()) : size);
     resize_label->move(width()-RESIZE_WIDGET, height()-RESIZE_WIDGET);
 
+    emit sizeChangedTitle_s(QSize(width(), TITLE_HEIGHT));
+
     // signal to let other widgets know their new available space
-    emit sizeChanged_s(QSize(width(), height() - 2 * TITLE_HEIGHT));
+    if (infoPanel->isHidden())
+        emit sizeChanged_s(QSize(width() - (TITLE_WIDTH), height() - (2 * TITLE_HEIGHT)));
+    else
+        emit sizeChanged_s(QSize(width() - (INFO_PANEL_WIDTH + TITLE_WIDTH), height() - (2 * TITLE_HEIGHT)));
 }
 
 MainWindow::MainWindow(QWidget *parent, QApplication *app)
@@ -121,8 +126,8 @@ void MainWindow::confirmOrder(long orderID)
 
 void MainWindow::finishedWaiting()
 {
-    replaceWidget(new WelcomeWindow(this));
     infoPanel->show();
+    replaceWidget(new WelcomeWindow(this));
 }
 
 void MainWindow::openOrder(long orderID)
@@ -204,7 +209,8 @@ void MainWindow::stepBack()
     current = past.back();
     current->show();
     past.pop_back();
-    emit sizeChanged_s(QSize(width(), height() - 2 * TITLE_HEIGHT));
+
+    setScreenSize();
 }
 
 void MainWindow::moveWindow(QPair<int, int> offset)
@@ -247,5 +253,5 @@ void MainWindow::replaceWidget(QWidget *next)
         past.push_back(current);
     current->hide();
     current = next;
-    emit sizeChanged_s(QSize(width(), height() - 2 * TITLE_HEIGHT));
+    setScreenSize();
 }

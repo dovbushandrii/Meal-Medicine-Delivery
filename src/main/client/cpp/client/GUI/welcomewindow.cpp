@@ -59,7 +59,6 @@ void WelcomeWindow::paintEvent(QPaintEvent *)
 
 void WelcomeWindow::sizeChanged(QSize size)
 {
-    size.setWidth(size.width() - (INFO_PANEL_WIDTH + TITLE_WIDTH));
     setFixedSize(size);
     mainWidget->setFixedSize(size);
     size.setWidth(size.width() - (3 * DEFAULT_SPACE));

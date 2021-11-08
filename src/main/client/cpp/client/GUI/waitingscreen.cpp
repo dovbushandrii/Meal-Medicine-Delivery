@@ -47,7 +47,7 @@ void WaitingScreen::start()
 
 void WaitingScreen::sizeChanged(QSize size)
 {
-    size.setWidth(size.width() - (2 * TITLE_WIDTH));
+    size.setWidth(size.width());
     setFixedSize(size);
     mainWidget->setFixedSize(size);
 }

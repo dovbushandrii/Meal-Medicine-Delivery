@@ -13,7 +13,7 @@ Title::Title(QWidget *parent, QApplication *app) : QWidget(parent)
     name_label->setContentsMargins(50, 0, 0, 0);
     name_label->setStyleSheet("QLabel{color: black; background: transparent; text-decoration: underline; font: bold italic underline \"Times New Roman\"; font-size:25pt}");
 
-    QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), movingBar, SLOT(changeWidth(QSize)));
+    QObject::connect(parent, SIGNAL(sizeChangedTitle_s(QSize)), movingBar, SLOT(changeWidth(QSize)));
     QObject::connect(parent, SIGNAL(toggleDescription_s()), movingBar, SLOT(toggleDescription()));
     QObject::connect(this, SIGNAL(moveWindow_s(QPair<int, int>)), parent, SLOT(moveWindow(QPair<int, int>)));
 
