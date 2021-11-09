@@ -1,3 +1,8 @@
+/**
+ * @file movingbar.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class MovingBar
+ */
 #include "movingbar.h"
 
 #include "mainwindow.h"

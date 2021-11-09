@@ -1,3 +1,8 @@
+/**
+ * @file orderpreviewwindow.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class OrderPreviewWindow, which shows all ordered items from certain order
+ */
 #ifndef ORDERPREVIEWWINDOW_H
 #define ORDERPREVIEWWINDOW_H
 

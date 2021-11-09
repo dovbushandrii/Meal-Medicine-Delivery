@@ -1,3 +1,8 @@
+/**
+ * @file returnbar.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class ReturnBar, which should be used as return button in MainWindow
+ */
 #ifndef RETURNBAR_H
 #define RETURNBAR_H
 

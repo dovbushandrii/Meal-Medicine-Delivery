@@ -1,3 +1,8 @@
+/**
+ * @file nextmeal.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class NextMeal
+ */
 #include "nextmeal.h"
 #include "mainwindow.h"
 #include "infopanel.h"

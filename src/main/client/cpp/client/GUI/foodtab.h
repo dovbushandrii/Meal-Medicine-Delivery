@@ -1,3 +1,8 @@
+/**
+ * @file foodtab.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class FoodTab, widget to hold information about and item
+ */
 #ifndef FOODTAB_H
 #define FOODTAB_H
 

@@ -1,3 +1,8 @@
+/**
+ * @file movingbar.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class MovingBar, which should be used for dragging MainWindow
+ */
 #ifndef MOVINGBAR_H
 #define MOVINGBAR_H
 

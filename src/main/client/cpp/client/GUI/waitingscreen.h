@@ -1,3 +1,8 @@
+/**
+ * @file waitingscreen.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class WaitingScreen, which should be used for async waiting
+ */
 #ifndef WAITINGSCREEN_H
 #define WAITINGSCREEN_H
 

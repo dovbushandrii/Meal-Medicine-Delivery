@@ -1,3 +1,8 @@
+/**
+ * @file settingsbutton.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class SettingsButton
+ */
 #include "settingsbutton.h"
 #include "mainwindow.h"
 #include "infopanel.h"

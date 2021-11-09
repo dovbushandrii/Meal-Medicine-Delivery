@@ -1,3 +1,8 @@
+/**
+ * @file settings.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class Settings, which contains all settings about the application visuals
+ */
 #ifndef SETTINGS_H
 #define SETTINGS_H
 

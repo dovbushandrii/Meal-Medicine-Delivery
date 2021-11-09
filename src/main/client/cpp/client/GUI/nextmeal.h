@@ -1,3 +1,8 @@
+/**
+ * @file nextmeal.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class NextMeal, which shows details of next order
+ */
 #ifndef NEXTMEAL_H
 #define NEXTMEAL_H
 

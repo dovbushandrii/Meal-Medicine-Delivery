@@ -1,3 +1,8 @@
+/**
+ * @file menu.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class Menu
+ */
 #include "menu.h"
 
 Menu::Menu(QWidget *parent, long clientID) : QWidget(parent)

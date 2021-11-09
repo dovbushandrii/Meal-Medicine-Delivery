@@ -1,3 +1,8 @@
+/**
+ * @file title.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class Title, which holds all title items
+ */
 #ifndef TITLE_H
 #define TITLE_H
 

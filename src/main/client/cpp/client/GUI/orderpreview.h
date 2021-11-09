@@ -1,3 +1,8 @@
+/**
+ * @file orderpreview.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class OrderPreview, which shows one ordered item
+ */
 #ifndef ORDERPREVIEW_H
 #define ORDERPREVIEW_H
 

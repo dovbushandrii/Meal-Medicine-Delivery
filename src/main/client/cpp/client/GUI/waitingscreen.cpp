@@ -1,3 +1,8 @@
+/**
+ * @file waitingscreen.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class WaitingScreen
+ */
 #include "waitingscreen.h"
 #include "mainwindow.h"
 

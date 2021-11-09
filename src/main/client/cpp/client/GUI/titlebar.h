@@ -1,3 +1,8 @@
+/**
+ * @file titlebar.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class TitleBar, which creates minimize, maximize and close button
+ */
 #ifndef TITLEBAR_H
 #define TITLEBAR_H
 

@@ -1,3 +1,8 @@
+/**
+ * @file welcomewindow.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class WelcomeWindow
+ */
 #include "welcomewindow.h"
 #include "mainwindow.h"
 #include "infopanel.h"

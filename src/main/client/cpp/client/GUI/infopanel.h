@@ -1,3 +1,8 @@
+/**
+ * @file infopanel.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class InfoPanel, which shows Personal information and data about incoming order
+ */
 #ifndef INFOPANEL_H
 #define INFOPANEL_H
 

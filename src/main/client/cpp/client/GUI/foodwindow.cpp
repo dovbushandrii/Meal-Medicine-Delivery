@@ -1,3 +1,8 @@
+/**
+ * @file foodwindow.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class FoodWindow
+ */
 #include "foodwindow.h"
 #include "infopanel.h"
 #include "mainwindow.h"

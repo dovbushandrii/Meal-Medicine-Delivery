@@ -1,3 +1,8 @@
+/**
+ * @file titlebar.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class TitleBar
+ */
 #include "titlebar.h"
 
 #include "mainwindow.h"

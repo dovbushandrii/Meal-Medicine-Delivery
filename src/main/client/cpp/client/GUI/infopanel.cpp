@@ -1,3 +1,8 @@
+/**
+ * @file infopanel.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class InfoPanel
+ */
 #include "infopanel.h"
 
 #include <QDebug>

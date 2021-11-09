@@ -1,3 +1,8 @@
+/**
+ * @file infopanelicons.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class InfoPanelIcons
+ */
 #include "infopanelicons.h"
 #include "mainwindow.h"
 

@@ -1,3 +1,8 @@
+/**
+ * @file personaldata.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class PersonalData, which displays personal data of the current user
+ */
 #ifndef PERSONALDATA_H
 #define PERSONALDATA_H
 

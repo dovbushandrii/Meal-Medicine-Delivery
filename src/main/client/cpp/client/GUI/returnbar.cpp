@@ -1,3 +1,8 @@
+/**
+ * @file returnbar.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class ReturnBar
+ */
 #include "returnbar.h"
 
 #include "mainwindow.h"

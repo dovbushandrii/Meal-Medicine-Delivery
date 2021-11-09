@@ -1,3 +1,8 @@
+/**
+ * @file settings.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class Settings
+ */
 #include "settings.h"
 
 Settings::Settings(MainWindow *parent) : QWidget(parent)

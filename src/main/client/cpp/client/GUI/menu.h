@@ -1,3 +1,8 @@
+/**
+ * @file menu.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class Menu, which toggles between InfoPanelIcons and InfoPanel
+ */
 #ifndef MENU_H
 #define MENU_H
 

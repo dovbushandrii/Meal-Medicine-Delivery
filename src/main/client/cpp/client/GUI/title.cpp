@@ -1,3 +1,8 @@
+/**
+ * @file title.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class Title
+ */
 #include "title.h"
 
 #include "mainwindow.h"

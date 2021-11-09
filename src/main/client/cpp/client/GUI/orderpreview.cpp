@@ -1,3 +1,8 @@
+/**
+ * @file orderpreview.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class OrderPreview
+ */
 #include "orderpreview.h"
 #include "mainwindow.h"
 

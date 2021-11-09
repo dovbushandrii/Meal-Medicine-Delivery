@@ -1,3 +1,8 @@
+/**
+ * @file infopanelicons.h
+ * @author Rastislav Budinsky
+ * @brief This file contains InfoPanelIcons, which hides widgets behind buttons
+ */
 #ifndef INFOPANELICONS_H
 #define INFOPANELICONS_H
 

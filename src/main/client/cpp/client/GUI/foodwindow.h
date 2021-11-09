@@ -1,3 +1,8 @@
+/**
+ * @file foodwindow.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class FoodWindow, one widget displaying multiple FoodTab items
+ */
 #ifndef FOODWINDOW_H
 #define FOODWINDOW_H
 

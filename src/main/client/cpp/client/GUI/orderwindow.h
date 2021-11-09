@@ -1,3 +1,8 @@
+/**
+ * @file orderwindow.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class OrderWindow, which displays items to-be-ordered
+ */
 #ifndef ORDERWINDOW_H
 #define ORDERWINDOW_H
 

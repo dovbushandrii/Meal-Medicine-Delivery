@@ -1,3 +1,8 @@
+/**
+ * @file settingsbutton.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class SettingsButton, which should be used by InfoPanel to open Settings
+ */
 #ifndef SETTINGSBUTTON_H
 #define SETTINGSBUTTON_H
 

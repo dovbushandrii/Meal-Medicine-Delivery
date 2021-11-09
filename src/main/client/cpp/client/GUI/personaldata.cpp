@@ -1,3 +1,8 @@
+/**
+ * @file personaldata.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class PersonalData
+ */
 #include "personaldata.h"
 #include "mainwindow.h"
 #include "infopanel.h"

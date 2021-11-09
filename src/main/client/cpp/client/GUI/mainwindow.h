@@ -1,3 +1,8 @@
+/**
+ * @file mainwindow.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class MainWindow, which is main window of the application
+ */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

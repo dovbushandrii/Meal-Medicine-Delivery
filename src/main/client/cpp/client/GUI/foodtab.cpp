@@ -1,3 +1,8 @@
+/**
+ * @file foodtab.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class FoodTab
+ */
 #include "foodtab.h"
 #include "mainwindow.h"
 #include "../model/daos/MealDAO.h"

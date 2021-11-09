@@ -1,3 +1,8 @@
+/**
+ * @file ordertab.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class OrderTab, which displays info about item being ordered
+ */
 #ifndef ORDERTAB_H
 #define ORDERTAB_H
 

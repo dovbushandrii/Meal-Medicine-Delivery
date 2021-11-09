@@ -1,3 +1,8 @@
+/**
+ * @file main.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of application
+ */
 #include "mainwindow.h"
 #include "titlebar.h"
 

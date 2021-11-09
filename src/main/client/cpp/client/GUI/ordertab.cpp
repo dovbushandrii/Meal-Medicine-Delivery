@@ -1,3 +1,8 @@
+/**
+ * @file ordertab.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class OrderTab
+ */
 #include "ordertab.h"
 #include "mainwindow.h"
 

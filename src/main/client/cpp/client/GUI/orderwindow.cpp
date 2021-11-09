@@ -1,3 +1,8 @@
+/**
+ * @file orderwindow.cpp
+ * @author Rastislav Budinsky
+ * @brief This file contains implementation of class OrderWindow
+ */
 #include "orderwindow.h"
 #include "mainwindow.h"
 #include "infopanel.h"

@@ -1,3 +1,8 @@
+/**
+ * @file welcomewindow.h
+ * @author Rastislav Budinsky
+ * @brief This file contains class WaitingScreen, which shows initial window after signing-in
+ */
 #ifndef WELCOMEWINDOW_H
 #define WELCOMEWINDOW_H
 
