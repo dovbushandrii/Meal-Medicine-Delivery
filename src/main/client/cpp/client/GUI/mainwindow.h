@@ -25,8 +25,8 @@
 #define DEFAULT_SPACE 25
 #define AMOUNT_WIDTH 40
 #define AMOUNT_HEIGHT AMOUNT_WIDTH
-#define ICON_WIDTH 100
-#define ICON_HEIGHT 100
+#define ICON_WIDTH 80
+#define ICON_HEIGHT ICON_WIDTH
 
 class MainWindow : public QWidget
 {
