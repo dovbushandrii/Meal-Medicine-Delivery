@@ -9,9 +9,9 @@
 #include <QObject>
 #include <QWidget>
 #include <QLabel>
-#include <QDateTime>
 #include <QVBoxLayout>
 #include <QSize>
+#include <QDateTime>
 
 #define INFO_PANEL_WIDTH (5*TITLE_WIDTH)
 
@@ -23,10 +23,12 @@ public:
     ~InfoPanel();
 
 private:
+    QLabel *personalDetails;
     QLabel *timePanel;
+    QDateTime dateTime;
     QWidget *mainPanel;
     QLabel *supportPanel;
-    QDateTime dateTime;
+    QPushButton *hideButton;
 
     Client client;
     PersonalData *personalData;
@@ -39,11 +41,15 @@ private:
 signals:
     void updateClientData_s(long);
     void updateTime_s();
+    void switchContent_s();
 
 public slots:
-    void updateTime();
     void sizeChanged(QSize);
     void updateClientData(long);
+    void updateTime();
+
+private slots:
+    void openIcons();
 };
 
 #endif // INFOPANEL_H

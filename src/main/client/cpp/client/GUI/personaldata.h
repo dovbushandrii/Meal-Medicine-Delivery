@@ -16,7 +16,6 @@ public:
     ~PersonalData();
 
 private:
-    QLabel *personalData;
     QLabel *name;
     QLabel *email;
     QLabel *phoneNumber;

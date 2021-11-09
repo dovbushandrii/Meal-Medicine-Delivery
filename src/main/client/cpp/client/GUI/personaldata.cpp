@@ -7,12 +7,8 @@
 PersonalData::PersonalData(QWidget *parent) : QWidget(parent)
 {
     // height is sum of all elements here
-    setFixedSize(INFO_PANEL_WIDTH, 4 * TITLE_HEIGHT);
+    setFixedSize(INFO_PANEL_WIDTH, 3 * TITLE_HEIGHT);
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-
-    personalData = new QLabel(QString::fromStdString("Osobné údaje"), this);
-    personalData->setFixedSize(INFO_PANEL_WIDTH, TITLE_HEIGHT / 2);
-    personalData->setStyleSheet("* {font: bold italic underline \"Times New Roman\"; qproperty-alignment: AlignCenter; font-size: 12pt;background-color: rgba(0,0,0,0);}");
 
     name = new QLabel(QString::fromStdString("Meno: " + client.getName() + "\nPriezvisko: " + client.getSurname()), this);
     name->setFixedSize(INFO_PANEL_WIDTH, TITLE_HEIGHT);
@@ -27,7 +23,6 @@ PersonalData::PersonalData(QWidget *parent) : QWidget(parent)
     email->setStyleSheet("* {qproperty-alignment: AlignLeft; font-size: 12pt;background-color: rgba(0,0,0,0);}");
 
     layout = new QVBoxLayout(this);
-    layout->addWidget(personalData);
     layout->addWidget(name);
     layout->addWidget(phoneNumber);
     layout->addWidget(email);

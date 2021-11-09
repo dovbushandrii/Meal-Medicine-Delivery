@@ -12,7 +12,7 @@ ReturnBar::ReturnBar(QWidget *parent) : QWidget(parent)
     back_button = new QPushButton("Krok Späť", this);
     back_button->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
     back_button->setStyleSheet(
-                "* {font-size: 9.2pt; color: black; border-bottom-right-radius: 10px; background-color: rgba(0,255,0,180); image: url(../imgs/return_mirrored_transparent.png);} \
+                "* {font-size: 9.2pt; color: black; border-bottom-right-radius: 10px; background-color: rgba(0,255,0,180); image: url(../imgs/return_transparent.png);} \
                 *::hover {border: 1.5px solid black; color: white; background-color: rgba(0,155,0,220);}");
 
     // create effects
