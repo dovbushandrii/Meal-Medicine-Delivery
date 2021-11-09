@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include "title.h"
-#include "infopanel.h"
+#include "menu.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -25,6 +25,8 @@
 #define DEFAULT_SPACE 25
 #define AMOUNT_WIDTH 40
 #define AMOUNT_HEIGHT AMOUNT_WIDTH
+#define ICON_WIDTH 100
+#define ICON_HEIGHT 100
 
 class MainWindow : public QWidget
 {
@@ -45,7 +47,7 @@ private:
     QDesktopWidget desktop;
     QRect screen;
 
-    QWidget *infoPanel;
+    QWidget *menu;
     Title *title;
     QWidget *settings;
     QWidget *current;
@@ -56,6 +58,7 @@ private:
     long facilityID;
 
     void setScreenSize(bool);
+    void resizeWidgets();
     bool canResize();
     void replaceWidget(QWidget *);
 
@@ -96,5 +99,6 @@ public slots:
     void confirmOrder(long);
     void finishedWaiting();
     void openOrder(long);
+    void changeSize();
 };
 #endif // MAINWINDOW_H

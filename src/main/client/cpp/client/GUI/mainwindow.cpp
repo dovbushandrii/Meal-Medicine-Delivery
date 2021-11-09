@@ -13,15 +13,21 @@
 void MainWindow::setScreenSize(bool fullscreen = false)
 {
     setFixedSize(fullscreen ? QSize(screen.width(), screen.height()) : size);
+
+    resizeWidgets();
+}
+
+void MainWindow::resizeWidgets()
+{
     resize_label->move(width()-RESIZE_WIDGET, height()-RESIZE_WIDGET);
 
     emit sizeChangedTitle_s(QSize(width(), TITLE_HEIGHT));
 
     // signal to let other widgets know their new available space
-    if (infoPanel->isHidden())
-        emit sizeChanged_s(QSize(width() - (TITLE_WIDTH), height() - (2 * TITLE_HEIGHT)));
+    if (dynamic_cast<Menu *>(menu)->isInfoPanel())
+        emit sizeChanged_s(QSize(width() - (INFO_PANEL_WIDTH + 3 * DEFAULT_SPACE), height() - (2 * TITLE_HEIGHT)));
     else
-        emit sizeChanged_s(QSize(width() - (INFO_PANEL_WIDTH + TITLE_WIDTH), height() - (2 * TITLE_HEIGHT)));
+        emit sizeChanged_s(QSize(width() - (3 * DEFAULT_SPACE + ICON_WIDTH), height() - (2 * TITLE_HEIGHT)));
 }
 
 MainWindow::MainWindow(QWidget *parent, QApplication *app)
@@ -48,29 +54,28 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     screen =  desktop.availableGeometry(this);
     size = QSize(screen.width() * RATIO, screen.height() * RATIO);
 
-    layoutMiddle = new QHBoxLayout();
-
-    // middle layouts
-    layoutMiddle->setAlignment(Qt::AlignRight);
-    layoutMiddle->addWidget(current = new WelcomeWindow(this));
-
     // initialize title of the window
-    infoPanel = new InfoPanel(this);
-    QObject::connect(this, SIGNAL(sizeChanged_s(QSize)), infoPanel, SLOT(sizeChanged(QSize)));
-    QObject::connect(this, SIGNAL(updateClientData_s(long)), infoPanel, SLOT(updateClientData(long)));
+    menu = new Menu(this);
+    QObject::connect(this, SIGNAL(sizeChanged_s(QSize)), menu, SLOT(sizeChanged(QSize)));
+    QObject::connect(this, SIGNAL(updateClientData_s(long)), menu, SLOT(updateClientData(long)));
+
+    layoutMiddle = new QHBoxLayout();
+    layoutMiddle->setSpacing(DEFAULT_SPACE);
+    layoutMiddle->setContentsMargins(DEFAULT_SPACE, DEFAULT_SPACE, 0, DEFAULT_SPACE);
+    layoutMiddle->setAlignment(Qt::AlignRight);
+
+    layoutMiddle->addWidget(current = new WelcomeWindow(this));
+    layoutMiddle->addWidget(menu);
 
     QTimer *timer = new QTimer(this);
-    QObject::connect(timer, SIGNAL(timeout()), infoPanel, SLOT(updateTime()));
+    QObject::connect(timer, SIGNAL(timeout()), menu, SLOT(updateTime()));
     timer->start(1000);
 
-    layoutMiddle->addWidget(infoPanel);
-
     // setup main layout
-    layoutMain->setContentsMargins(0, 0, 0, 0);
+    layoutMain->setMargin(0);
     layoutMain->setSpacing(0);
-    layoutMain->setAlignment(Qt::AlignTop);
 
-    layoutMain->addWidget(title);
+    layoutMain->addWidget(title, 1, Qt::AlignTop);
     layoutMain->addLayout(layoutMiddle);
 
     setWindowFlags(this->windowFlags() | Qt::MSWindowsFixedSizeDialogHint | Qt::Window | Qt::FramelessWindowHint);
@@ -99,7 +104,7 @@ void MainWindow::orderFood()
 
 void MainWindow::orderMedicine()
 {
-    infoPanel->hide();
+    menu->hide();
     replaceWidget(new WaitingScreen(this, "testing"));
     emit start_s();
 }
@@ -126,7 +131,7 @@ void MainWindow::confirmOrder(long orderID)
 
 void MainWindow::finishedWaiting()
 {
-    infoPanel->show();
+    menu->show();
     replaceWidget(new WelcomeWindow(this));
 }
 
@@ -201,8 +206,8 @@ void MainWindow::stepBack()
     if (past.empty())
         return;
 
-    if (infoPanel->isHidden())
-        infoPanel->show();
+    if (menu->isHidden())
+        menu->show();
 
     layoutMiddle->replaceWidget(current, past.back());
     delete current;
@@ -210,7 +215,7 @@ void MainWindow::stepBack()
     current->show();
     past.pop_back();
 
-    setScreenSize();
+    resizeWidgets();
 }
 
 void MainWindow::moveWindow(QPair<int, int> offset)
@@ -245,6 +250,11 @@ void MainWindow::fullScreen()
     setScreenSize(width() == screen.width() ? false : true);
 }
 
+void MainWindow::changeSize()
+{
+    resizeWidgets();
+}
+
 void MainWindow::replaceWidget(QWidget *next)
 {
     layoutMiddle->replaceWidget(current, next);
@@ -253,5 +263,5 @@ void MainWindow::replaceWidget(QWidget *next)
         past.push_back(current);
     current->hide();
     current = next;
-    setScreenSize();
+    resizeWidgets();
 }
