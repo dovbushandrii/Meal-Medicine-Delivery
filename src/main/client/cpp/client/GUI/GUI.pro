@@ -12,8 +12,10 @@ SOURCES += \
     foodtab.cpp \
     foodwindow.cpp \
     infopanel.cpp \
+    infopanelicons.cpp \
     main.cpp \
     mainwindow.cpp \
+    menu.cpp \
     movingbar.cpp \
     nextmeal.cpp \
     orderpreview.cpp \
@@ -33,7 +35,9 @@ HEADERS += \
     foodtab.h \
     foodwindow.h \
     infopanel.h \
+    infopanelicons.h \
     mainwindow.h \
+    menu.h \
     movingbar.h \
     nextmeal.h \
     orderpreview.h \
