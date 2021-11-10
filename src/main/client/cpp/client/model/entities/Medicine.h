@@ -20,6 +20,8 @@ class Medicine {
 
 	double price;
 
+	std::string image;
+
 public:
 
 	Medicine() {}
@@ -51,6 +53,12 @@ public:
 		this->price = price;
 	}
 
+	std::string getImage() {
+		return this->description;
+	}
+	void setImage(std::string image) {
+		this->image = image;
+	}
 };
 
 #endif // !_MEDICINE_H_

@@ -23,6 +23,8 @@ class Meal {
 	//Represents weight in grams.
 	unsigned weight;
 
+	std::string image;
+
 public:
 
 	Meal() {}
@@ -61,6 +63,13 @@ public:
 	}
 	void setWeight(unsigned weight) {
 		this->weight = weight;
+	}
+
+	std::string getImage() {
+		return this->image;
+	}
+	void setImage(std::string image) {
+		this->image = image;
 	}
 
 };
