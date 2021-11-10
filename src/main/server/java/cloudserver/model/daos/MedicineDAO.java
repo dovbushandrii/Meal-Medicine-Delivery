@@ -49,7 +49,7 @@ public class MedicineDAO {
             repo.deleteById(medicine.getId());
             return repo.save(medicine);
         }
-        throw new NoSuchElementException("There is no Client with ID: " + medicine.getId());
+        throw new NoSuchElementException("There is no Medicine with ID: " + medicine.getId());
     }
 
     public void delete(Long id) {

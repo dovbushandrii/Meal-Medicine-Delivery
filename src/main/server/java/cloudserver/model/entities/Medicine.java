@@ -23,6 +23,9 @@ public class Medicine {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    private Facility facility;
+
     @NotNull
     private String description;
 
@@ -31,4 +34,6 @@ public class Medicine {
 
     @ManyToMany
     private List<SystemOrder> systemOrders;
+
+    private String image;
 }

@@ -9,7 +9,6 @@
 
 package cloudserver.model.daos;
 
-import cloudserver.model.entities.Client;
 import cloudserver.model.entities.Meal;
 import cloudserver.model.repos.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,7 @@ public class MealDAO {
             repo.deleteById(meal.getId());
             return repo.save(meal);
         }
-        throw new NoSuchElementException("There is no Client with ID: " + meal.getId());
+        throw new NoSuchElementException("There is no Meal with ID: " + meal.getId());
     }
 
     public void delete(Long id) {

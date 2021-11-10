@@ -23,6 +23,9 @@ public class Meal {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne
+    private Facility facility;
+
     @NotNull
     private String description;
 
@@ -35,4 +38,6 @@ public class Meal {
 
     @ManyToMany
     private List<SystemOrder> systemOrders;
+
+    private String image;
 }

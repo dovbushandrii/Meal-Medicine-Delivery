@@ -49,7 +49,7 @@ public class OrderDAO {
             repo.deleteById(systemOrder.getId());
             return repo.save(systemOrder);
         }
-        throw new NoSuchElementException("There is no Client with ID: " + systemOrder.getId());
+        throw new NoSuchElementException("There is no Order with ID: " + systemOrder.getId());
     }
 
     public void delete(Long id) {
