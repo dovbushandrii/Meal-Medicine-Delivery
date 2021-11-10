@@ -6,6 +6,8 @@
 #ifndef ORDERTAB_H
 #define ORDERTAB_H
 
+#include "mainwindow.h"
+
 #include <QObject>
 #include <QWidget>
 #include <QVBoxLayout>
@@ -13,20 +15,18 @@
 #include <QLabel>
 #include <QPushButton>
 
-enum OrderTabType {MEAL, MEDICINE};
-
 class OrderTab : public QWidget
 {
     Q_OBJECT
 public:
-    OrderTab(QWidget *, long, long, OrderTabType, int);
+    OrderTab(QWidget *, long, long, ItemType, int);
     ~OrderTab();
 
 private:
     long facilityID;
     long itemID;
 
-    OrderTabType type;
+    ItemType type;
 
     QLabel *picture;
     QLabel *description;

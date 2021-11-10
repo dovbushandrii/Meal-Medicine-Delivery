@@ -1,10 +1,12 @@
 /**
- * @file foodtab.h
+ * @file itemtab.h
  * @author Rastislav Budinsky
- * @brief This file contains class FoodTab, widget to hold information about and item
+ * @brief This file contains class ItemTab, widget to hold information about and item
  */
-#ifndef FOODTAB_H
-#define FOODTAB_H
+#ifndef ITEMTAB_H
+#define ITEMTAB_H
+
+#include "mainwindow.h"
 
 #include <QObject>
 #include <QWidget>
@@ -13,18 +15,19 @@
 #include <QLabel>
 #include <QPushButton>
 
-class FoodTab : public QWidget
+class ItemTab : public QWidget
 {
     Q_OBJECT
 public:
-    FoodTab(QWidget *, long, long);
-    ~FoodTab();
+    ItemTab(QWidget *, long, long, ItemType);
+    ~ItemTab();
 
     std::pair<long, int> getAmount();
 
 private:
     long facilityID;
     long mealID;
+    ItemType type;
 
     QLabel *picture;
     QLabel *description;
@@ -50,4 +53,4 @@ private slots:
     void plusClicked();
 };
 
-#endif // FOODTAB_H
+#endif // ITEMTAB_H

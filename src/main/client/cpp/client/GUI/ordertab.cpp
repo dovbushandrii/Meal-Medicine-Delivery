@@ -4,7 +4,6 @@
  * @brief This file contains implementation of class OrderTab
  */
 #include "ordertab.h"
-#include "mainwindow.h"
 
 #include "../model/daos/MealDAO.h"
 #include "../model/daos/MedicineDAO.h"
@@ -14,7 +13,7 @@
 #include <QStyleOption>
 #include <QPainter>
 
-OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, OrderTabType type, int initialAmount) : QWidget(parent)
+OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type, int initialAmount) : QWidget(parent)
 {
     this->facilityID = facilityID;
     this->itemID = itemID;
@@ -38,7 +37,11 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, OrderTabType t
     picture = new QLabel(this);
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
     picture->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
+
+    if (type == MEAL)
+        picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
+    else
+        picture->setStyleSheet("* {image: url(../imgs/medicine_default.png);}");
 
     description = new QLabel(this);
     description->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");

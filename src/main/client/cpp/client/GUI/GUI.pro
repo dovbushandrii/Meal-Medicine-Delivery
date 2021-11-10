@@ -9,10 +9,10 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    foodtab.cpp \
-    foodwindow.cpp \
     infopanel.cpp \
     infopanelicons.cpp \
+    itemtab.cpp \
+    itemwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
@@ -32,10 +32,10 @@ SOURCES += \
     welcomewindow.cpp
 
 HEADERS += \
-    foodtab.h \
-    foodwindow.h \
     infopanel.h \
     infopanelicons.h \
+    itemtab.h \
+    itemwindow.h \
     mainwindow.h \
     menu.h \
     movingbar.h \

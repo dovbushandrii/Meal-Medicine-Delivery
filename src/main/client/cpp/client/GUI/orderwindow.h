@@ -7,6 +7,7 @@
 #define ORDERWINDOW_H
 
 #include "ordertab.h"
+#include "mainwindow.h"
 
 #include <QObject>
 #include <QWidget>
@@ -20,13 +21,15 @@ class OrderWindow : public QWidget
 {
     Q_OBJECT
 public:
-    OrderWindow(QWidget *, long, long, OrderWindowType = ORDER);
+    OrderWindow(QWidget *, long, long, ItemType, OrderWindowType = ORDER);
     ~OrderWindow();
 
 private:
     OrderWindowType type;
+    ItemType itemType;
     long facilityID;
     long orderID;
+
     QWidget *mainWidget;
     QScrollArea *scrollArea;
     QVBoxLayout *layout;

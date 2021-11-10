@@ -1,10 +1,9 @@
 /**
- * @file foodtab.cpp
+ * @file itemtab.cpp
  * @author Rastislav Budinsky
- * @brief This file contains implementation of class FoodTab
+ * @brief This file contains implementation of class ItemTab
  */
-#include "foodtab.h"
-#include "mainwindow.h"
+#include "itemtab.h"
 #include "../model/daos/MealDAO.h"
 #include "../model/entities/Meal.h"
 
@@ -12,17 +11,18 @@
 #include <QPainter>
 #include <QGraphicsDropShadowEffect>
 
-FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent)
+ItemTab::ItemTab(QWidget *parent, long facilityID, long mealID, ItemType type) : QWidget(parent)
 {
     this->facilityID = facilityID;
     this->mealID = mealID;
+    this->type = type;
 
 //    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
 //    setGraphicsEffect(shadow);
 
     setFixedSize(TAB_WIDTH, TAB_HEIGHT);
     setAttribute(Qt::WA_StyledBackground, true);
-    setStyleSheet(".FoodTab {background-color: rgba(0,0,0,20); border-radius: 30px;}");
+    setStyleSheet(".ItemTab {background-color: rgba(0,0,0,20); border-radius: 30px;}");
 
     QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
     QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
@@ -84,24 +84,28 @@ FoodTab::FoodTab(QWidget *parent, long facilityID, long mealID) : QWidget(parent
 
     // check for available food picture from facility
     // TODO
-    picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
+    if (type == MEAL)
+        picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
+    else
+        picture->setStyleSheet("* {image: url(../imgs/medicine_default.png);}");
+
     description->setText(QString::fromStdString(meal.getDescription()));
     weight->setText(QString::fromStdString("Hmotnosť: "+std::to_string(meal.getWeight())));
     price->setText(QString::fromStdString("Cena za porciu: "+std::to_string(meal.getPrice())));
     amount->setText("0");
 }
 
-FoodTab::~FoodTab()
+ItemTab::~ItemTab()
 {
 
 }
 
-std::pair<long, int> FoodTab::getAmount()
+std::pair<long, int> ItemTab::getAmount()
 {
     return {mealID, amount->text().toInt()};
 }
 
-void FoodTab::paintEvent(QPaintEvent *)
+void ItemTab::paintEvent(QPaintEvent *)
 {
      QStyleOption opt;
      opt.init(this);
@@ -109,13 +113,13 @@ void FoodTab::paintEvent(QPaintEvent *)
      style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void FoodTab::minusClicked()
+void ItemTab::minusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
     emit minusClicked_s();
 }
 
-void FoodTab::plusClicked()
+void ItemTab::plusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
     emit plusClicked_s();

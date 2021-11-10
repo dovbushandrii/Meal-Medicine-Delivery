@@ -1,12 +1,12 @@
 /**
- * @file foodwindow.h
+ * @file itemwindow.h
  * @author Rastislav Budinsky
- * @brief This file contains class FoodWindow, one widget displaying multiple FoodTab items
+ * @brief This file contains class ItemWindow, one widget displaying multiple ItemTab items
  */
-#ifndef FOODWINDOW_H
-#define FOODWINDOW_H
+#ifndef ITEMWINDOW_H
+#define ITEMWINDOW_H
 
-#include "foodtab.h"
+#include "itemtab.h"
 //#include "../model/entities/Order.h"
 
 #include <QObject>
@@ -16,22 +16,24 @@
 #include <vector>
 #include <QPushButton>
 
-class FoodWindow : public QWidget
+class ItemWindow : public QWidget
 {
     Q_OBJECT
 public:
-    FoodWindow(QWidget *, long);
-    ~FoodWindow();
+    ItemWindow(QWidget *, long, ItemType);
+    ~ItemWindow();
 
 private:
     long facilityID;
+    ItemType type;
+
     QWidget *mainWidget;
     QScrollArea *scrollArea;
     QGridLayout *layout;
     QWidget *tabs;
     QPushButton *order;
     QLabel *totalPreview;
-    std::vector<FoodTab *> foodTabs;
+    std::vector<ItemTab *> foodTabs;
     void paintEvent(QPaintEvent *);
 
     int totalOrder;
@@ -49,4 +51,4 @@ public slots:
     void makeOrder();
 };
 
-#endif // FOODWINDOW_H
+#endif // ITEMWINDOW_H

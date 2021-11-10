@@ -5,7 +5,7 @@
  */
 #include "orderpreviewwindow.h"
 #include "mainwindow.h"
-#include "foodtab.h"
+#include "itemtab.h"
 
 #include <QScrollBar>
 #include <QHBoxLayout>

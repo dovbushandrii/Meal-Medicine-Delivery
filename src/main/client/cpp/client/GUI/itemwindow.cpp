@@ -1,11 +1,10 @@
 /**
- * @file foodwindow.cpp
+ * @file itemwindow.cpp
  * @author Rastislav Budinsky
- * @brief This file contains implementation of class FoodWindow
+ * @brief This file contains implementation of class ItemWindow
  */
-#include "foodwindow.h"
+#include "itemwindow.h"
 #include "infopanel.h"
-#include "mainwindow.h"
 
 #include "../model/daos/MealDAO.h"
 #include "../model/entities/Meal.h"
@@ -18,15 +17,16 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
+ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type) : QWidget(parent)
 {
     this->facilityID = facilityID;
+    this->type = type;
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
     QObject::connect(this, SIGNAL(makeOrder_s(long)), parent, SLOT(makeOrder(long)));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
-    setStyleSheet(".FoodWindow {background-color: rgba(0,0,0,0);}");
+    setStyleSheet(".ItemWindow {background-color: rgba(0,0,0,0);}");
 
     mainWidget = new QWidget(this);
     mainWidget->setStyleSheet(".QWidget{background-color: rgba(0,0,0,0);}");
@@ -108,18 +108,18 @@ FoodWindow::FoodWindow(QWidget *parent, long facilityID) : QWidget(parent)
     // for testing purposes only
     for (int i = 0; i < 5; i++)
     {
-        foodTabs.push_back(new FoodTab(this, facilityID, 0));
+        foodTabs.push_back(new ItemTab(this, facilityID, 0, type));
     }
 
     emit changeName_s(QString::fromStdString("Objednávanie jedla"));
 }
 
-FoodWindow::~FoodWindow()
+ItemWindow::~ItemWindow()
 {
 
 }
 
-void FoodWindow::paintEvent(QPaintEvent *)
+void ItemWindow::paintEvent(QPaintEvent *)
 {
      QStyleOption opt;
      opt.init(this);
@@ -127,7 +127,7 @@ void FoodWindow::paintEvent(QPaintEvent *)
      style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void FoodWindow::sizeChanged(QSize size)
+void ItemWindow::sizeChanged(QSize size)
 {
     for (auto widget : foodTabs)
         layout->removeWidget(widget);
@@ -161,7 +161,7 @@ void FoodWindow::sizeChanged(QSize size)
     for(int r=0; r < layout->rowCount(); r++)  layout->setRowStretch(r,1);
 }
 
-void FoodWindow::updateFacility(long new_id)
+void ItemWindow::updateFacility(long new_id)
 {
     facilityID = new_id;
     // clear whole layout and create a new one
@@ -179,19 +179,19 @@ void FoodWindow::updateFacility(long new_id)
 
     for (int i = 0; i < meals.size(); i++)
     {
-        foodTabs.push_back(new FoodTab(this, facilityID, meals[i].getId()));
+        foodTabs.push_back(new ItemTab(this, facilityID, meals[i].getId(), type));
     }
 
     // for testing purposes only
     for (int i = 0; i < 5; i++)
     {
-        foodTabs.push_back(new FoodTab(this, facilityID, 0));
+        foodTabs.push_back(new ItemTab(this, facilityID, 0, type));
     }
 
     sizeChanged(QSize(width(), height()));
 }
 
-void FoodWindow::makeOrder()
+void ItemWindow::makeOrder()
 {
 //    std::vector<Order> meals;
 //    for (auto meal : foodTabs)
@@ -203,7 +203,7 @@ void FoodWindow::makeOrder()
     emit makeOrder_s(0);
 }
 
-void FoodWindow::minusClicked()
+void ItemWindow::minusClicked()
 {
     if (totalOrder == 0)
         return;
@@ -214,7 +214,7 @@ void FoodWindow::minusClicked()
         order->setText("Objednať");
 }
 
-void FoodWindow::plusClicked()
+void ItemWindow::plusClicked()
 {
     totalOrder++;
     order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));

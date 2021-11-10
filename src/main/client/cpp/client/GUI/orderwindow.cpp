@@ -4,7 +4,6 @@
  * @brief This file contains implementation of class OrderWindow
  */
 #include "orderwindow.h"
-#include "mainwindow.h"
 #include "infopanel.h"
 
 //#include "../model/daos/OrderDAO.h"
@@ -16,11 +15,12 @@
 
 #define ORDER_TAB_HEIGHT 350
 
-OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID, OrderWindowType type) : QWidget(parent)
+OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID, ItemType itemType, OrderWindowType type) : QWidget(parent)
 {
     this->facilityID = facilityID;
     this->orderID = orderID;
     this->type = type;
+    this->itemType = itemType;
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
@@ -149,7 +149,7 @@ void OrderWindow::updateAll()
     // for testing purposes only
     for (int i = 0; i < 5; i++)
     {
-        orderTabs.push_back(new OrderTab(this, facilityID, /*id*/0, MEAL, /*amount*/-1));
+        orderTabs.push_back(new OrderTab(this, facilityID, /*id*/0, itemType, /*amount*/-1));
         layout->addWidget(orderTabs.back());
     }
 

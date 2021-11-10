@@ -5,7 +5,7 @@
  */
 #include "mainwindow.h"
 #include "settings.h"
-#include "foodwindow.h"
+#include "itemwindow.h"
 #include "orderwindow.h"
 #include "welcomewindow.h"
 #include "waitingscreen.h"
@@ -104,7 +104,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::orderFood()
 {
-    replaceWidget(new FoodWindow(this, 0));
+    replaceWidget(new ItemWindow(this, 0, MEAL));
 }
 
 void MainWindow::orderMedicine()
@@ -126,7 +126,7 @@ void MainWindow::previewMedicines()
 
 void MainWindow::makeOrder(long orderID)
 {
-    replaceWidget(new OrderWindow(this, 0, 0));
+    replaceWidget(new OrderWindow(this, 0, 0, MEAL));
 }
 
 void MainWindow::confirmOrder(long orderID)
@@ -142,7 +142,7 @@ void MainWindow::finishedWaiting()
 
 void MainWindow::openOrder(long orderID)
 {
-    replaceWidget(new OrderWindow(this, 0, 0, EDIT));
+    replaceWidget(new OrderWindow(this, 0, 0, MEDICINE, EDIT));
 }
 
 void MainWindow::openSettings()

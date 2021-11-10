@@ -33,6 +33,8 @@
 #define ICON_WIDTH 80
 #define ICON_HEIGHT ICON_WIDTH
 
+enum ItemType {MEAL, MEDICINE};
+
 class MainWindow : public QWidget
 {
     Q_OBJECT
