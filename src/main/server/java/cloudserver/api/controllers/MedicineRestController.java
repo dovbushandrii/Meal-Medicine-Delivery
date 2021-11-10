@@ -10,12 +10,15 @@
 package cloudserver.api.controllers;
 
 import cloudserver.model.daos.MedicineDAO;
+import cloudserver.model.entities.Meal;
 import cloudserver.model.entities.Medicine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/medicines")
@@ -39,8 +42,16 @@ public class MedicineRestController {
     }
 
     @GetMapping()
-    public List<Medicine> getMedicines() {
-        return dao.read();
+    public List<Medicine> getMedicines(@RequestParam(value = "limit", required = false) Optional<Long> limit,
+                                       @RequestParam(value = "sort", required = false) Optional<String> sort) {
+        List<Medicine> medicines = dao.read();
+        //TODO sorting
+        if (limit.isPresent()) {
+            medicines = medicines.stream()
+                    .limit(limit.get())
+                    .collect(Collectors.toList());
+        }
+        return medicines;
     }
 
     @PatchMapping()

@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -40,8 +42,16 @@ public class ClientRestController {
     }
 
     @GetMapping()
-    public List<Client> getClients() {
-        return dao.read();
+    public List<Client> getClients(@RequestParam(value = "limit", required = false) Optional<Long> limit,
+                                   @RequestParam(value = "sort", required = false) Optional<String> sort) {
+        List<Client> clients = dao.read();
+        //TODO sorting
+        if (limit.isPresent()) {
+            clients = clients.stream()
+                    .limit(limit.get())
+                    .collect(Collectors.toList());
+        }
+        return clients;
     }
 
     @PatchMapping()

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/facilities")
@@ -30,8 +32,16 @@ public class FacilityRestController {
     }
 
     @GetMapping()
-    public List<Facility> getFacilities() {
-        return dao.read();
+    public List<Facility> getFacilities(@RequestParam(value = "limit", required = false) Optional<Long> limit,
+                                        @RequestParam(value = "sort", required = false) Optional<String> sort) {
+        List<Facility> facilities = dao.read();
+        //TODO sorting
+        if (limit.isPresent()) {
+            facilities = facilities.stream()
+                    .limit(limit.get())
+                    .collect(Collectors.toList());
+        }
+        return facilities;
     }
 
     @PatchMapping()
