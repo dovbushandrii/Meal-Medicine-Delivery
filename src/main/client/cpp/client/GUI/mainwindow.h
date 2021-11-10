@@ -102,7 +102,7 @@ public slots:
     void orderMedicine();
     void previewOrders();
     void previewMedicines();
-    void makeOrder(long);
+    void makeOrder(long, ItemType);
     void confirmOrder(long);
     void finishedWaiting();
     void openOrder(long);

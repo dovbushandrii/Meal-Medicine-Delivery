@@ -41,7 +41,7 @@ private:
 signals:
     // for changing name of window
     void changeName_s(QString);
-    void makeOrder_s(long);
+    void makeOrder_s(long, ItemType);
 
 public slots:
     void sizeChanged(QSize);

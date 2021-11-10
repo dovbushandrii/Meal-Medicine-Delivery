@@ -109,9 +109,7 @@ void MainWindow::orderFood()
 
 void MainWindow::orderMedicine()
 {
-    menu->hide();
-    replaceWidget(new WaitingScreen(this, "testing"));
-    emit start_s();
+    replaceWidget(new ItemWindow(this, 0, MEDICINE));
 }
 
 void MainWindow::previewOrders()
@@ -121,12 +119,14 @@ void MainWindow::previewOrders()
 
 void MainWindow::previewMedicines()
 {
-
+    menu->hide();
+    replaceWidget(new WaitingScreen(this, "testing"));
+    emit start_s();
 }
 
-void MainWindow::makeOrder(long orderID)
+void MainWindow::makeOrder(long orderID, ItemType type)
 {
-    replaceWidget(new OrderWindow(this, 0, 0, MEAL));
+    replaceWidget(new OrderWindow(this, 0, 0, type));
 }
 
 void MainWindow::confirmOrder(long orderID)

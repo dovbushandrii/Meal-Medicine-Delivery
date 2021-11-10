@@ -24,7 +24,7 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type) : QWidge
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
-    QObject::connect(this, SIGNAL(makeOrder_s(long)), parent, SLOT(makeOrder(long)));
+    QObject::connect(this, SIGNAL(makeOrder_s(long, ItemType)), parent, SLOT(makeOrder(long, ItemType)));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
     setStyleSheet(".ItemWindow {background-color: rgba(0,0,0,0);}");
 
@@ -200,7 +200,7 @@ void ItemWindow::makeOrder()
 //        // add meals to order;
 //    }
     // TODO
-    emit makeOrder_s(0);
+    emit makeOrder_s(0, type);
 }
 
 void ItemWindow::minusClicked()
