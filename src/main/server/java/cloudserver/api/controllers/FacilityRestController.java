@@ -2,6 +2,7 @@ package cloudserver.api.controllers;
 
 import cloudserver.model.daos.FacilityDAO;
 import cloudserver.model.entities.Facility;
+import cloudserver.model.jsonparsers.ParserJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +15,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/facilities")
 public class FacilityRestController {
 
-    private FacilityDAO dao;
+    final private FacilityDAO dao;
+    final private ParserJSON parser;
 
     @Autowired
-    public FacilityRestController(@Qualifier("facilityDAO") FacilityDAO dao) {
+    public FacilityRestController(@Qualifier("facilityDAO") FacilityDAO dao,
+                                  @Qualifier("JSONParser") ParserJSON parser) {
         this.dao = dao;
+        this.parser = parser;
     }
 
     @PostMapping()
-    public Facility saveFacility(Facility meal) {
-        return dao.create(meal);
+    public Facility saveFacility(@RequestBody String json) {
+        return dao.create((Facility) parser.parse(json,Facility.class));
     }
 
     @GetMapping("/{id}")
@@ -45,13 +49,8 @@ public class FacilityRestController {
     }
 
     @PatchMapping()
-    public Facility updateFacility(Facility facility) {
-        return dao.update(facility);
-    }
-
-    @PatchMapping("/upsert")
-    public Facility upsertFacility(Facility facility) {
-        return dao.upsert(facility);
+    public Facility updateFacility(@RequestBody String json) {
+        return dao.update((Facility) parser.parse(json,Facility.class));
     }
 
     @DeleteMapping("/{id}")

@@ -10,8 +10,10 @@
 package cloudserver.api.controllers;
 
 import cloudserver.model.daos.MedicineDAO;
+import cloudserver.model.entities.Client;
 import cloudserver.model.entities.Meal;
 import cloudserver.model.entities.Medicine;
+import cloudserver.model.jsonparsers.ParserJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +26,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/medicines")
 public class MedicineRestController {
 
-    private MedicineDAO dao;
+    final private MedicineDAO dao;
+    final private ParserJSON parser;
 
     @Autowired
-    public MedicineRestController(@Qualifier("medicineDAO") MedicineDAO dao) {
+    public MedicineRestController(@Qualifier("medicineDAO") MedicineDAO dao,
+                                  @Qualifier("JSONParser") ParserJSON parser) {
         this.dao = dao;
+        this.parser = parser;
     }
 
     @PostMapping()
-    public Medicine saveMedicine(Medicine medicine) {
-        return dao.create(medicine);
+    public Medicine saveMedicine(@RequestBody String json) {
+        return dao.create((Medicine) parser.parse(json,Medicine.class));
     }
 
     @GetMapping("/{id}")
@@ -55,13 +60,8 @@ public class MedicineRestController {
     }
 
     @PatchMapping()
-    public Medicine updateMedicine(Medicine medicine) {
-        return dao.update(medicine);
-    }
-
-    @PatchMapping("/upsert")
-    public Medicine upsertMedicine(Medicine medicine) {
-        return dao.upsert(medicine);
+    public Medicine updateMedicine(@RequestBody String json) {
+        return dao.update((Medicine) parser.parse(json,Medicine.class));
     }
 
     @DeleteMapping("/{id}")

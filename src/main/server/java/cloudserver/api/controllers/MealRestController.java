@@ -10,7 +10,9 @@
 package cloudserver.api.controllers;
 
 import cloudserver.model.daos.MealDAO;
+import cloudserver.model.entities.Client;
 import cloudserver.model.entities.Meal;
+import cloudserver.model.jsonparsers.ParserJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -23,16 +25,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/meals")
 public class MealRestController {
 
-    private MealDAO dao;
+    final private MealDAO dao;
+    final private ParserJSON parser;
 
     @Autowired
-    public MealRestController(@Qualifier("mealDAO") MealDAO dao) {
+    public MealRestController(@Qualifier("mealDAO") MealDAO dao,
+                              @Qualifier("JSONParser") ParserJSON parser) {
         this.dao = dao;
+        this.parser = parser;
     }
 
     @PostMapping()
-    public Meal saveMeal(Meal meal) {
-        return dao.create(meal);
+    public Meal saveMeal(@RequestBody String json) {
+        return dao.create((Meal) parser.parse(json,Meal.class));
     }
 
     @GetMapping("/{id}")
@@ -55,13 +60,8 @@ public class MealRestController {
     }
 
     @PatchMapping()
-    public Meal updateMeal(Meal meal) {
-        return dao.update(meal);
-    }
-
-    @PatchMapping("/upsert")
-    public Meal upsertMeal(Meal meal) {
-        return dao.upsert(meal);
+    public Meal updateMeal(@RequestBody String json) {
+        return dao.update((Meal) parser.parse(json,Meal.class));
     }
 
     @DeleteMapping("/{id}")

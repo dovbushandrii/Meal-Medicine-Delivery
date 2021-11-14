@@ -11,6 +11,7 @@ package cloudserver.api.controllers;
 
 import cloudserver.model.daos.ClientDAO;
 import cloudserver.model.entities.Client;
+import cloudserver.model.jsonparsers.ParserJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +25,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/clients")
 public class ClientRestController {
 
-    private ClientDAO dao;
+    final private ClientDAO dao;
+    final private ParserJSON parser;
 
     @Autowired
-    public ClientRestController(@Qualifier("clientDAO") ClientDAO dao) {
+    public ClientRestController(@Qualifier("clientDAO") ClientDAO dao,
+                                @Qualifier("JSONParser") ParserJSON parser) {
         this.dao = dao;
+        this.parser = parser;
     }
 
     @PostMapping()
-    public Client saveClient(Client client) {
-        return dao.create(client);
+    public Client saveClient(@RequestBody String json) {
+        return dao.create((Client) parser.parse(json,Client.class));
     }
 
     @GetMapping("/{id}")
@@ -55,13 +59,8 @@ public class ClientRestController {
     }
 
     @PatchMapping()
-    public Client updateClient(Client client) {
-        return dao.update(client);
-    }
-
-    @PatchMapping("/upsert")
-    public Client upsertClient(Client client) {
-        return dao.upsert(client);
+    public Client updateClient(@RequestBody String json) {
+        return dao.update((Client) parser.parse(json,Client.class));
     }
 
     @DeleteMapping("/{id}")

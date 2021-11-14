@@ -10,8 +10,10 @@
 package cloudserver.api.controllers;
 
 import cloudserver.model.daos.OrderDAO;
+import cloudserver.model.entities.Client;
 import cloudserver.model.entities.Medicine;
 import cloudserver.model.entities.SystemOrder;
+import cloudserver.model.jsonparsers.ParserJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +26,19 @@ import java.util.stream.Collectors;
 @RequestMapping("/orders")
 public class OrderRestController {
 
-    private OrderDAO dao;
+    final private OrderDAO dao;
+    final private ParserJSON parser;
 
     @Autowired
-    public OrderRestController(@Qualifier("orderDAO") OrderDAO dao) {
+    public OrderRestController(@Qualifier("orderDAO") OrderDAO dao,
+                               @Qualifier("JSONParser") ParserJSON parser) {
         this.dao = dao;
+        this.parser = parser;
     }
 
     @PostMapping()
-    public SystemOrder saveOrder(SystemOrder systemOrder) {
-        return dao.create(systemOrder);
+    public SystemOrder saveOrder(@RequestBody String json) {
+        return dao.create((SystemOrder) parser.parse(json,SystemOrder.class));
     }
 
     @GetMapping("/{id}")
@@ -55,13 +60,8 @@ public class OrderRestController {
     }
 
     @PatchMapping()
-    public SystemOrder updateOrder(SystemOrder systemOrder) {
-        return dao.update(systemOrder);
-    }
-
-    @PatchMapping("/upsert")
-    public SystemOrder upsertOrder(SystemOrder systemOrder) {
-        return dao.upsert(systemOrder);
+    public SystemOrder updateOrder(@RequestBody String json) {
+        return dao.update((SystemOrder) parser.parse(json,SystemOrder.class));
     }
 
     @DeleteMapping("/{id}")
