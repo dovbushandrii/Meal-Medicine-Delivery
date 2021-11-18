@@ -107,5 +107,6 @@ public slots:
     void finishedWaiting();
     void openOrder(long);
     void changeSize();
+    void welcomeScreen();
 };
 #endif // MAINWINDOW_H

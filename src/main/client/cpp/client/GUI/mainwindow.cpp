@@ -10,6 +10,7 @@
 #include "welcomewindow.h"
 #include "waitingscreen.h"
 #include "orderpreviewwindow.h"
+#include "loginscreen.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -69,7 +70,8 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     layoutMiddle->setContentsMargins(DEFAULT_SPACE, DEFAULT_SPACE, 0, DEFAULT_SPACE);
     layoutMiddle->setAlignment(Qt::AlignRight);
 
-    layoutMiddle->addWidget(current = new WelcomeWindow(this));
+    //layoutMiddle->addWidget(current = new WelcomeWindow(this));
+    layoutMiddle->addWidget(current = new LoginScreen(this));
     layoutMiddle->addWidget(menu);
 
     QTimer *timer = new QTimer(this);
@@ -143,6 +145,10 @@ void MainWindow::finishedWaiting()
 void MainWindow::openOrder(long orderID)
 {
     replaceWidget(new OrderWindow(this, 0, 0, MEDICINE, EDIT));
+}
+
+void MainWindow::welcomeScreen() {
+    replaceWidget(new WelcomeWindow(this));
 }
 
 void MainWindow::openSettings()

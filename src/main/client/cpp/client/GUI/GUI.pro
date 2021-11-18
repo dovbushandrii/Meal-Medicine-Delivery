@@ -13,6 +13,7 @@ SOURCES += \
     infopanelicons.cpp \
     itemtab.cpp \
     itemwindow.cpp \
+    loginscreen.cpp \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     infopanelicons.h \
     itemtab.h \
     itemwindow.h \
+    loginscreen.h \
     mainwindow.h \
     menu.h \
     movingbar.h \
