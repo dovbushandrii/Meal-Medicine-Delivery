@@ -25,15 +25,18 @@ private:
     QLineEdit *user_name;
     QLineEdit *password;
     QPushButton *login;
+    QLabel *err_msg;
 
 
 public slots:
 
     void SizeChanged(QSize);
+    void LoginChecked();
 
 signals:
 
     void NameChanged(QString);
+    void LoginSucces();
 
 };
 
