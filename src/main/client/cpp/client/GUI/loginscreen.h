@@ -33,6 +33,7 @@ public slots:
     void SizeChanged(QSize);
     void LoginChecked();
 
+
 signals:
 
     void NameChanged(QString);

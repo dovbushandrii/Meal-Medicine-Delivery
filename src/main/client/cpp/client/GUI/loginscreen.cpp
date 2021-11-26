@@ -14,7 +14,7 @@ LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
     center = new QHBoxLayout(this);
     box = new QVBoxLayout();
 
-    QFont lineFont("Arial", 16);
+    QFont lineFont("Arial", 18);
     QFont buttonFont("Arial Black", 16);
 
     user_name = new QLineEdit();
@@ -74,15 +74,15 @@ LoginScreen::~LoginScreen(){
 
 }
 
+
 void LoginScreen::LoginChecked() {
-    QThread::msleep(500);
-    if (QString::compare(user_name->text(), "login") && QString::compare(password->text(), "heslo")) {
-        err_msg->show();
-    }
-    else {
+   /* QThread::msleep(500);
+    if (user_name->text() == "login" && password->text() == "heslo") {
         err_msg->hide();
         emit LoginSucces();
     }
+    else err_msg->show();*/
+    emit LoginSucces();
 }
 
 void LoginScreen::SizeChanged(QSize size) {

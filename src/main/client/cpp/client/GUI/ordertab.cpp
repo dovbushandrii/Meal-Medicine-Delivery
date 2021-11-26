@@ -44,34 +44,34 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type,
         picture->setStyleSheet("* {image: url(../imgs/medicine_default.png);}");
 
     description = new QLabel(this);
-    description->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setMinimumWidth(2 * TITLE_WIDTH);
 
     price = new QLabel(this);
-    price->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
 
     totalPrice = new QLabel(this);
-    totalPrice->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
 
     amount = new QLabel(QString::fromStdString(std::to_string(initialAmount)), this);
-    amount->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black;}");
+    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
 
     minus = new QPushButton("-",this);
     minus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    minus->setStyleSheet("*{border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    minus->setStyleSheet("*{font-size: 13pt; border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(minus, SIGNAL(clicked()), this, SLOT(minusClicked()));
 
     plus = new QPushButton("+", this);
     plus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    plus->setStyleSheet("*{border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    plus->setStyleSheet("*{font-size: 13pt; border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(plus, SIGNAL(clicked()), this, SLOT(plusClicked()));
 
     cancel = new QPushButton("X",this);
     cancel->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    cancel->setStyleSheet("*{border-radius: 10px; color: red; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    cancel->setStyleSheet("*{font-size: 13pt; border-radius: 10px; color: red; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
 
     QHBoxLayout *layout = new QHBoxLayout(this);

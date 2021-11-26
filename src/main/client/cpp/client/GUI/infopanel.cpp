@@ -20,7 +20,7 @@ InfoPanel::InfoPanel(QWidget *parent, long id) : QWidget(parent)
     mainPanel = new QWidget(parent);
     supportPanel = new QLabel("Telefónne číslo na podporu\nxxxx xxx xxx", this);
     mainPanel->setStyleSheet(".QWidget {border: 2px solid black; border-radius: 10px; background-color: rgba(20,20,20,120);}");
-    supportPanel->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 12pt; color: black; border: 2px solid black; border-radius: 10px; background-color: rgba(20,20,20,120);}");
+    supportPanel->setStyleSheet("* {font : 'Arial'; qproperty-alignment: AlignCenter; font-size: 12.5pt; color: black; border: 2px solid black; border-radius: 10px; background-color: rgba(20,20,20,120);}");
 
     layoutMiddle = new QVBoxLayout(mainPanel);
     layoutMiddle->setSpacing(0);
@@ -29,12 +29,12 @@ InfoPanel::InfoPanel(QWidget *parent, long id) : QWidget(parent)
 
     personalDetails = new QLabel(QString::fromStdString("Osobné údaje"), this);
     personalDetails->setFixedSize(INFO_PANEL_WIDTH - TITLE_WIDTH, TITLE_HEIGHT / 2);
-    personalDetails->setStyleSheet("* {font: bold italic underline \"Times New Roman\"; qproperty-alignment: AlignCenter; font-size: 12pt;background-color: rgba(0,0,0,0);}");
+    personalDetails->setStyleSheet("* {font: bold italic underline \"Times New Roman\"; qproperty-alignment: AlignCenter; font-size: 14pt;background-color: rgba(0,0,0,0);}");
 
     hideButton = new QPushButton(this);
     hideButton->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
     hideButton->setStyleSheet(
-                "* {font-size: 9.2pt; color: black; background-color: rgba(0,255,0,180); image: url(../imgs/return_mirrored_transparent.png);} \
+                "* {font-size: 11pt; color: black; background-color: rgba(0,255,0,180); image: url(../imgs/return_mirrored_transparent.png);} \
                 *::hover {border: 1.5px solid black; color: white; background-color: rgba(0,155,0,220);}");
     QObject::connect(hideButton, SIGNAL(clicked()), this, SLOT(openIcons()));
 

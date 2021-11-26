@@ -32,7 +32,7 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID, ItemTyp
     mainWidget->setStyleSheet("*{background-color: transparent}");
 
     totalPrice = new QLabel(this);
-    totalPrice->setStyleSheet("* {font-size: 12pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,60);}");
+    totalPrice->setStyleSheet("* {font : 'Arial'; font-size: 12pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,60);}");
     totalPrice->setFixedSize(TAB_WIDTH, TITLE_HEIGHT);
 
     tabs = new QWidget(this);
@@ -48,7 +48,7 @@ OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID, ItemTyp
 
     order->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
     order->setStyleSheet(
-                             "* {font-size: 9.2pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,80);} \
+                             "* {font : 'Arial'; font-size: 13pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,80);} \
                              *::hover {border: solid black 2px; background-color: rgba(0,0,0,120);}");
 
     QObject::connect(order, SIGNAL(clicked()), this, SLOT(confirmOrder()));

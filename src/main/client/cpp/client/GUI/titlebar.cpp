@@ -27,14 +27,14 @@ TitleBar::TitleBar(QWidget *parent, QApplication *app) : QWidget(parent)
     minimize->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     close->setStyleSheet(
-                        "* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(200,0,0,180); image: url(../imgs/close_transparent.png);} \
+                        "* {font: bold 'Arial Black'; font-size: 11pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(200,0,0,180); image: url(../imgs/close_transparent.png);} \
                         *::hover {border: 1.5px solid black; color: white; background-color: rgba(100,0,0,220);}");
     maximize->setStyleSheet(
-                        "* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,200,0,180); image: url(../imgs/maximize_transparent.png);} \
+                        "* {font: bold 'Arial Black'; font-size: 11pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,200,0,180); image: url(../imgs/maximize_transparent.png);} \
                         *::hover {border: 1.5px solid black; color: white; background-color: rgba(0,100,0,220);}");
     minimize->setStyleSheet(
-                        "* {font-size: 10pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,0,200,180); image: url(../imgs/minimize_transparent.png);} \
-                        *::hover {border: 1.5px solid black; color: white; background-color: rgba(0,0,100,220);}");
+                        "* {font: bold 'Arial Black'; font-size: 11pt; color: black; border-bottom-left-radius: 10px; background-color: rgba(0,0,200,180); image: url(../imgs/minimize_transparent.png);} \
+                        *::hover {border: 1.5px solid black; color: white; background-color: rgba(0,0,60,220);}");
 
     QGraphicsBlurEffect *blur_close = new QGraphicsBlurEffect;
     blur_close->setBlurRadius(1.5);

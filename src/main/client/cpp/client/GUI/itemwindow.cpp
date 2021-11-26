@@ -42,9 +42,9 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type) : QWidge
 
     totalOrder = 0;
     order = new QPushButton("Prehľad objednávky", this);
-    order->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
+    order->setFixedSize(2 * TITLE_WIDTH+70, TITLE_HEIGHT);
     order->setStyleSheet(
-                             "* {font-size: 9.2pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,80);} \
+                             "* {font : 'Arial'; font-size: 12.5pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,80);} \
                              *::hover {border: solid black 2px; background-color: rgba(0,0,0,120);}");
 
     QObject::connect(order, SIGNAL(clicked()), this, SLOT(makeOrder()));

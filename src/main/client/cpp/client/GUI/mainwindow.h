@@ -18,7 +18,7 @@
 #include <QDesktopWidget>
 #include <vector>
 
-#define TITLE_HEIGHT 50
+#define TITLE_HEIGHT 60
 #define TITLE_WIDTH 70
 #define RATIO 0.8
 #define TAB_WIDTH 400

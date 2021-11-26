@@ -35,7 +35,7 @@ MovingBar::MovingBar(QWidget *parent) : QWidget(parent)
     blur->setBlurRadius(1.5);
     label->setGraphicsEffect(blur);
     label->setStyleSheet(
-                "*{font-size: 16pt; color: black; qproperty-alignment: AlignCenter; border-bottom-left-radius: 30px; background-color: rgba(97,63,135,180); background-image: url(../imgs/dots_transparent.png) no-repeat center center fixed;} \
+                "*{font : bold 'Arial'; font-size: 18pt; color: black; qproperty-alignment: AlignCenter; border-bottom-left-radius: 30px; background-color: rgba(97,63,135,180); background-image: url(../imgs/dots_transparent.png) no-repeat center center fixed;} \
                 *::hover {border: 1.5px solid black; color: white; background-color: rgba(67,33,105,210);}");
 
     layout->addWidget(label);

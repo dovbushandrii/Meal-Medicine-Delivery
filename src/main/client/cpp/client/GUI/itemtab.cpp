@@ -32,29 +32,29 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, long mealID, ItemType type) :
     picture->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     description = new QLabel(this);
-    description->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setFixedWidth(TAB_WIDTH);
 
     weight = new QLabel(this);
-    weight->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    weight->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     weight->setFixedWidth(TAB_WIDTH);
 
     price = new QLabel(this);
-    price->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black; background-color: rgba(0,0,0,40)}");
+    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setFixedWidth(TAB_WIDTH);
 
     amount = new QLabel(this);
-    amount->setStyleSheet("* {border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 9.2pt; color: black;}");
+    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
 
     minus = new QPushButton("-",this);
     minus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    minus->setStyleSheet("*{border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    minus->setStyleSheet("*{font-size: 13pt; border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(minus, SIGNAL(clicked()), this, SLOT(minusClicked()));
 
     plus = new QPushButton("+", this);
     plus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    plus->setStyleSheet("*{border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+    plus->setStyleSheet("*{font-size: 13pt; border-radius: 10px; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
     QObject::connect(plus, SIGNAL(clicked()), this, SLOT(plusClicked()));
 
     layoutAmount = new QHBoxLayout();
