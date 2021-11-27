@@ -56,6 +56,9 @@ public:
 	long getId() {
 		return this->id;
 	}
+	void setId(long id) {
+		this->id = id;
+	}
 
 	tm getDateAndTime() {
 		return this->dateAndTime;
@@ -78,7 +81,7 @@ public:
 	}
 
 	Client getClient() {
-		return this->getClient;
+		return this->client;
 	}
 	void setClient(Client client) {
 		this->client = client;

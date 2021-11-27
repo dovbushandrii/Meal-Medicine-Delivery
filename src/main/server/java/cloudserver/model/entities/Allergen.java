@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
-public class Alergen {
+public class Allergen {
     @Id
     @GeneratedValue
     private Long id;

@@ -11,10 +11,11 @@ package cloudserver.model.entities;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.List;
 
 @Data
 @Entity
@@ -23,17 +24,11 @@ public class Medicine {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    private Facility facility;
-
     @NotNull
     private String description;
 
     @PositiveOrZero
     private Double price;
-
-    @ManyToMany
-    private List<SystemOrder> systemOrders;
 
     private String image;
 }

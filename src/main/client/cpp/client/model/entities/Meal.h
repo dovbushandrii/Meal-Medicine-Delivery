@@ -32,16 +32,21 @@ public:
 	Meal(long id,
 		std::string description,
 		double price,
-		unsigned weight) {
+		unsigned weight,
+		std::string image) {
 
 		this->id = id;
 		this->description = description;
 		this->price = price;
 		this->weight = weight;
+		this->image = image;
 	}
 
 	long getId() {
 		return this->id;
+	}
+	void setId(long id) {
+		this->id = id;
 	}
 
 	std::string getDescription() {
@@ -71,7 +76,6 @@ public:
 	void setImage(std::string image) {
 		this->image = image;
 	}
-
 };
 
 #endif // !_MEAL_H_

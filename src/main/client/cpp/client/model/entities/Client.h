@@ -12,7 +12,7 @@
 
 #include <string>
 #include <vector>
-#include "Alergen.h"
+#include "Allergen.h"
 
 class Client {
 
@@ -29,29 +29,33 @@ class Client {
 
 	std::string email;
 
-	std::vector<Alergen> alergens;
+	std::vector<Allergen> allergens;
 
 public:
 
 	Client() {}
 
-	Client(	long getId();
+	Client(	long id,
 	        std::string name,
 			std::string surname,
 			std::string phoneNumber,
 			std::string email,
-			std::string password,
-			std::vector<Alergen> alergens) {
+			std::vector<Allergen> alergens) {
 
+		this->id = id;
 		this->name = name;
 		this->surname = surname;
 		this->phoneNumber = phoneNumber;
 		this->email = email;
-		this->password = password;
-		this->alergens = alergens;
+		this->allergens = allergens;
 	}
 
-    long getId();
+	long getId() {
+		return this->id;
+	}
+	void setId(long id) {
+		this->id = id;
+	}
 
 	std::string getName() {
 		return this->name;
@@ -61,7 +65,7 @@ public:
 	}
 
 	std::string getSurname() {
-		return this->surname
+		return this->surname;
 	}
 	void setSurname(std::string surname) {
 		this->surname = surname;
@@ -81,11 +85,11 @@ public:
 		this->email = email;
 	}
 
-	std::vector<Alergen> getAlergens() {
-		return this->alergens;
+	std::vector<Allergen> getAllergens() {
+		return this->allergens;
 	}
-	void setAlergens(std::vector<Alergen> alergens) {
-		this->alergens = alergens;
+	void setAllergens(std::vector<Allergen> alergens) {
+		this->allergens = alergens;
 	}
 };
 

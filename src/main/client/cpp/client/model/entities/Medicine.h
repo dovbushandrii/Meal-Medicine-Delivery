@@ -38,6 +38,9 @@ public:
 	long getId() {
 		return this->id;
 	}
+	void setId(long id) {
+		this->id = id;
+	}
 
 	std::string getDescription() {
 		return this->description;

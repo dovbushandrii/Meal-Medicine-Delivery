@@ -43,5 +43,5 @@ public class Client {
     private List<SystemOrder> systemOrders;
 
     @ManyToMany
-    private List<Alergen> alergens;
+    private List<Allergen> allergens;
 }

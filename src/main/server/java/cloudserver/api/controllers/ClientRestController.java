@@ -37,7 +37,8 @@ public class ClientRestController {
 
     @PostMapping()
     public Client saveClient(@RequestBody String json) {
-        return dao.create((Client) parser.parse(json,Client.class));
+        System.out.println(json);
+        return dao.create((Client) parser.parse(json, Client.class));
     }
 
     @GetMapping("/{id}")
@@ -55,12 +56,13 @@ public class ClientRestController {
                     .limit(limit.get())
                     .collect(Collectors.toList());
         }
+
         return clients;
     }
 
     @PatchMapping()
     public Client updateClient(@RequestBody String json) {
-        return dao.update((Client) parser.parse(json,Client.class));
+        return dao.update((Client) parser.parse(json, Client.class));
     }
 
     @DeleteMapping("/{id}")

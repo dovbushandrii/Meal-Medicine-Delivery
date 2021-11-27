@@ -1,0 +1,14 @@
+#ifndef _HTTP_METHOD_H
+#define _HTTP_METHOD_H
+
+enum HTTPMethod
+{
+	HTTP_GET,
+	HTTP_POST,
+	HTTP_PUT,
+	HTTP_PATCH,
+	HTTP_DELETE
+};
+
+
+#endif // !_HTTP_METHOD_H
