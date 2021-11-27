@@ -24,6 +24,7 @@ SOURCES += \
     ordertab.cpp \
     orderwindow.cpp \
     personaldata.cpp \
+    popup.cpp \
     returnbar.cpp \
     settings.cpp \
     settingsbutton.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     ordertab.h \
     orderwindow.h \
     personaldata.h \
+    popup.h \
     returnbar.h \
     settings.h \
     settingsbutton.h \

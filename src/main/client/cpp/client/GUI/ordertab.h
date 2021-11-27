@@ -47,6 +47,7 @@ signals:
 
 public slots:
     void sizeChanged(QSize);
+    void CreatePopup();
 
 private slots:
     void minusClicked();

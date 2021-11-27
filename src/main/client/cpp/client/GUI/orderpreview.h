@@ -33,6 +33,7 @@ signals:
 private slots:
     void deleteOrderItem();
     void openOrder();
+    void CreatePopup();
 };
 
 #endif // ORDERPREVIEW_H

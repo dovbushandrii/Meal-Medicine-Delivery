@@ -4,6 +4,7 @@
  * @brief This file contains implementation of class OrderTab
  */
 #include "ordertab.h"
+#include "popup.h"
 
 #include "../model/daos/MealDAO.h"
 #include "../model/daos/MedicineDAO.h"
@@ -12,6 +13,7 @@
 
 #include <QStyleOption>
 #include <QPainter>
+#include <QDebug>
 
 OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type, int initialAmount) : QWidget(parent)
 {
@@ -72,7 +74,8 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type,
     cancel = new QPushButton("X",this);
     cancel->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
     cancel->setStyleSheet("*{font-size: 13pt; border-radius: 10px; color: red; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
-    QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
+    QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(CreatePopup()));
+    //QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
 
     QHBoxLayout *layout = new QHBoxLayout(this);
     QVBoxLayout *layoutRight = new QVBoxLayout();
@@ -103,6 +106,11 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type,
 OrderTab::~OrderTab()
 {
 
+}
+
+void OrderTab::CreatePopup() {
+    Popup *check = new Popup(this);
+    check->show();
 }
 
 void OrderTab::paintEvent(QPaintEvent *)

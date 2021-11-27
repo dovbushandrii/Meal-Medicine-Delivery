@@ -5,6 +5,7 @@
  */
 #include "orderpreview.h"
 #include "mainwindow.h"
+#include "popup.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -28,7 +29,9 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
     cancel = new QPushButton("X",this);
     cancel->setFixedSize(TITLE_HEIGHT, TITLE_HEIGHT);
     cancel->setStyleSheet("*{font-size: 13pt; border-radius: 10px; color: red; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
-    QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
+    QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(CreatePopup()));
+    //QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
+
 
     description = new QPushButton(this);
     description->setStyleSheet("*{font : 'Arial'; border-radius: 10px; font-size: 13pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
@@ -59,6 +62,11 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
 OrderPreview::~OrderPreview()
 {
 
+}
+
+void OrderPreview::CreatePopup() {
+    Popup *check = new Popup(this);
+    check->show();
 }
 
 void OrderPreview::deleteOrderItem()
