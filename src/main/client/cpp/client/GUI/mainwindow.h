@@ -49,7 +49,7 @@ private:
     QPoint resizeStart;
     QSize size;
     QVBoxLayout *layoutMain;
-    QHBoxLayout *layoutMiddle;
+    QHBoxLayout *layoutMiddle;  // layout where widgets are switched
     QLabel *resize_label;
     QDesktopWidget desktop;
     QRect screen;
@@ -57,17 +57,17 @@ private:
     QWidget *menu;
     Title *title;
     QWidget *settings;
-    QWidget *current;
+    QWidget *current;       // currently displayed widget
 
     // for steps back
-    std::vector<QWidget *> past;
+    std::vector<QWidget *> past;    // widgets displayed in the past used for Back button action
 
-    long facilityID;
+    long facilityID;        // ID of currently used facility
 
     void setScreenSize(bool);
     void resizeWidgets();
     bool canResize();
-    void replaceWidget(QWidget *);
+    void replaceWidget(QWidget *);  // for replacing currently displayed widget
 
     void mousePressEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
@@ -88,16 +88,19 @@ signals:
     void updateClientData_s(long);
     // for changing name of window
     void changeName_s(QString);
-
+    // this should be used in async waiting
     void start_s();
 
 public slots:
+    // to got fullscreen
     void fullScreen();
     void stepBack();
     void moveWindow(QPair<int, int>);
     void openSettings();
     void toggleDescriptions();
+    // if widgets want to change Name should call this SLOT
     void changeName(QString);
+    // internal SIGNALS for communication of next widget
     void orderFood();
     void orderMedicine();
     void previewOrders();

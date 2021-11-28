@@ -20,6 +20,7 @@ public:
 private:
     QPushButton *label;
 
+    // custom override for transparency
     void paintEvent(QPaintEvent *);
 
 private slots:

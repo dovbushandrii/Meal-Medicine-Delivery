@@ -33,7 +33,9 @@ private:
     QWidget *tabs;
     QPushButton *order;
     QLabel *totalPreview;
-    std::vector<ItemTab *> foodTabs;
+    std::vector<ItemTab *> foodTabs;    // vector of items currently displayed
+
+    // custom override for transparency
     void paintEvent(QPaintEvent *);
 
     int totalOrder;

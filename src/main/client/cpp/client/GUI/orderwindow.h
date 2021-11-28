@@ -36,9 +36,12 @@ private:
     QWidget *tabs;
     QPushButton *order;
     QLabel *totalPrice;
-    std::vector<OrderTab *> orderTabs;
+    std::vector<OrderTab *> orderTabs;  // vector of displayed items in order
+
+    // custom override for transparency
     void paintEvent(QPaintEvent *);
 
+    // for rearrangment of widgets in scroll area
     void updateAll();
 
 signals:

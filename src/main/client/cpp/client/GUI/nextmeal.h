@@ -29,6 +29,7 @@ private:
 
     QVBoxLayout *layout;
 
+    // custom override for transparency
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);

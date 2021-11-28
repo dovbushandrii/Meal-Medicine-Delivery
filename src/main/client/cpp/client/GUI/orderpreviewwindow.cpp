@@ -74,6 +74,7 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
 
     layoutMain->addWidget(scrollArea);
 
+    // TODO create order widgets with their respective IDs
     // fill orders
     // for testing purposes only
     for (int i = 0; i < 5; i++)

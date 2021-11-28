@@ -22,6 +22,7 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
     QObject::connect(this, SIGNAL(deleteOrderItem_s(OrderPreview *)), parent, SLOT(deleteOrderItem(OrderPreview *)));
     QObject::connect(this, SIGNAL(openOrder_s(long)), parent, SLOT(openOrder(long)));
 
+    // TODO change name according to the orderID
     date = new QLabel(this);
     date->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignLeft; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     date->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
@@ -33,11 +34,13 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
     //QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
 
 
+    // TODO change name according to the orderID
     description = new QPushButton(this);
     description->setStyleSheet("*{font : 'Arial'; border-radius: 10px; font-size: 13pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
     description->setFixedSize(2 * TITLE_WIDTH + AMOUNT_WIDTH + DEFAULT_SPACE, 3 * TITLE_HEIGHT);
     QObject::connect(description, SIGNAL(clicked()), this, SLOT(openOrder()));
 
+    // TODO change name according to the orderID
     totalPrice = new QLabel(this);
     totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignLeft; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setFixedSize(2 * TITLE_WIDTH + AMOUNT_WIDTH + DEFAULT_SPACE, TITLE_HEIGHT);

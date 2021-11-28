@@ -106,6 +106,7 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type) : QWidge
 
     // fill foodTabs
     // for testing purposes only
+    // TODO create ItemTabs and send them proper parameters of IDs
     for (int i = 0; i < 5; i++)
     {
         foodTabs.push_back(new ItemTab(this, facilityID, 0, type));
@@ -132,7 +133,7 @@ void ItemWindow::sizeChanged(QSize size)
     for (auto widget : foodTabs)
         layout->removeWidget(widget);
 
-    // +4 @width for offsetting the borders and scrollbar
+    // +4 @width for off-setting the borders and scrollbar
     setFixedSize(size.width() + 4, size.height());
     mainWidget->setFixedSize(size.width() + 4, size.height());
     order->setContentsMargins(width(), height() - TITLE_HEIGHT, 0, 0);
@@ -174,7 +175,7 @@ void ItemWindow::updateFacility(long new_id)
     foodTabs.clear();
 
     MealDAO mealDAO;
-    // TODO this
+    // TODO get new Items
     std::vector<Meal> meals;// = mealDAO.readMeals();
 
     for (int i = 0; i < meals.size(); i++)
@@ -183,6 +184,7 @@ void ItemWindow::updateFacility(long new_id)
     }
 
     // for testing purposes only
+    // TODO remove this when mealDAO works
     for (int i = 0; i < 5; i++)
     {
         foodTabs.push_back(new ItemTab(this, facilityID, 0, type));
@@ -193,6 +195,7 @@ void ItemWindow::updateFacility(long new_id)
 
 void ItemWindow::makeOrder()
 {
+    // TODO
 //    std::vector<Order> meals;
 //    for (auto meal : foodTabs)
 //    {

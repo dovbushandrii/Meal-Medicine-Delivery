@@ -52,7 +52,7 @@ public slots:
 private slots:
     void minusClicked();
     void plusClicked();
-    void deleteOrderItem();
+    void deleteOrderItem(); // to remove item from order
 
 };
 

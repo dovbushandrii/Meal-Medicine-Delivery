@@ -28,6 +28,7 @@ private:
     QLabel *name_label;
 
 signals:
+    // forward signals from buttons to mainwindow
     void showMinimized_s();
     void fullScreen_s();
     void moveWindow_s(QPair<int, int>);

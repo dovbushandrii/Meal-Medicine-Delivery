@@ -78,6 +78,7 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, long mealID, ItemType type) :
     layout->addWidget(price);
     layout->addLayout(layoutAmount);
 
+    // TODO get info about food
     //    MealDAO mealDAO;
     //    Meal meal = mealDAO.readMeal(mealID);
     Meal meal;

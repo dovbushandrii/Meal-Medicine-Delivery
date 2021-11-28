@@ -53,6 +53,7 @@ public slots:
     void updateClientData(long);
     void updateTime();
 
+// toggling between icons and infopanel
 private slots:
     void openIcons();
 };

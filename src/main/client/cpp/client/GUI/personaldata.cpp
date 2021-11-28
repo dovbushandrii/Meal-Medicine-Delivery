@@ -40,6 +40,7 @@ PersonalData::~PersonalData()
 
 void PersonalData::updateClientData(long id)
 {
+    // TODO update this appropriatelly
     ClientDAO clientDAO;
     client = clientDAO.readClient(id);
     name->setText(QString::fromStdString("Meno: " + client.getName() + "\nPriezvisko: " + client.getSurname()));

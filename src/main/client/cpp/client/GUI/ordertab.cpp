@@ -21,7 +21,7 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type,
     this->itemID = itemID;
     this->type = type;
 
-    // TODO
+    // TODO according to type decide which one to use and set values
 //    MealDAO mealDAO;
 //    MedicineDAO medicineDAO;
 //    Meal meal = mealDAO.readMeal(itemID);
@@ -40,23 +40,28 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type,
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
     picture->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
+    // TODO change accordingly to the ID
     if (type == MEAL)
         picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
     else
         picture->setStyleSheet("* {image: url(../imgs/medicine_default.png);}");
 
+    // TODO change accordingly to the ID
     description = new QLabel(this);
     description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setMinimumWidth(2 * TITLE_WIDTH);
 
+    // TODO change accordingly to the ID
     price = new QLabel(this);
     price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
 
+    // TODO change accordingly to the ID
     totalPrice = new QLabel(this);
     totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
 
+    // TODO change accordingly to the ID
     amount = new QLabel(QString::fromStdString(std::to_string(initialAmount)), this);
     amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);

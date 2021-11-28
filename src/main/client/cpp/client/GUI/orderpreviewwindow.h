@@ -29,8 +29,12 @@ private:
     QScrollArea *scrollArea;
     QWidget *tabs;
 
-    std::vector<OrderPreview *> orders;
+    std::vector<OrderPreview *> orders; // vector of all current orders
+
+    // custom override for transparency
     void paintEvent(QPaintEvent *);
+
+    // for rearrangment of currently displayed widgets
     void updateAll();
 
 signals:
@@ -42,7 +46,7 @@ signals:
 public slots:
     void sizeChanged(QSize);
     void openOrder(long);
-    void deleteOrderItem(OrderPreview *);
+    void deleteOrderItem(OrderPreview *);   // to delete order from orders
 };
 
 #endif // ORDERPREVIEWWINDOW_H

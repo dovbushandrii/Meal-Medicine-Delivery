@@ -25,6 +25,7 @@ private:
     QPushButton *ordersWindow;
     QPushButton *medicineSchedule;
 
+    // custom override for transparency
     void paintEvent(QPaintEvent *);
 
 signals:

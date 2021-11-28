@@ -19,6 +19,8 @@ public:
 private:
     QPushButton *back_button;
 
+// signal signalizing button push is directly in .cpp
+
 public slots:
     void toggleDescription();
 };

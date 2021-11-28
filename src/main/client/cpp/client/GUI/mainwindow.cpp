@@ -29,7 +29,7 @@ void MainWindow::resizeWidgets()
 
     emit sizeChangedTitle_s(QSize(width(), TITLE_HEIGHT));
 
-    // signal to let other widgets know their new available space
+    // signal to let other widgets know their new available space, checks whether infopanel is visible
     if (dynamic_cast<Menu *>(menu)->isInfoPanel())
         emit sizeChanged_s(QSize(width() - (INFO_PANEL_WIDTH + 3 * DEFAULT_SPACE), height() - (2 * TITLE_HEIGHT)));
     else
@@ -71,9 +71,13 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     layoutMiddle->setAlignment(Qt::AlignRight);
 
     //layoutMiddle->addWidget(current = new WelcomeWindow(this));
+
+    // sets current widget to LoginScreen()
     layoutMiddle->addWidget(current = new LoginScreen(this));
+    // buttons with menu
     layoutMiddle->addWidget(menu);
 
+    // timer for widgets to listen to
     QTimer *timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), menu, SLOT(updateTime()));
     timer->start(1000);
@@ -90,6 +94,8 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 
     // function for custom recalculation of items
     setScreenSize();
+
+    // move window to the middle of screen
     move(
         ((width() / RATIO) - width()) / 2,
         ((height() / RATIO) - height()) / 2);
@@ -106,21 +112,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::orderFood()
 {
+    // switch widget to order screen of meal by welcome screen
     replaceWidget(new ItemWindow(this, 0, MEAL));
 }
 
 void MainWindow::orderMedicine()
 {
+    // switch widget to order screen of medicine by welcome screen
     replaceWidget(new ItemWindow(this, 0, MEDICINE));
 }
 
 void MainWindow::previewOrders()
 {
+    // switch widget to order previews by welcome screen
     replaceWidget(new OrderPreviewWindow(this, 0));
 }
 
 void MainWindow::previewMedicines()
 {
+    // temporary
     menu->hide();
     replaceWidget(new WaitingScreen(this, "testing"));
     emit start_s();
@@ -128,31 +138,38 @@ void MainWindow::previewMedicines()
 
 void MainWindow::makeOrder(long orderID, ItemType type)
 {
+    // we have preview of order, before we go to the confirmation window
     replaceWidget(new OrderWindow(this, 0, 0, type));
 }
 
 void MainWindow::confirmOrder(long orderID)
 {
+    // we have confirmed the order, back to welcome screen probably
     replaceWidget(new WelcomeWindow(this));
 }
 
 void MainWindow::finishedWaiting()
 {
+    // temporary
     menu->show();
     replaceWidget(new WelcomeWindow(this));
 }
 
 void MainWindow::openOrder(long orderID)
 {
+    // to change order
     replaceWidget(new OrderWindow(this, 0, 0, MEDICINE, EDIT));
 }
 
-void MainWindow::welcomeScreen() {
+void MainWindow::welcomeScreen()
+{
+    // to display welcome screen
     replaceWidget(new WelcomeWindow(this));
 }
 
 void MainWindow::openSettings()
 {
+    // toggle settings visibility
     if (settings->isVisible())
         settings->hide();
     else
@@ -171,7 +188,7 @@ void MainWindow::changeName(QString widget_name)
 
 bool MainWindow::canResize()
 {
-    // bottom right corner of window
+    // bottom right corner of window where visible dragging "button" is
     resizeStart = QCursor::pos();
     if (resizeStart.x() < pos().x() + width() - RESIZE_WIDGET || resizeStart.x() > pos().x() + width())
         return false;
@@ -220,6 +237,7 @@ void MainWindow::stepBack()
     if (menu->isHidden())
         menu->show();
 
+    // replace currently displayed widget with previous one and delete the current one
     layoutMiddle->replaceWidget(current, past.back());
     delete current;
     current = past.back();

@@ -80,11 +80,11 @@ void NextMeal::updateNextMeal()
 {
     MealDAO mealDAO;
     (void) mealDAO;
-    // TO DO
+    // TODO check for incoming meal
 }
 
 void NextMeal::updateTime()
 {
     time->setText(QString::fromStdString("NaN"));
-    // TO DO update time of expected arrival
+    // TODO update time of expected arrival
 }

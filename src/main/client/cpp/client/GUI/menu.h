@@ -31,6 +31,7 @@ private:
     QWidget *infoPanel;
     QWidget *icons;
 
+// signals are mostly the same as in main window used for forwarding
 signals:
     void updateTime_s();
     void updateClientData_s(long);
@@ -38,6 +39,7 @@ signals:
     void openSettings_s();
     void changeSize_s();
 
+// slots for listening to main window signals
 public slots:
     void updateTime();
     void sizeChanged(QSize);
