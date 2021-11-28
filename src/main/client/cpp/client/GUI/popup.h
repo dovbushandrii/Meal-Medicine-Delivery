@@ -1,7 +1,8 @@
 /**
  * @file popup.h
  * @author Samuel Hribik
- * @brief Definitions of slots and signals for Popup window
+ * @brief Definitions of slots and signals for Popup window,
+ *        which is created when user tries to remove item from OrderPreview of OrderTab
  */
 
 #ifndef POPUP_H

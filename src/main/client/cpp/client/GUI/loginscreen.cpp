@@ -10,6 +10,11 @@
 #include <QDebug>
 #include <QThread>
 
+/**
+ * @brief LoginScreen::LoginScreen
+ * @param parent
+ * @brief Constructor of LoginScreen
+ */
 LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
 
 
@@ -30,7 +35,6 @@ LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
     user_name->setStyleSheet("QLineEdit {  border: 2px solid gray;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
-    QObject::connect(user_name, SIGNAL(textChanged(QString)), this, SLOT(UserNameAmend(QString)));
 
     password = new QLineEdit();
     password->setFixedSize(400,80);
@@ -39,6 +43,11 @@ LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
     password->setStyleSheet("QLineEdit {  border: 2px solid gray;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
+
+    /**
+     * @brief Connection with slot to change color after unsuccesful login
+     */
+    QObject::connect(user_name, SIGNAL(textChanged(QString)), this, SLOT(UserNameAmend(QString)));
     QObject::connect(password, SIGNAL(textChanged(QString)), this, SLOT(PasswordAmend(QString)));
 
     err_msg = new QLabel();
@@ -55,6 +64,10 @@ LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
     login->setStyleSheet("QPushButton {  border: 2px solid gray;"
                                             "background-color: rgba(238, 252, 237, 160);"
                                             "border-radius: 10px;}");
+
+    /**
+     * @brief Connection with slot to check login information
+     */
     QObject::connect(login, SIGNAL(clicked()), this, SLOT(LoginChecked()));
 
     box->setAlignment(Qt::AlignCenter);
@@ -83,6 +96,12 @@ LoginScreen::~LoginScreen(){
 }
 
 
+/**
+ * @brief LoginScreen:LoginChecked : checks login information,
+ *        and determines wether the login was - succesful -> emits signal to change Widget to welcomeScreen()
+ *                                            - unsuccesful -> shows error massage and change colors of input Line Edits
+ * @todo Replace string comparisons with functions to check the login information
+*/
 void LoginScreen::LoginChecked() {
     QThread::msleep(200);
     if (user_name->text() == "login" && password->text() == "heslo") {
@@ -100,16 +119,28 @@ void LoginScreen::LoginChecked() {
     }
 }
 
+/**
+ * @brief LoginScreen::UserNameAmend
+ * @param text
+ * @brief Changes background color of user_name line edit and hides err_msg when rertying to login after an unsuccesful one
+ */
 void LoginScreen::UserNameAmend(QString text) {
     user_name->setStyleSheet("QLineEdit {  border: 2px solid gray;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
+    err_msg->hide();
 }
 
+/**
+ * @brief LoginScreen::PasswordAmend
+ * @param text
+ * @brief Changes background color of password line edit and hides err_msg when rertying to login after an unsuccesful one
+ */
 void LoginScreen::PasswordAmend(QString text) {
     password->setStyleSheet("QLineEdit {  border: 2px solid gray;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
+    err_msg->hide();
 }
 
 void LoginScreen::SizeChanged(QSize size) {

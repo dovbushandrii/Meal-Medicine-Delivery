@@ -12,7 +12,11 @@
 #include <QDebug>
 
 
-
+/**
+ * @brief Popup::Popup
+ * @param parent - either OrderTab or OrderPreview
+ * @brief Constructor of Popup
+*/
 Popup::Popup(QWidget * parent) : QWidget(parent) {
 
 
@@ -48,6 +52,10 @@ Popup::Popup(QWidget * parent) : QWidget(parent) {
     decline->setStyleSheet("* {font : bold 'Arial Black'; border-radius: 10px;"
                                       "font-size: 16pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
 
+    /**
+     * @brief Comparison wether the parent is OrderTab or OrderPreivew,
+     *        and adequately connects accept button with slot for the removal of item
+    */
     if (dynamic_cast<OrderTab*>(parent) != nullptr) {
         QObject::connect(accept, SIGNAL(released()), dynamic_cast<OrderTab*>(parent), SLOT(deleteOrderItem()));
     }
@@ -55,6 +63,9 @@ Popup::Popup(QWidget * parent) : QWidget(parent) {
         QObject::connect(accept, SIGNAL(released()), dynamic_cast<OrderPreview*>(parent), SLOT(deleteOrderItem()));
     }
 
+    /**
+     * @brief Connect both buttons with slot for closing the Popup window
+     */
     QObject::connect(accept, SIGNAL(released()), this, SLOT(ButtonPressed()));
     QObject::connect(decline, SIGNAL(released()), this, SLOT(ButtonPressed()));
 
@@ -71,6 +82,9 @@ Popup::~Popup(){
 
 }
 
+/**
+ * @brief Popup::ButtonPressed : Destroys the Popup window after any button is pressed
+ */
 void Popup::ButtonPressed() {
 
     delete(this);
