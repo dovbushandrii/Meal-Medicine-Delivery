@@ -1,3 +1,9 @@
+/**
+ * @file popup.cpp
+ * @author Samuel Hribik
+ * @brief Contains implementation of Popup window defined in popup.h
+ */
+
 #include "popup.h"
 #include "orderpreview.h"
 #include "ordertab.h"
@@ -13,7 +19,7 @@ Popup::Popup(QWidget * parent) : QWidget(parent) {
 
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
-    setFixedSize(380, 180);
+    setFixedSize(340, 160);
 
     setStyleSheet(".Popup {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));"
                                         "background: qlineargradient( x1:0 y1:0, x2:1 y2:1, stop:1 #55EE55, stop:0 #999999);}");

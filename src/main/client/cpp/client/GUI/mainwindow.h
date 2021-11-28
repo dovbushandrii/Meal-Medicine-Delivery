@@ -19,7 +19,7 @@
 #include <vector>
 
 #define TITLE_HEIGHT 60
-#define TITLE_WIDTH 70
+#define TITLE_WIDTH 80
 #define RATIO 0.8
 #define TAB_WIDTH 400
 #define TAB_HEIGHT 500

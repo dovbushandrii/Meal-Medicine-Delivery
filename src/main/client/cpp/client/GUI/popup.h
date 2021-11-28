@@ -1,3 +1,9 @@
+/**
+ * @file popup.h
+ * @author Samuel Hribik
+ * @brief Definitions of slots and signals for Popup window
+ */
+
 #ifndef POPUP_H
 #define POPUP_H
 

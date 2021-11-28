@@ -1,3 +1,9 @@
+/**
+ * @file loginscreen.cpp
+ * @author Samuel Hribik
+ * @brief Contains implementation of Login screen defined in loginscreen.h
+ */
+
 #include "loginscreen.h"
 #include "mainwindow.h"
 
@@ -24,6 +30,7 @@ LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
     user_name->setStyleSheet("QLineEdit {  border: 2px solid gray;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
+    QObject::connect(user_name, SIGNAL(textChanged(QString)), this, SLOT(UserNameAmend(QString)));
 
     password = new QLineEdit();
     password->setFixedSize(400,80);
@@ -32,6 +39,7 @@ LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
     password->setStyleSheet("QLineEdit {  border: 2px solid gray;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
+    QObject::connect(password, SIGNAL(textChanged(QString)), this, SLOT(PasswordAmend(QString)));
 
     err_msg = new QLabel();
     err_msg->setText("Nespravne udaje");
@@ -76,13 +84,32 @@ LoginScreen::~LoginScreen(){
 
 
 void LoginScreen::LoginChecked() {
-   /* QThread::msleep(500);
+    QThread::msleep(200);
     if (user_name->text() == "login" && password->text() == "heslo") {
         err_msg->hide();
         emit LoginSucces();
     }
-    else err_msg->show();*/
-    emit LoginSucces();
+    else {
+        err_msg->show();
+        user_name->setStyleSheet("QLineEdit {  border: 2px solid red;"
+                                                "background-color: rgba(255, 0, 0, 160);"
+                                                "border-radius: 10px;}");
+        password->setStyleSheet("QLineEdit {  border: 2px solid red;"
+                                                "background-color: rgba(255, 0, 0, 160);"
+                                                "border-radius: 10px;}");
+    }
+}
+
+void LoginScreen::UserNameAmend(QString text) {
+    user_name->setStyleSheet("QLineEdit {  border: 2px solid gray;"
+                                            "background-color: rgba(255, 255, 255, 120);"
+                                            "border-radius: 10px;}");
+}
+
+void LoginScreen::PasswordAmend(QString text) {
+    password->setStyleSheet("QLineEdit {  border: 2px solid gray;"
+                                            "background-color: rgba(255, 255, 255, 120);"
+                                            "border-radius: 10px;}");
 }
 
 void LoginScreen::SizeChanged(QSize size) {

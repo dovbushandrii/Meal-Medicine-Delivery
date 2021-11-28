@@ -1,3 +1,10 @@
+/**
+ * @file loginscreen.h
+ * @author Samuel Hribik
+ * @brief Definitions of slots and signals for Login screen
+ */
+
+
 #ifndef LOGINSCREEN_H
 #include <QDesktopWidget>
 #include <QLineEdit>
@@ -32,7 +39,8 @@ public slots:
 
     void SizeChanged(QSize);
     void LoginChecked();
-
+    void UserNameAmend(QString);
+    void PasswordAmend(QString);
 
 signals:
 
