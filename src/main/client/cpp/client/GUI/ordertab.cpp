@@ -114,7 +114,7 @@ OrderTab::~OrderTab()
 }
 
 void OrderTab::CreatePopup() {
-    Popup *check = new Popup(this);
+    Popup *check = new Popup(this, discard);
     check->show();
 }
 

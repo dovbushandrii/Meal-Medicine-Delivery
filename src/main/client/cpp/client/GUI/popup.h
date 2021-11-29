@@ -15,6 +15,9 @@
 #include <QBoxLayout>
 #include <QPushButton>
 #include <QLabel>
+#include <QLineEdit>
+
+enum Typ {regi, discard};
 
 class Popup : public QWidget
 {
@@ -22,7 +25,7 @@ class Popup : public QWidget
 
 public:
 
-    Popup(QWidget *);
+    Popup(QWidget *, Typ);
     ~Popup();
 
 
@@ -33,6 +36,13 @@ private:
    QPushButton *accept;
    QPushButton *decline;
    QLabel *message;
+   QLabel *password;
+   QLabel *email;
+   QLineEdit *line;
+   QLineEdit *pass_line;
+   QLineEdit *email_line;
+
+   void paintEvent(QPaintEvent *);
 
 public slots:
 

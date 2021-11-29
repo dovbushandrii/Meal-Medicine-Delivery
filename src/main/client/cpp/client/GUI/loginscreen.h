@@ -12,6 +12,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 
+#include "popup.h"
 #include "mainwindow.h"
 
 #define LOGINSCREEN_H
@@ -32,6 +33,7 @@ private:
     QLineEdit *user_name;
     QLineEdit *password;
     QPushButton *login;
+    QPushButton *reg;
     QLabel *err_msg;
 
 
@@ -41,6 +43,8 @@ public slots:
     void LoginChecked();
     void UserNameAmend(QString);
     void PasswordAmend(QString);
+    void CreateRegister();
+
 
 signals:
 
