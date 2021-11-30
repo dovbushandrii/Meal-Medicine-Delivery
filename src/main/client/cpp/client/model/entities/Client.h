@@ -35,7 +35,11 @@ public:
 
 	Client() {}
 
+<<<<<<< HEAD
 	Client(	long id,
+=======
+    Client(	long getId(),
+>>>>>>> GUI
 	        std::string name,
 			std::string surname,
 			std::string phoneNumber,
@@ -47,7 +51,12 @@ public:
 		this->surname = surname;
 		this->phoneNumber = phoneNumber;
 		this->email = email;
+<<<<<<< HEAD
 		this->allergens = allergens;
+=======
+//		this->password = password;
+		this->alergens = alergens;
+>>>>>>> GUI
 	}
 
 	long getId() {
@@ -65,7 +74,11 @@ public:
 	}
 
 	std::string getSurname() {
+<<<<<<< HEAD
 		return this->surname;
+=======
+        return this->surname;
+>>>>>>> GUI
 	}
 	void setSurname(std::string surname) {
 		this->surname = surname;

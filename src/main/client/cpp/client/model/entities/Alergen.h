@@ -21,11 +21,11 @@ public:
 		this->name = name;
 	}
 
-	std::string getName()
+    std::string getName() {
 		return this->name;
 	}
 	void setName(std::string name) {
-		this->name = name
+        this->name = name;
 	}
 };
 

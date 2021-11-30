@@ -27,10 +27,17 @@
 
 #IDE files
 *.iml
+.qmake.stash
+.qmake.winrt_uuid_GUI
+*.vcxproj*
+Package.appxmanifest
 
 #Folders
 .vs/
 .idea/
 target/
 out/
+assets/
+debug/
+release/
 /src/main/server/resources/application-dev.properties
