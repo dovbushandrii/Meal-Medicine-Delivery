@@ -90,14 +90,13 @@ public:
 		std::string URL = FACILITIES_URL"/" + std::to_string(id);
 
 		HTTPSender send;
-		HTTPResponse* response = send.doRequest(URL, HTTPMethod::HTTP_DELETE);
+        send.doRequest(URL, HTTPMethod::HTTP_DELETE);
 	}
 
 	//DONE
 	void deleteFacilities() {
 		HTTPSender send;
-		HTTPResponse* response = send.doRequest(FACILITIES_URL, HTTPMethod::HTTP_DELETE);
-		bool returns = response->getStatusCode() == 200;
+        send.doRequest(FACILITIES_URL, HTTPMethod::HTTP_DELETE);
 	}
 };
 

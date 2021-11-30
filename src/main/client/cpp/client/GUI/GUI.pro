@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++14
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -34,6 +34,27 @@ SOURCES += \
     welcomewindow.cpp
 
 HEADERS += \
+    ../model/daos/ClientDAO.h \
+    ../model/daos/ClientJSONSerializer.h \
+    ../model/daos/FacilityDAO.h \
+    ../model/daos/FacilityJSONSerializer.h \
+    ../model/daos/HTTPMethod.h \
+    ../model/daos/HTTPRequest.h \
+    ../model/daos/HTTPResponse.h \
+    ../model/daos/HTTPSender.h \
+    ../model/daos/MealDAO.h \
+    ../model/daos/MealJSONSerializer.h \
+    ../model/daos/MedicineDAO.h \
+    ../model/daos/MedicineJSONSerializer.h \
+    ../model/daos/OrderDAO.h \
+    ../model/daos/OrderJSONSerializer.h \
+    ../model/daos/ServerURLs.h \
+    ../model/entities/Allergen.h \
+    ../model/entities/Client.h \
+    ../model/entities/Facility.h \
+    ../model/entities/Meal.h \
+    ../model/entities/Medicine.h \
+    ../model/entities/Order.h \
     infopanel.h \
     infopanelicons.h \
     itemtab.h \
@@ -65,7 +86,11 @@ TRANSLATIONS += \
 CONFIG += lrelease
 CONFIG += embed_translations
 
+INCLUDEPATH += connect/json/include
+INCLUDEPATH += connect/curl/include
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+

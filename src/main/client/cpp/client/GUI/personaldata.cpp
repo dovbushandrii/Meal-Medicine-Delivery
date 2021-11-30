@@ -42,8 +42,11 @@ void PersonalData::updateClientData(long id)
 {
     // TODO update this appropriatelly
     ClientDAO clientDAO;
-    client = clientDAO.readClient(id);
-    name->setText(QString::fromStdString("Meno: " + client.getName() + "\nPriezvisko: " + client.getSurname()));
-    phoneNumber->setText(QString::fromStdString("Tel. číslo: " + client.getPhoneNumber()));
-    email->setText(QString::fromStdString("Email: " + client.getEmail()));
+    Client* readClient = clientDAO.readClient(id);
+    if(readClient){
+        client = *readClient;
+        name->setText(QString::fromStdString("Meno: " + client.getName() + "\nPriezvisko: " + client.getSurname()));
+        phoneNumber->setText(QString::fromStdString("Tel. číslo: " + client.getPhoneNumber()));
+        email->setText(QString::fromStdString("Email: " + client.getEmail()));
+    }
 }

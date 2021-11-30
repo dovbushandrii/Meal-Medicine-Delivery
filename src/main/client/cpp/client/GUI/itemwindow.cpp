@@ -7,7 +7,6 @@
 #include "infopanel.h"
 
 #include "../model/daos/MealDAO.h"
-#include "../model/entities/Meal.h"
 
 #include <cmath>
 #include <QScrollBar>
@@ -155,7 +154,7 @@ void ItemWindow::sizeChanged(QSize size)
     if (rows == 0 || columns == 0)
         return;
 
-    for (int i = 0; i < foodTabs.size(); i++)
+    for (int i = 0; i < (int)foodTabs.size(); i++)
         layout->addWidget(foodTabs[i], i / columns, i % columns);
 
     for(int c=0; c < layout->columnCount(); c++) layout->setColumnStretch(c,1);
@@ -176,9 +175,9 @@ void ItemWindow::updateFacility(long new_id)
 
     MealDAO mealDAO;
     // TODO get new Items
-    std::vector<Meal> meals;// = mealDAO.readMeals();
+    std::vector<Meal> meals = mealDAO.readMeals();
 
-    for (int i = 0; i < meals.size(); i++)
+    for (int i = 0; i < (int)meals.size(); i++)
     {
         foodTabs.push_back(new ItemTab(this, facilityID, meals[i].getId(), type));
     }

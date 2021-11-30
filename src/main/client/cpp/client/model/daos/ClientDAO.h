@@ -31,15 +31,11 @@ public:
 		return returns;
 	}
 
-<<<<<<< HEAD
 	//DONE
 	std::vector<Client> readClients() {
 		HTTPSender send;
 		HTTPResponse * response = send.doRequest(CLIENTS_URL, HTTPMethod::HTTP_GET);
 		std::vector<Client> clients;
-=======
-    Client readClient(long id) { Client client = Client(0, "First Name", "Surname", "123456789", "some@email.com", "pswd", {} ); return client; }
->>>>>>> GUI
 
 		if (response->getStatusCode() == 200) {
 			nlohmann::json  j = nlohmann::json::parse(response->getResponse());
@@ -93,14 +89,13 @@ public:
 		std::string URL = CLIENTS_URL"/" + std::to_string(id);
 
 		HTTPSender send;
-		HTTPResponse* response = send.doRequest(URL, HTTPMethod::HTTP_DELETE);
+        send.doRequest(URL, HTTPMethod::HTTP_DELETE);
 	}
 
 	//DONE
 	void deleteClients() {
 		HTTPSender send;
-		HTTPResponse* response = send.doRequest(CLIENTS_URL, HTTPMethod::HTTP_DELETE);
-		bool returns = response->getStatusCode() == 200;
+        send.doRequest(CLIENTS_URL, HTTPMethod::HTTP_DELETE);
 	}
 };
 

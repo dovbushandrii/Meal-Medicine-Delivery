@@ -90,14 +90,13 @@ public:
 		std::string URL = MEDICINES_URL"/" + std::to_string(id);
 
 		HTTPSender send;
-		HTTPResponse* response = send.doRequest(URL, HTTPMethod::HTTP_DELETE);
+        send.doRequest(URL, HTTPMethod::HTTP_DELETE);
 	}
 
 	//DONE
 	void deleteMedicines() {
 		HTTPSender send;
-		HTTPResponse* response = send.doRequest(MEDICINES_URL, HTTPMethod::HTTP_DELETE);
-		bool returns = response->getStatusCode() == 200;
+        send.doRequest(MEDICINES_URL, HTTPMethod::HTTP_DELETE);
 	}
 };
 
