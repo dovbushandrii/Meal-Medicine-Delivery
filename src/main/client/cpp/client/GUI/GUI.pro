@@ -9,6 +9,11 @@ CONFIG += c++14
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ../model/daos/ClientJSONSerializer.cpp \
+    ../model/daos/FacilityJSONSerializer.cpp \
+    ../model/daos/MealJSONSerializer.cpp \
+    ../model/daos/MedicineJSONSerializer.cpp \
+    ../model/daos/OrderJSONSerializer.cpp \
     infopanel.cpp \
     infopanelicons.cpp \
     itemtab.cpp \
@@ -87,10 +92,18 @@ CONFIG += lrelease
 CONFIG += embed_translations
 
 INCLUDEPATH += connect/json/include
-INCLUDEPATH += connect/curl/include
+
+DEFINES += CURL_STATICLIB
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+
+win32: LIBS += -L$$PWD/connect/curl/lib/ -llibcurl_a
+
+INCLUDEPATH += $$PWD/connect/curl/include
+DEPENDPATH += $$PWD/connect/curl/include
+
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/connect/curl/lib/libcurl_a.lib

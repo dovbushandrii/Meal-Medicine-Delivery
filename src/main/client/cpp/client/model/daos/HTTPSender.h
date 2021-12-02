@@ -11,7 +11,7 @@
 #ifndef _HTTP_SENDER_H_
 #define _HTTP_SENDER_H_
 
-#define CURL_STATICLIB
+//#define CURL_STATICLIB
 #include <curl/curl.h>
 #include <string>
 #include "HTTPResponse.h"

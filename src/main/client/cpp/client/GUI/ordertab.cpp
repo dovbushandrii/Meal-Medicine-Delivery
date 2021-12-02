@@ -21,12 +21,6 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type,
     this->itemID = itemID;
     this->type = type;
 
-    // TODO according to type decide which one to use and set values
-//    MealDAO mealDAO;
-//    MedicineDAO medicineDAO;
-//    Meal meal = mealDAO.readMeal(itemID);
-//    Medicine medicine = medicineDAO.readMedicine(itemID);
-
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
 
     setAttribute(Qt::WA_StyledBackground, true);
@@ -36,15 +30,11 @@ OrderTab::OrderTab(QWidget *parent, long facilityID, long itemID, ItemType type,
     QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
     QObject::connect(this, SIGNAL(deleteOrderItem_s(OrderTab *)), parent, SLOT(deleteOrderItem(OrderTab *)));
 
+    //TODO UNDERSTAND WHAT IS GOING ON
+
     picture = new QLabel(this);
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
     picture->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-
-    // TODO change accordingly to the ID
-    if (type == MEAL)
-        picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
-    else
-        picture->setStyleSheet("* {image: url(../imgs/medicine_default.png);}");
 
     // TODO change accordingly to the ID
     description = new QLabel(this);

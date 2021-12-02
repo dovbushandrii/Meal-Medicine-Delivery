@@ -6,6 +6,8 @@
 #include "itemtab.h"
 #include "../model/daos/MealDAO.h"
 #include "../model/entities/Meal.h"
+#include "../model/daos/MedicineDAO.h"
+#include "../model/entities/Medicine.h"
 
 #include <QStyleOption>
 #include <QPainter>
@@ -74,26 +76,61 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, long mealID, ItemType type) :
 
     layout->addLayout(layoutPicture);
     layout->addWidget(description);
-    layout->addWidget(weight);
     layout->addWidget(price);
     layout->addLayout(layoutAmount);
 
-    // TODO get info about food
-    //    MealDAO mealDAO;
-    //    Meal meal = mealDAO.readMeal(mealID);
-    Meal meal;
+    // IF IT IS MEAL
+    if (type == MEAL){
+        layout->addWidget(weight);
+        MealDAO mealDAO;
+        Meal* meal = mealDAO.readMeal(mealID);
 
-    // check for available food picture from facility
-    // TODO
-    if (type == MEAL)
-        picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
-    else
-        picture->setStyleSheet("* {image: url(../imgs/medicine_default.png);}");
+        if(meal){
+            //SET BYTEARRAY
+            std::string image = meal->getImage();
+            QByteArray* loadImage = new QByteArray(image.c_str(),image.length());
 
-    description->setText(QString::fromStdString(meal.getDescription()));
-    weight->setText(QString::fromStdString("Hmotnosť: "+std::to_string(meal.getWeight())));
-    price->setText(QString::fromStdString("Cena za porciu: "+std::to_string(meal.getPrice())));
-    amount->setText("0");
+            // check for available food picture from facility
+            if(!loadImage->isEmpty()){
+                QImage img;
+                img.loadFromData(*loadImage);
+                picture->setPixmap(QPixmap::fromImage(img));
+                //picture.show()?
+            }
+            else{
+                picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
+            }
+            description->setText(QString::fromStdString(meal->getDescription()));
+            weight->setText(QString::fromStdString("Hmotnosť: "+std::to_string(meal->getWeight())));
+            price->setText(QString::fromStdString("Cena za porciu: "+std::to_string(meal->getPrice())));
+            amount->setText("0");
+        }
+    }
+    // IF IT IS MEDICINE
+    else{
+        MedicineDAO medicineDAO;
+        Medicine* medicine = medicineDAO.readMedicine(mealID);
+
+        if(medicine){
+            //SET BYTEARRAY
+            std::string image = medicine->getImage();
+            QByteArray* loadImage = new QByteArray(image.c_str(),image.length());
+
+            // check for available medicine picture from facility
+            if(!loadImage->isEmpty()){
+                QImage img;
+                img.loadFromData(*loadImage);
+                picture->setPixmap(QPixmap::fromImage(img));
+                //picture.show()?
+            }
+            else{
+                picture->setStyleSheet("* {image: url(../imgs/medicine_default.png);}");
+            }
+            description->setText(QString::fromStdString(medicine->getDescription()));
+            price->setText(QString::fromStdString("Cena za porciu: "+std::to_string(medicine->getPrice())));
+            amount->setText("0");
+        }
+    }
 }
 
 ItemTab::~ItemTab()
