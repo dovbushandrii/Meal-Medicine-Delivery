@@ -13,6 +13,7 @@ import cloudserver.model.entities.Meal;
 import cloudserver.model.repos.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,14 +28,17 @@ public class MealDAO {
         this.repo = repo;
     }
 
+    @Transactional
     public Meal create(Meal meal) {
         return repo.save(meal);
     }
 
+    @Transactional
     public Meal read(Long id) {
         return repo.findById(id).get();
     }
 
+    @Transactional
     public List<Meal> read() {
         return repo.findAll();
     }

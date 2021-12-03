@@ -11,6 +11,8 @@
 #include "waitingscreen.h"
 #include "orderpreviewwindow.h"
 #include "loginscreen.h"
+#include "../model/daos/FacilityDAO.h"
+#include "../model/daos/OrderDAO.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -41,7 +43,18 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
 {
     // initialize variables
     // get facilityID
-    facilityID = 0;
+    FacilityDAO dao;
+    std::vector<long> facIds = dao.readFacilitiesId();
+    if(facIds.size()){
+        facilityID = facIds[0];
+    }
+    else{
+        facilityID = 0;
+    }
+
+    PendingOrder pendOrd;
+    pendingOrder = pendOrd;
+
     resizing = false;
 
     setStyleSheet(".MainWindow {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255)); background: qlineargradient( x1:0 y1:0, x2:1 y2:1, stop:1 #55EE55, stop:0 #999999);}");
@@ -112,20 +125,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::orderFood()
 {
-    // switch widget to order screen of meal by welcome screen
-    replaceWidget(new ItemWindow(this, 0, MEAL));
+    replaceWidget(new ItemWindow(this, facilityID, MEAL, &pendingOrder));
 }
 
 void MainWindow::orderMedicine()
 {
-    // switch widget to order screen of medicine by welcome screen
-    replaceWidget(new ItemWindow(this, 0, MEDICINE));
+    replaceWidget(new ItemWindow(this, facilityID, MEDICINE,&pendingOrder));
 }
 
 void MainWindow::previewOrders()
 {
-    // switch widget to order previews by welcome screen
-    replaceWidget(new OrderPreviewWindow(this, 0));
+    replaceWidget(new OrderPreviewWindow(this, facilityID));
 }
 
 void MainWindow::previewMedicines()
@@ -138,8 +148,8 @@ void MainWindow::previewMedicines()
 
 void MainWindow::makeOrder(long orderID, ItemType type)
 {
-    // we have preview of order, before we go to the confirmation window
-    replaceWidget(new OrderWindow(this, 0, 0, type));
+    // we have preview of order, before we go to
+    replaceWidget(new OrderWindow(this, &pendingOrder));
 }
 
 void MainWindow::confirmOrder(long orderID)
@@ -158,7 +168,7 @@ void MainWindow::finishedWaiting()
 void MainWindow::openOrder(long orderID)
 {
     // to change order
-    replaceWidget(new OrderWindow(this, 0, 0, MEDICINE, EDIT));
+    replaceWidget(new OrderWindow(this, &pendingOrder, EDIT));
 }
 
 void MainWindow::welcomeScreen()

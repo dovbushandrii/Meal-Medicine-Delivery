@@ -7,6 +7,8 @@
 #include "infopanel.h"
 
 //#include "../model/daos/OrderDAO.h"
+#include "../model/daos/MealDAO.h"
+#include "../model/daos/MedicineDAO.h"
 
 #include <QHBoxLayout>
 #include <QScrollBar>
@@ -15,12 +17,11 @@
 
 #define ORDER_TAB_HEIGHT 350
 
-OrderWindow::OrderWindow(QWidget *parent, long facilityID, long orderID, ItemType itemType, OrderWindowType type) : QWidget(parent)
+OrderWindow::OrderWindow(QWidget *parent, PendingOrder* pendingOrder , OrderWindowType type) : QWidget(parent)
 {
-    this->facilityID = facilityID;
-    this->orderID = orderID;
+    this->pendingOrder = pendingOrder;
     this->type = type;
-    this->itemType = itemType;
+
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
@@ -125,6 +126,7 @@ void OrderWindow::sizeChanged(QSize size)
     emit sizeChanged_s(QSize(width() - 2 * DEFAULT_SPACE, ORDER_TAB_HEIGHT));
 }
 
+
 void OrderWindow::updateAll()
 {
     // clear whole layout and create a new one
@@ -136,41 +138,33 @@ void OrderWindow::updateAll()
 
     orderTabs.clear();
 
-    // TODO create ordertab widgets with their respective IDs from order
-//    OrderDAO orderDAO;
-    // TODO this
-//    std::vector<Order> orders;// = mealDAO.readMeals();
 
-//    for (int i = 0; i < orders.size(); i++)
-//    {
-//        orderTabs.push_back(new OrderTab(this, facilityID, orders[i].getId(), MEAL, /*amount*/-1));
-//        layout->addWidget(orderTabs.back());
-//    }
+    std::vector<std::pair<long,int>> meals = pendingOrder->getMealIds();
+    std::vector<std::pair<long,int>> medicines = pendingOrder->getMedicineIds();
+    MealDAO mealDAO;
+    MedicineDAO medicineDAO;
 
-    // for testing purposes only
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < (int)meals.size(); i++)
     {
-        orderTabs.push_back(new OrderTab(this, facilityID, /*id*/0, itemType, /*amount*/-1));
-        layout->addWidget(orderTabs.back());
+        Meal* meal = mealDAO.readMeal(meals[i].first);
+        if(meal){
+            orderTabs.push_back(new OrderTab(this, *meal , meals[i].second));
+            layout->addWidget(orderTabs.back());
+        }
     }
+    for (int i = 0; i < (int)medicines.size(); i++)
+    {
+        Medicine* medicine = medicineDAO.readMedicine(medicines[i].first);
+        if(medicine){
+            orderTabs.push_back(new OrderTab(this, *medicine , medicines[i].second));
+            layout->addWidget(orderTabs.back());
+        }
+    }
+
 
     // TODO update totalPrice
 
     sizeChanged(QSize(width(), height()));
-}
-
-void OrderWindow::updateFacility(long new_id)
-{
-    facilityID = new_id;
-
-    updateAll();
-}
-
-void OrderWindow::updateOrder(long new_id)
-{
-    orderID = new_id;
-
-    updateAll();
 }
 
 void OrderWindow::confirmOrder()
@@ -200,8 +194,26 @@ void OrderWindow::paintEvent(QPaintEvent *)
      style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+void deleteFromList(long ID, std::vector<std::pair<long,int>> *items) {
+    for (int i = 0; i < (int)items->size(); i++) {
+        if((*items)[i].first == ID) {
+            items->erase(items->begin() + i);
+        }
+    }
+}
+
 void OrderWindow::deleteOrderItem(OrderTab *to_delete)
 {
+    if(to_delete->type == MEAL) {
+        std::vector<std::pair<long,int>> meals = pendingOrder->getMealIds();
+        deleteFromList(to_delete->itemID, &meals);
+        pendingOrder->setMealIds(meals);
+    }
+    else {
+        std::vector<std::pair<long,int>> medicines = pendingOrder->getMedicineIds();
+        deleteFromList(to_delete->itemID, &medicines);
+        pendingOrder->setMedicineIds(medicines);
+    }
     layout->removeWidget(to_delete);
     delete to_delete;
 }

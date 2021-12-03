@@ -8,12 +8,13 @@
 */
 
 #ifndef _FACILITY_DAO_H_
-#define __FACILITY_DAO_H_
+#define _FACILITY_DAO_H_
 
 #include "ServerURLs.h"
 #include "FacilityJSONSerializer.h"
 #include "HTTPSender.h"
 #include <vector>
+#include <iostream>
 
 class FacilityDAO {
 public:
@@ -46,6 +47,21 @@ public:
 		delete response;
 		return facilities;
 	}
+
+    //DONE
+    std::vector<long> readFacilitiesId() {
+        HTTPSender send;
+        HTTPResponse* response = send.doRequest(FACILITIES_URL"/ids", HTTPMethod::HTTP_GET);
+        std::vector<long> facilitiesId;
+
+        if (response->getStatusCode() == 200) {
+            nlohmann::json  j = nlohmann::json::parse(response->getResponse());
+            j.get_to<std::vector<long>>(facilitiesId);
+        }
+
+        delete response;
+        return facilitiesId;
+    }
 
 	//DONE
 	Facility* readFacility(long id) {

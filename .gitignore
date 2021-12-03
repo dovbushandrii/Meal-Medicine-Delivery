@@ -41,3 +41,4 @@ assets/
 debug/
 release/
 /src/main/server/resources/application-dev.properties
+build-GUI*/

@@ -14,15 +14,19 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include "../model/entities/Meal.h"
+#include "../model/entities/Medicine.h"
 
 class ItemTab : public QWidget
 {
     Q_OBJECT
 public:
-    ItemTab(QWidget *, long, long, ItemType);
+    ItemTab(QWidget *, long, Medicine);
+    ItemTab(QWidget *, long, Meal);
     ~ItemTab();
 
     std::pair<long, int> getAmount();
+    void setAmount(int amount);
 
 private:
     long facilityID;

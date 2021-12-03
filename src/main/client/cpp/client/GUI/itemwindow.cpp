@@ -7,6 +7,8 @@
 #include "infopanel.h"
 
 #include "../model/daos/MealDAO.h"
+#include "../model/daos/MedicineDAO.h"
+#include "../model/daos/FacilityDAO.h"
 
 #include <cmath>
 #include <QScrollBar>
@@ -16,10 +18,18 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type) : QWidget(parent)
+int getAmountFromList(std::vector<std::pair<long,int>> list, long id) {
+    for (int i = 0; i < (int)list.size(); i++) {
+        if (list[i].first == id) return list[i].second;
+    }
+    return 0;
+}
+
+ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingOrder* pendingOrder) : QWidget(parent)
 {
     this->facilityID = facilityID;
     this->type = type;
+    this->pendingOrder = pendingOrder;
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
@@ -103,12 +113,34 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type) : QWidge
     layoutMain->addLayout(layoutUpper);
     layoutMain->addWidget(scrollArea);
 
-    // fill foodTabs
-    // for testing purposes only
-    // TODO create ItemTabs and send them proper parameters of IDs
-    for (int i = 0; i < 5; i++)
-    {
-        foodTabs.push_back(new ItemTab(this, facilityID, 0, type));
+
+    FacilityDAO dao;
+    Facility* facility = dao.readFacility(facilityID);
+
+    if(facility){
+        //If it is meal menu -> load meals
+        if(type == MEAL){
+            std::vector<Meal> meals = facility->getMealList();
+            for (int i = 0; i < (int)meals.size(); i++)
+            {
+                ItemTab* newItemTab = new ItemTab(this, facilityID, meals[i]);
+                newItemTab->setAmount(getAmountFromList(pendingOrder->getMealIds(),meals[i].getId()));
+                foodTabs.push_back(newItemTab);
+            }
+        }
+        //If it is medicine menu -> load medicine
+        else{
+            std::vector<Medicine> medicines = facility->getMedicineList();
+            for (int i = 0; i < (int)medicines.size(); i++)
+            {
+                ItemTab* newItemTab = new ItemTab(this, facilityID, medicines[i]);
+                newItemTab->setAmount(getAmountFromList(pendingOrder->getMedicineIds(),medicines[i].getId()));
+                foodTabs.push_back(newItemTab);
+            }
+        }
+    }
+    else{
+        //UNABLE TO LOAD FACILITY
     }
 
     emit changeName_s(QString::fromStdString("Objednávanie jedla"));
@@ -173,35 +205,68 @@ void ItemWindow::updateFacility(long new_id)
 
     foodTabs.clear();
 
-    MealDAO mealDAO;
-    // TODO get new Items
-    std::vector<Meal> meals = mealDAO.readMeals();
+    FacilityDAO dao;
+    Facility* facility = dao.readFacility(facilityID);
 
-    for (int i = 0; i < (int)meals.size(); i++)
-    {
-        foodTabs.push_back(new ItemTab(this, facilityID, meals[i].getId(), type));
+    if(facility){
+        //If it is meal menu -> load meals
+        if(type == MEAL){
+            std::vector<Meal> meals = facility->getMealList();
+            for (int i = 0; i < (int)meals.size(); i++)
+            {
+                foodTabs.push_back(new ItemTab(this, facilityID, meals[i]));
+            }
+        }
+        //If it is medicine menu -> load medicine
+        else{
+            std::vector<Medicine> medicines = facility->getMedicineList();
+            for (int i = 0; i < (int)medicines.size(); i++)
+            {
+                foodTabs.push_back(new ItemTab(this, facilityID, medicines[i]));
+            }
+        }
     }
-
-    // for testing purposes only
-    // TODO remove this when mealDAO works
-    for (int i = 0; i < 5; i++)
-    {
-        foodTabs.push_back(new ItemTab(this, facilityID, 0, type));
+    else{
+        //UNABLE TO LOAD FACILITY
     }
 
     sizeChanged(QSize(width(), height()));
 }
 
+void upsertItemToList( std::vector<std::pair<long, int>>* list, std::pair<long, int> item) {
+    for(int i = 0; i < (int) list->size(); i++){
+        if((*list)[i].first == item.first){
+            (*list)[i].second = item.second;
+            return;
+        }
+    }
+    list->push_back(item);
+}
+
 void ItemWindow::makeOrder()
 {
-    // TODO
-//    std::vector<Order> meals;
-//    for (auto meal : foodTabs)
-//    {
-//        std::pair<long, int> orderedMeal = meal->getAmount();
-//        // add meals to order;
-//    }
-    // TODO
+    std::vector<std::pair<long, int>> update;
+    if(type == MEAL) {
+       update = pendingOrder->getMealIds();
+    }
+    else {
+       update = pendingOrder->getMedicineIds();
+    }
+
+    for (auto item: foodTabs)
+    {
+       std::pair<long, int> orderedItem = item->getAmount();
+       if(orderedItem.second > 0){
+           upsertItemToList(&update,orderedItem);
+       }
+    }
+    if(type == MEAL) {
+       pendingOrder->setMealIds(update);
+    }
+    else {
+        pendingOrder->setMedicineIds(update);
+    }
+
     emit makeOrder_s(0, type);
 }
 

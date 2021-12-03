@@ -57,7 +57,7 @@ public:
 	}
 
 	std::string getImage() {
-		return this->description;
+        return this->image;
 	}
 	void setImage(std::string image) {
 		this->image = image;

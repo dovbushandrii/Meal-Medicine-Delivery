@@ -10,10 +10,9 @@
 package cloudserver.model.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -34,5 +33,7 @@ public class Meal {
     //In grams
     private Integer weight;
 
+    @Lob
+    @Type(type = "text")
     private String image;
 }

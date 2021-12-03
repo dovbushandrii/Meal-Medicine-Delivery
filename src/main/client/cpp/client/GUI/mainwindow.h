@@ -8,6 +8,7 @@
 
 #include "title.h"
 #include "menu.h"
+#include "../model/entities/PendingOrder.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -63,6 +64,7 @@ private:
     std::vector<QWidget *> past;    // widgets displayed in the past used for Back button action
 
     long facilityID;        // ID of currently used facility
+    PendingOrder pendingOrder;
 
     void setScreenSize(bool);
     void resizeWidgets();

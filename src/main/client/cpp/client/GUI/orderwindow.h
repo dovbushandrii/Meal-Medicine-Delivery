@@ -21,14 +21,13 @@ class OrderWindow : public QWidget
 {
     Q_OBJECT
 public:
-    OrderWindow(QWidget *, long, long, ItemType, OrderWindowType = ORDER);
+    OrderWindow(QWidget *, PendingOrder*, OrderWindowType = ORDER);
     ~OrderWindow();
 
 private:
     OrderWindowType type;
-    ItemType itemType;
-    long facilityID;
-    long orderID;
+    PendingOrder* pendingOrder;
+
 
     QWidget *mainWidget;
     QScrollArea *scrollArea;
@@ -53,8 +52,6 @@ signals:
 
 public slots:
     void sizeChanged(QSize);
-    void updateFacility(long);
-    void updateOrder(long);
     void minusClicked();
     void plusClicked();
     void deleteOrderItem(OrderTab *);

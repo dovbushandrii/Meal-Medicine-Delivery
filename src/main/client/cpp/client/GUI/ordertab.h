@@ -7,6 +7,8 @@
 #define ORDERTAB_H
 
 #include "mainwindow.h"
+#include "../model/entities/Meal.h"
+#include "../model/entities/Medicine.h"
 
 #include <QObject>
 #include <QWidget>
@@ -19,14 +21,16 @@ class OrderTab : public QWidget
 {
     Q_OBJECT
 public:
-    OrderTab(QWidget *, long, long, ItemType, int);
+    OrderTab(QWidget *, Medicine, int);
+    OrderTab(QWidget *, Meal, int);
     ~OrderTab();
+
+    long itemID;
+    ItemType type;
 
 private:
     long facilityID;
-    long itemID;
 
-    ItemType type;
 
     QLabel *picture;
     QLabel *description;

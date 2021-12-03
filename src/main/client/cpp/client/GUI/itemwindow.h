@@ -7,7 +7,7 @@
 #define ITEMWINDOW_H
 
 #include "itemtab.h"
-//#include "../model/entities/Order.h"
+#include "../model/entities/PendingOrder.h"
 
 #include <QObject>
 #include <QWidget>
@@ -20,12 +20,13 @@ class ItemWindow : public QWidget
 {
     Q_OBJECT
 public:
-    ItemWindow(QWidget *, long, ItemType);
+    ItemWindow(QWidget *, long, ItemType, PendingOrder*);
     ~ItemWindow();
 
 private:
     long facilityID;
     ItemType type;
+    PendingOrder* pendingOrder;
 
     QWidget *mainWidget;
     QScrollArea *scrollArea;

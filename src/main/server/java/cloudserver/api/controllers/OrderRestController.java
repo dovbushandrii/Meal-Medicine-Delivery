@@ -10,16 +10,13 @@
 package cloudserver.api.controllers;
 
 import cloudserver.model.daos.OrderDAO;
-import cloudserver.model.entities.Client;
-import cloudserver.model.entities.Meal;
+import cloudserver.model.entities.Facility;
 import cloudserver.model.entities.SystemOrder;
 import cloudserver.model.jsonparsers.ParserJSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,13 +42,13 @@ public class OrderRestController {
 
     @GetMapping("/{id}")
     public SystemOrder getOrder(@PathVariable("id") Long id) {
-        SystemOrder order = new SystemOrder();
-        order.setDateTime(LocalDateTime.now());
-        order.setId(0L);
-        order.setMeals(new ArrayList<>());
-        order.setMedicines(new ArrayList<>());
-        return order;
-        //return dao.read(id);
+        return dao.read(id);
+    }
+
+    @GetMapping("/ids")
+    public List<Long> getOrdersID(){
+        List<SystemOrder> orders = dao.read();
+        return orders.stream().map(SystemOrder::getId).collect(Collectors.toList());
     }
 
     @GetMapping()

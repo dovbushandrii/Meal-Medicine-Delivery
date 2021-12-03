@@ -13,6 +13,7 @@ import cloudserver.model.entities.Facility;
 import cloudserver.model.repos.FacilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,14 +28,17 @@ public class FacilityDAO {
         this.repo = repo;
     }
 
+    @Transactional
     public Facility create(Facility facility) {
         return repo.save(facility);
     }
 
+    @Transactional
     public Facility read(Long id) {
         return repo.findById(id).get();
     }
 
+    @Transactional
     public List<Facility> read() {
         return repo.findAll();
     }

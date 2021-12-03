@@ -47,6 +47,21 @@ public:
 		return orders;
 	}
 
+    //DONE
+    std::vector<long> readOrdersId() {
+        HTTPSender send;
+        HTTPResponse* response = send.doRequest(FACILITIES_URL"/ids", HTTPMethod::HTTP_GET);
+        std::vector<long> ordersId;
+
+        if (response->getStatusCode() == 200) {
+            nlohmann::json  j = nlohmann::json::parse(response->getResponse());
+            j.get_to<std::vector<long>>(ordersId);
+        }
+
+        delete response;
+        return ordersId;
+    }
+
 	//DONE
 	Order* readOrder(long id) {
 		std::string URL = ORDERS_URL"/" + std::to_string(id);

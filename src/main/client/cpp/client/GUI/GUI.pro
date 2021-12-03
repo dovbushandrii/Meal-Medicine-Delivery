@@ -60,6 +60,7 @@ HEADERS += \
     ../model/entities/Meal.h \
     ../model/entities/Medicine.h \
     ../model/entities/Order.h \
+    ../model/entities/PendingOrder.h \
     infopanel.h \
     infopanelicons.h \
     itemtab.h \
@@ -92,6 +93,7 @@ CONFIG += lrelease
 CONFIG += embed_translations
 
 INCLUDEPATH += connect/json/include
+LIBS += -LC:\Qt\5.12.12\mingw73_64\lib -lcurl
 
 DEFINES += CURL_STATICLIB
 
@@ -101,9 +103,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 
-win32: LIBS += -L$$PWD/connect/curl/lib/ -llibcurl_a
 
-INCLUDEPATH += $$PWD/connect/curl/include
-DEPENDPATH += $$PWD/connect/curl/include
-
-win32:!win32-g++: PRE_TARGETDEPS += $$PWD/connect/curl/lib/libcurl_a.lib

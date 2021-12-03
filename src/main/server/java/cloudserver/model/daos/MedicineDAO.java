@@ -13,6 +13,7 @@ import cloudserver.model.entities.Medicine;
 import cloudserver.model.repos.MedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,14 +28,17 @@ public class MedicineDAO {
         this.repo = repo;
     }
 
+    @Transactional
     public Medicine create(Medicine medicine) {
         return repo.save(medicine);
     }
 
+    @Transactional
     public Medicine read(Long id) {
         return repo.findById(id).get();
     }
 
+    @Transactional
     public List<Medicine> read() {
         return repo.findAll();
     }
