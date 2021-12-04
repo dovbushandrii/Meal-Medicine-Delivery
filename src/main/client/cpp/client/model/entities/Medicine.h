@@ -20,6 +20,8 @@ class Medicine {
 
 	double price;
 
+	std::string image;
+
 public:
 
 	Medicine() {}
@@ -36,6 +38,9 @@ public:
 	long getId() {
 		return this->id;
 	}
+	void setId(long id) {
+		this->id = id;
+	}
 
 	std::string getDescription() {
 		return this->description;
@@ -51,6 +56,12 @@ public:
 		this->price = price;
 	}
 
+	std::string getImage() {
+        return this->image;
+	}
+	void setImage(std::string image) {
+		this->image = image;
+	}
 };
 
 #endif // !_MEDICINE_H_

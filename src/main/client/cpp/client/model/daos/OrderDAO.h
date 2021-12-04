@@ -10,25 +10,110 @@
 #ifndef _ORDER_DAO_H_
 #define _ORDER_DAO_H_
 
-#include "../entities/Order.h"
+#include "ServerURLs.h"
+#include "OrderJSONSerializer.h"
+#include "HTTPSender.h"
 #include <vector>
+#include <iostream>
 
 class OrderDAO {
 public:
 
-	void createOrder(Order order);
+	//DONE
+	bool createOrder(Order order) {
+		nlohmann::json  j{};
+		to_json(j, order);
+		std::string json = j.dump();
 
-	std::vector<Order> readOrders();
+		HTTPSender send;
+		HTTPResponse* response = send.doMethodWithJSONBody(ORDERS_URL, HTTPMethod::HTTP_POST, json);
+		bool returns = response->getStatusCode() == 200;
 
-	Order readOrder(long id);
+		delete response;
+		return returns;
+	}
 
-	void updateOrder(Order order);
+	//DONE
+	std::vector<Order> readOrders() {
+		HTTPSender send;
+		HTTPResponse* response = send.doRequest(ORDERS_URL, HTTPMethod::HTTP_GET);
+		std::vector<Order> orders;
 
-	void deleteOrder(Order order);
+		if (response->getStatusCode() == 200) {
+			nlohmann::json  j = nlohmann::json::parse(response->getResponse());
+			j.get_to<std::vector<Order>>(orders);
+		}
 
-	void deleteOrderById(long id);
+		delete response;
+		return orders;
+	}
 
-	void deleteOrders();
+    //DONE
+    std::vector<long> readOrdersId() {
+        HTTPSender send;
+        HTTPResponse* response = send.doRequest(ORDERS_URL"/ids", HTTPMethod::HTTP_GET);
+        std::vector<long> ordersId;
+
+        if (response->getStatusCode() == 200) {
+            nlohmann::json  j = nlohmann::json::parse(response->getResponse());
+            j.get_to<std::vector<long>>(ordersId);
+        }
+
+        delete response;
+        return ordersId;
+    }
+
+	//DONE
+	Order* readOrder(long id) {
+		std::string URL = ORDERS_URL"/" + std::to_string(id);
+
+		HTTPSender send;
+		HTTPResponse* response = send.doRequest(URL, HTTPMethod::HTTP_GET);
+
+		if (response->getStatusCode() == 200) {
+			Order* order = new Order();
+			nlohmann::json  j = nlohmann::json::parse(response->getResponse());
+			*order = j.get<Order>();
+			delete response;
+			return order;
+		}
+
+		delete response;
+		return nullptr;
+	}
+
+	//DONE
+	bool updateOrder(Order order) {
+		nlohmann::json  j{};
+		to_json(j, order);
+		std::string json = j.dump();
+
+		HTTPSender send;
+		HTTPResponse* response = send.doMethodWithJSONBody(ORDERS_URL, HTTPMethod::HTTP_PATCH, json);
+		bool returns = response->getStatusCode() == 200;
+
+		delete response;
+		return returns;
+	}
+
+	//DONE
+	void deleteOrder(Order order) {
+		this->deleteOrderById(order.getId());
+	}
+
+	//DONE
+	void deleteOrderById(long id) {
+		std::string URL = ORDERS_URL"/" + std::to_string(id);
+
+		HTTPSender send;
+        send.doRequest(URL, HTTPMethod::HTTP_DELETE);
+	}
+
+	//DONE
+	void deleteOrders() {
+		HTTPSender send;
+        send.doRequest(ORDERS_URL, HTTPMethod::HTTP_DELETE);
+	}
 };
 
 

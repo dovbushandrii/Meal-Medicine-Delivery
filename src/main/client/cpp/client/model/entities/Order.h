@@ -45,7 +45,7 @@ public:
 		std::vector<Medicine> medicines) {
 
 		this->id = id;
-		this->dateAndTime;
+        this->dateAndTime = dateAndTime;
 		this->totalSum = calculateSum(meals, medicines);
 		this->client = client;
 		this->meals = meals;
@@ -55,6 +55,9 @@ public:
 
 	long getId() {
 		return this->id;
+	}
+	void setId(long id) {
+		this->id = id;
 	}
 
 	tm getDateAndTime() {
@@ -69,16 +72,16 @@ public:
 	}
 	void updateTotalSum() {
 		this->totalSum = 0.0;
-		for (int i = 0; i < this->meals.size(); i++) {
+        for (size_t i = 0; i < this->meals.size(); i++) {
 			this->totalSum += this->meals[i].getPrice();
 		}
-		for (int i = 0; i < this->medicines.size(); i++) {
+        for (size_t i = 0; i < this->medicines.size(); i++) {
 			this->totalSum += this->medicines[i].getPrice();
 		}
 	}
 
 	Client getClient() {
-		return this->getClient;
+		return this->client;
 	}
 	void setClient(Client client) {
 		this->client = client;

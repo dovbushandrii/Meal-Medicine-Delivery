@@ -10,25 +10,94 @@
 #ifndef _MEDICINE_DAO_H_
 #define _MEDICINE_DAO_H_
 
-#include "../entities/Medicine.h"
+#include "ServerURLs.h"
+#include "MedicineJSONSerializer.h"
+#include "HTTPSender.h"
 #include <vector>
 
 class MedicineDAO {
 public:
 
-	void createMedicine(Medicine medicine);
+	//DONE
+	bool createMedicine(Medicine medicine) {
+		nlohmann::json  j{};
+		to_json(j, medicine);
+		std::string json = j.dump();
 
-	std::vector<Medicine> readMedicines();
+		HTTPSender send;
+		HTTPResponse* response = send.doMethodWithJSONBody(MEDICINES_URL, HTTPMethod::HTTP_POST, json);
+		bool returns = response->getStatusCode() == 200;
 
-	Medicine readMedicine(long id);
+		delete response;
+		return returns;
+	}
 
-	void updateMedicine(Medicine medicine);
+	//DONE
+	std::vector<Medicine> readMedicines() {
+		HTTPSender send;
+		HTTPResponse* response = send.doRequest(MEDICINES_URL, HTTPMethod::HTTP_GET);
+		std::vector<Medicine> medicines;
 
-	void deleteMedicine(Medicine medicine);
+		if (response->getStatusCode() == 200) {
+			nlohmann::json  j = nlohmann::json::parse(response->getResponse());
+			j.get_to<std::vector<Medicine>>(medicines);
+		}
 
-	void deleteMedicineById(long id);
+		delete response;
+		return medicines;
+	}
 
-	void deleteMedicines();
+	//DONE
+	Medicine* readMedicine(long id) {
+		std::string URL = MEDICINES_URL"/" + std::to_string(id);
+
+		HTTPSender send;
+		HTTPResponse* response = send.doRequest(URL, HTTPMethod::HTTP_GET);
+
+		if (response->getStatusCode() == 200) {
+			Medicine* medicine = new Medicine();
+			nlohmann::json  j = nlohmann::json::parse(response->getResponse());
+			*medicine = j.get<Medicine>();
+			delete response;
+			return medicine;
+		}
+
+		delete response;
+		return nullptr;
+	}
+
+	//DONE
+	bool updateMedicine(Medicine meal) {
+		nlohmann::json  j{};
+		to_json(j, meal);
+		std::string json = j.dump();
+
+		HTTPSender send;
+		HTTPResponse* response = send.doMethodWithJSONBody(MEDICINES_URL, HTTPMethod::HTTP_PATCH, json);
+		bool returns = response->getStatusCode() == 200;
+
+		delete response;
+		return returns;
+	}
+
+	//DONE
+	void deleteMedicine(Medicine meal) {
+		this->deleteMedicineById(meal.getId());
+	}
+
+	//DONE
+	void deleteMedicineById(long id) {
+		std::string URL = MEDICINES_URL"/" + std::to_string(id);
+
+		HTTPSender send;
+        send.doRequest(URL, HTTPMethod::HTTP_DELETE);
+	}
+
+	//DONE
+	void deleteMedicines() {
+		HTTPSender send;
+        send.doRequest(MEDICINES_URL, HTTPMethod::HTTP_DELETE);
+	}
 };
 
 #endif // !_MEDICINE_DAO_H_
