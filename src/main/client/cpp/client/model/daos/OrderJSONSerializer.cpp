@@ -4,13 +4,7 @@
 void to_json(nlohmann::json& j, const Order& ord) {
     Order order = ord;
     j["id"] = order.getId();
-    tm dateTime = order.getDateAndTime();
-    j["dateTime"] = {dateTime.tm_year,
-        dateTime.tm_mon,
-        dateTime.tm_mday,
-        dateTime.tm_hour,
-        dateTime.tm_min,
-        dateTime.tm_sec};
+    j["dateTime"] = nullptr;
     j["client"] = order.getClient();
     j["meals"] = order.getMeals();
     j["medicines"] = order.getMedicines();

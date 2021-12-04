@@ -17,6 +17,8 @@
 #include <QStackedLayout>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QDebug>
+#include <iostream>
 
 int getAmountFromList(std::vector<std::pair<long,int>> list, long id) {
     for (int i = 0; i < (int)list.size(); i++) {
@@ -164,6 +166,7 @@ void ItemWindow::sizeChanged(QSize size)
     for (auto widget : foodTabs)
         layout->removeWidget(widget);
 
+    updateFacility(facilityID);
     // +4 @width for off-setting the borders and scrollbar
     setFixedSize(size.width() + 4, size.height());
     mainWidget->setFixedSize(size.width() + 4, size.height());
@@ -191,6 +194,7 @@ void ItemWindow::sizeChanged(QSize size)
 
     for(int c=0; c < layout->columnCount(); c++) layout->setColumnStretch(c,1);
     for(int r=0; r < layout->rowCount(); r++)  layout->setRowStretch(r,1);
+
 }
 
 void ItemWindow::updateFacility(long facilityId)
@@ -201,6 +205,12 @@ void ItemWindow::updateFacility(long facilityId)
     {
         layout->removeWidget(widget);
         delete widget;
+    }
+
+    std::vector<std::pair<long,int>> meals = pendingOrder->getMealIds();
+
+    for (int i = 0; i < (int)meals.size(); i++) {
+        qDebug() << meals[i].second <<  "\n";
     }
 
     foodTabs.clear();
@@ -215,7 +225,7 @@ void ItemWindow::updateFacility(long facilityId)
             for (int i = 0; i < (int)meals.size(); i++)
             {
                 ItemTab* newItemTab = new ItemTab(this, facilityID, meals[i]);
-                newItemTab->setAmount(getAmountFromList(pendingOrder->getMealIds(),meals[i].getId()));
+                newItemTab->setAmount(getAmountFromList(pendingOrder->getMealIds(), meals[i].getId()));
                 foodTabs.push_back(newItemTab);
             }
         }
@@ -234,7 +244,7 @@ void ItemWindow::updateFacility(long facilityId)
         //UNABLE TO LOAD FACILITY
     }
 
-    sizeChanged(QSize(width(), height()));
+    //sizeChanged(QSize(width(), height()));
 }
 
 void upsertItemToList( std::vector<std::pair<long, int>>* list, std::pair<long, int> item) {

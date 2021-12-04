@@ -147,7 +147,7 @@ void OrderWindow::updateAll()
     {
         Meal* meal = mealDAO.readMeal(meals[i].first);
         if(meal){
-            orderTabs.push_back(new OrderTab(this, *meal , &meals[i].second));
+            orderTabs.push_back(new OrderTab(this, *meal , &(meals[i].second)));
             layout->addWidget(orderTabs.back());
         }
     }
@@ -155,7 +155,7 @@ void OrderWindow::updateAll()
     {
         Medicine* medicine = medicineDAO.readMedicine(medicines[i].first);
         if(medicine){
-            orderTabs.push_back(new OrderTab(this, *medicine , &medicines[i].second));
+            orderTabs.push_back(new OrderTab(this, *medicine , &(medicines[i].second)));
             layout->addWidget(orderTabs.back());
         }
     }
@@ -203,6 +203,21 @@ void deleteFromList(long ID, std::vector<std::pair<long,int>> *items) {
 
 void OrderWindow::deleteOrderItem(OrderTab *to_delete)
 {
+    std::vector<std::pair<long,int>> update;
+    if(to_delete->type == MEAL){
+        update = pendingOrder->getMealIds();
+    }
+    else {
+        update = pendingOrder->getMedicineIds();
+    }
+    deleteFromList(to_delete->itemID, &update);
+    if(to_delete->type == MEAL){
+        pendingOrder->setMealIds(update);
+    }
+    else {
+        pendingOrder->setMedicineIds(update);
+    }
+
     layout->removeWidget(to_delete);
     delete to_delete;
 }

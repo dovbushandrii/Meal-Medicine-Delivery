@@ -10,6 +10,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
+#include "../model/entities/PendingOrder.h"
 
 class OrderPreview : public QWidget
 {
@@ -28,7 +29,7 @@ private:
 
 signals:
     void deleteOrderItem_s(OrderPreview *);
-    void openOrder_s(long);
+    void openOrder_s(PendingOrder);
 
 private slots:
     void deleteOrderItem();

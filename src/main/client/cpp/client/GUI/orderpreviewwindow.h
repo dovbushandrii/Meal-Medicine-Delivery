@@ -7,6 +7,7 @@
 #define ORDERPREVIEWWINDOW_H
 
 #include "orderpreview.h"
+#include "../model/entities/PendingOrder.h"
 
 #include <QObject>
 #include <QWidget>
@@ -41,11 +42,11 @@ signals:
     // for changing name of window
     void changeName_s(QString);
     // for opening certain order
-    void openOrder_s(long);
+    void openOrder_s(PendingOrder);
 
 public slots:
     void sizeChanged(QSize);
-    void openOrder(long);
+    void openOrder(PendingOrder);
     void deleteOrderItem(OrderPreview *);   // to delete order from orders
 };
 

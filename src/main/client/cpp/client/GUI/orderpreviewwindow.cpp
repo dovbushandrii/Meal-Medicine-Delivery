@@ -20,7 +20,7 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
-    QObject::connect(this, SIGNAL(openOrder_s(long)), parent, SLOT(openOrder(long)));
+    QObject::connect(this, SIGNAL(openOrder_s(PendingOrder)), parent, SLOT(openOrder(PendingOrder)));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
     setStyleSheet(".OrderPreviewWindow {background-color: rgba(0,0,0,0);}");
     setContentsMargins(0, 0, 0, 0);
@@ -92,10 +92,10 @@ OrderPreviewWindow::~OrderPreviewWindow()
 
 }
 
-void OrderPreviewWindow::openOrder(long orderID)
+void OrderPreviewWindow::openOrder(PendingOrder order)
 {
     // TODO
-    emit openOrder_s(orderID);
+    emit openOrder_s(order);
 }
 
 void OrderPreviewWindow::sizeChanged(QSize size)

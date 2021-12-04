@@ -110,7 +110,7 @@ public slots:
     void makeOrder(long, ItemType);
     void confirmOrder(long);
     void finishedWaiting();
-    void openOrder(long);
+    void openOrder(PendingOrder);
     void changeSize();
     void welcomeScreen();
 };

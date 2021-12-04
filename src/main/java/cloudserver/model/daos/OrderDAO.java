@@ -14,6 +14,7 @@ import cloudserver.model.repos.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -28,6 +29,7 @@ public class OrderDAO {
     }
 
     public SystemOrder create(SystemOrder systemOrder) {
+        systemOrder.setDateTime(LocalDateTime.now());
         return repo.save(systemOrder);
     }
 

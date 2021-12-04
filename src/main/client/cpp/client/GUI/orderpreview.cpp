@@ -15,6 +15,8 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
 {
     this->orderID = orderID;
 
+    int utc = 1; //TIMEZONE =========================================================
+
     OrderDAO dao;
     Order* order = dao.readOrder(orderID);
     if(order){
@@ -24,7 +26,7 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
         setStyleSheet(".OrderPreview {background-color: rgba(0,0,0,40); border-radius: 30px;}");
 
         QObject::connect(this, SIGNAL(deleteOrderItem_s(OrderPreview *)), parent, SLOT(deleteOrderItem(OrderPreview *)));
-        QObject::connect(this, SIGNAL(openOrder_s(long)), parent, SLOT(openOrder(long)));
+        QObject::connect(this, SIGNAL(openOrder_s(PendingOrder)), parent, SLOT(openOrder(PendingOrder)));
 
         // TODO change name according to the orderID
         date = new QLabel(this);
@@ -32,7 +34,10 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
         date->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
         date->setText(QString::fromStdString(std::to_string(order->getDateAndTime().tm_mday) + "/" +
                                              std::to_string(order->getDateAndTime().tm_mon) + "/" +
-                                             std::to_string(order->getDateAndTime().tm_year)));
+                                             std::to_string(order->getDateAndTime().tm_year) + " " +
+                                             std::to_string((order->getDateAndTime().tm_hour + utc) % 24) + ":" +
+                                             std::to_string(order->getDateAndTime().tm_min) + ":" +
+                                             std::to_string(order->getDateAndTime().tm_sec)));
 
         cancel = new QPushButton("X",this);
         cancel->setFixedSize(TITLE_HEIGHT, TITLE_HEIGHT);
@@ -94,5 +99,16 @@ void OrderPreview::deleteOrderItem()
 
 void OrderPreview::openOrder()
 {
-    emit openOrder_s(orderID);
+    this->orderID = orderID;
+
+    OrderDAO dao;
+    Order* order = dao.readOrder(orderID);
+    if(order){
+        PendingOrder pendOrd;
+        pendOrd.fillFromOrder(*order);
+        emit openOrder_s(pendOrd);
+    }
+    else {
+        //conection troubles
+    }
 }

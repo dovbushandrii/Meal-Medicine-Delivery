@@ -13,6 +13,7 @@
 #include "loginscreen.h"
 #include "../model/daos/FacilityDAO.h"
 #include "../model/daos/OrderDAO.h"
+#include "../model/daos/ClientDAO.h"
 
 #include <QCursor>
 #include <QDebug>
@@ -73,8 +74,18 @@ MainWindow::MainWindow(QWidget *parent, QApplication *app)
     screen =  desktop.availableGeometry(this);
     size = QSize(screen.width() * RATIO, screen.height() * RATIO);
 
+    //HERE WE CAN CHOOSE CLIENTS
+    ClientDAO clientDAO;
+    std::vector<Client> client = clientDAO.readClients();
+
     // initialize title of the window
-    menu = new Menu(this);
+    if(client.size() > 0){
+        menu = new Menu(this, client[0].getId());
+        pendingOrder.setClientId(client[0].getId());
+    }
+    else{
+        menu = new Menu(this, 0);
+    }
     QObject::connect(this, SIGNAL(sizeChanged_s(QSize)), menu, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(updateClientData_s(long)), menu, SLOT(updateClientData(long)));
 
@@ -154,6 +165,17 @@ void MainWindow::makeOrder(long orderID, ItemType type)
 
 void MainWindow::confirmOrder(long orderID)
 {
+    //pendingOrder -> pendingToConfirmed() -> OrderDAO;
+    long clientId = pendingOrder.getClientId();
+    Order newOrder = pendingOrder.createConfirmedOrder();
+    OrderDAO dao;
+    if(!dao.createOrder(newOrder)){
+        //IF ORDER WAS NOT CREATED ON SERVER
+    }
+
+    PendingOrder order;
+    order.setClientId(clientId);
+    pendingOrder = order;
     // we have confirmed the order, back to welcome screen probably
     replaceWidget(new WelcomeWindow(this));
 }
@@ -165,10 +187,10 @@ void MainWindow::finishedWaiting()
     replaceWidget(new WelcomeWindow(this));
 }
 
-void MainWindow::openOrder(long orderID)
+void MainWindow::openOrder(PendingOrder order)
 {
     // to change order
-    replaceWidget(new OrderWindow(this, &pendingOrder, EDIT));
+    replaceWidget(new OrderWindow(this, &order, EDIT));
 }
 
 void MainWindow::welcomeScreen()

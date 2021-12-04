@@ -17,7 +17,7 @@ class Menu : public QWidget
 {
     Q_OBJECT
 public:
-    Menu(QWidget *, long = 0);
+    Menu(QWidget *, long);
     ~Menu();
 
     bool isInfoPanel();
