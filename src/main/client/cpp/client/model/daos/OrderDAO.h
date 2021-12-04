@@ -14,6 +14,7 @@
 #include "OrderJSONSerializer.h"
 #include "HTTPSender.h"
 #include <vector>
+#include <iostream>
 
 class OrderDAO {
 public:
@@ -50,7 +51,7 @@ public:
     //DONE
     std::vector<long> readOrdersId() {
         HTTPSender send;
-        HTTPResponse* response = send.doRequest(FACILITIES_URL"/ids", HTTPMethod::HTTP_GET);
+        HTTPResponse* response = send.doRequest(ORDERS_URL"/ids", HTTPMethod::HTTP_GET);
         std::vector<long> ordersId;
 
         if (response->getStatusCode() == 200) {

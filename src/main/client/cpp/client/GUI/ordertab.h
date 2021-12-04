@@ -21,12 +21,13 @@ class OrderTab : public QWidget
 {
     Q_OBJECT
 public:
-    OrderTab(QWidget *, Medicine, int);
-    OrderTab(QWidget *, Meal, int);
+    OrderTab(QWidget *, Medicine, int*);
+    OrderTab(QWidget *, Meal, int*);
     ~OrderTab();
 
     long itemID;
     ItemType type;
+    int* amountOf;
 
 private:
     long facilityID;

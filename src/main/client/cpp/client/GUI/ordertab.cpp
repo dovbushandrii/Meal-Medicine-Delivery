@@ -15,8 +15,12 @@
 #include <QPainter>
 #include <QDebug>
 
-OrderTab::OrderTab(QWidget *parent, Medicine medicine, int initialAmount) : QWidget(parent)
+OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWidget(parent)
 {
+    amountOf = initialAmount;
+    itemID = medicine.getId();
+    type = MEDICINE;
+
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
 
     setAttribute(Qt::WA_StyledBackground, true);
@@ -65,13 +69,12 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int initialAmount) : QWid
     totalPrice = new QLabel(this);
     totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
-    totalPrice->setText(QString::fromStdString(std::to_string(medicine.getPrice() * initialAmount)));
+    totalPrice->setText(QString::fromStdString(std::to_string(medicine.getPrice() * (*initialAmount))));
 
     // TODO change accordingly to the ID
-    amount = new QLabel(QString::fromStdString(std::to_string(initialAmount)), this);
+    amount = new QLabel(QString::fromStdString(std::to_string(*initialAmount)), this);
     amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    amount->setText(QString::fromStdString(std::to_string(initialAmount)));
 
     minus = new QPushButton("-",this);
     minus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
@@ -115,8 +118,11 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int initialAmount) : QWid
     layout->addLayout(layoutRight);
 }
 
-OrderTab::OrderTab(QWidget *parent, Meal meal, int initialAmount) : QWidget(parent)
+OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(parent)
 {
+    amountOf = initialAmount;
+    itemID = meal.getId();
+    type = MEAL;
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
 
@@ -164,13 +170,12 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int initialAmount) : QWidget(pare
     totalPrice = new QLabel(this);
     totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
-    totalPrice->setText(QString::fromStdString(std::to_string(meal.getPrice() * initialAmount)));
+    totalPrice->setText(QString::fromStdString(std::to_string(meal.getPrice() * (*initialAmount))));
 
     // TODO change accordingly to the ID
-    amount = new QLabel(QString::fromStdString(std::to_string(initialAmount)), this);
+    amount = new QLabel(QString::fromStdString(std::to_string(*initialAmount)), this);
     amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
-    amount->setText(QString::fromStdString(std::to_string(initialAmount)));
 
     minus = new QPushButton("-",this);
     minus->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
@@ -240,12 +245,14 @@ void OrderTab::sizeChanged(QSize size)
 void OrderTab::minusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
+    (*amountOf)--;
     emit minusClicked_s();
 }
 
 void OrderTab::plusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
+    (*amountOf)++;
     emit plusClicked_s();
 }
 

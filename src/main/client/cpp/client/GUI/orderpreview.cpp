@@ -6,6 +6,7 @@
 #include "orderpreview.h"
 #include "mainwindow.h"
 #include "popup.h"
+#include "../model/daos/OrderDAO.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -14,52 +15,66 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
 {
     this->orderID = orderID;
 
-    setFixedSize((2 * TITLE_WIDTH) + (3 * DEFAULT_SPACE) + AMOUNT_WIDTH, (5 * TITLE_HEIGHT) + (5 * DEFAULT_SPACE));
+    OrderDAO dao;
+    Order* order = dao.readOrder(orderID);
+    if(order){
+        setFixedSize((2 * TITLE_WIDTH) + (3 * DEFAULT_SPACE) + AMOUNT_WIDTH, (5 * TITLE_HEIGHT) + (5 * DEFAULT_SPACE));
 
-    setAttribute(Qt::WA_StyledBackground, true);
-    setStyleSheet(".OrderPreview {background-color: rgba(0,0,0,40); border-radius: 30px;}");
+        setAttribute(Qt::WA_StyledBackground, true);
+        setStyleSheet(".OrderPreview {background-color: rgba(0,0,0,40); border-radius: 30px;}");
 
-    QObject::connect(this, SIGNAL(deleteOrderItem_s(OrderPreview *)), parent, SLOT(deleteOrderItem(OrderPreview *)));
-    QObject::connect(this, SIGNAL(openOrder_s(long)), parent, SLOT(openOrder(long)));
+        QObject::connect(this, SIGNAL(deleteOrderItem_s(OrderPreview *)), parent, SLOT(deleteOrderItem(OrderPreview *)));
+        QObject::connect(this, SIGNAL(openOrder_s(long)), parent, SLOT(openOrder(long)));
 
-    // TODO change name according to the orderID
-    date = new QLabel(this);
-    date->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignLeft; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
-    date->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
+        // TODO change name according to the orderID
+        date = new QLabel(this);
+        date->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignLeft; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+        date->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
+        date->setText(QString::fromStdString(std::to_string(order->getDateAndTime().tm_mday) + "/" +
+                                             std::to_string(order->getDateAndTime().tm_mon) + "/" +
+                                             std::to_string(order->getDateAndTime().tm_year)));
 
-    cancel = new QPushButton("X",this);
-    cancel->setFixedSize(TITLE_HEIGHT, TITLE_HEIGHT);
-    cancel->setStyleSheet("*{font-size: 13pt; border-radius: 10px; color: red; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
-    QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(CreatePopup()));
-    //QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
+        cancel = new QPushButton("X",this);
+        cancel->setFixedSize(TITLE_HEIGHT, TITLE_HEIGHT);
+        cancel->setStyleSheet("*{font-size: 13pt; border-radius: 10px; color: red; background-color: rgba(0,0,0,80)} *::hover{background-color: rgba(0,0,0,120)}");
+        QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(CreatePopup()));
+        //QObject::connect(cancel, SIGNAL(clicked()), this, SLOT(deleteOrderItem()));
 
 
-    // TODO change name according to the orderID
-    description = new QPushButton(this);
-    description->setStyleSheet("*{font : 'Arial'; border-radius: 10px; font-size: 13pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
-    description->setFixedSize(2 * TITLE_WIDTH + AMOUNT_WIDTH + DEFAULT_SPACE, 3 * TITLE_HEIGHT);
-    QObject::connect(description, SIGNAL(clicked()), this, SLOT(openOrder()));
+        // TODO change name according to the orderID
+        // WE DONT HAVE A DESCRIPTION
+        description = new QPushButton(this);
+        description->setStyleSheet("*{font : 'Arial'; border-radius: 10px; font-size: 13pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
+        description->setFixedSize(2 * TITLE_WIDTH + AMOUNT_WIDTH + DEFAULT_SPACE, 3 * TITLE_HEIGHT);
+        QObject::connect(description, SIGNAL(clicked()), this, SLOT(openOrder()));
 
-    // TODO change name according to the orderID
-    totalPrice = new QLabel(this);
-    totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignLeft; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
-    totalPrice->setFixedSize(2 * TITLE_WIDTH + AMOUNT_WIDTH + DEFAULT_SPACE, TITLE_HEIGHT);
+        order->updateTotalSum();
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    QHBoxLayout *layoutTop = new QHBoxLayout();
+        // TODO change name according to the orderID
+        totalPrice = new QLabel(this);
+        totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignLeft; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+        totalPrice->setFixedSize(2 * TITLE_WIDTH + AMOUNT_WIDTH + DEFAULT_SPACE, TITLE_HEIGHT);
+        totalPrice->setText(QString::fromStdString(std::to_string(order->getTotalSum())));
 
-    layout->setSpacing(DEFAULT_SPACE);
-    layout->setMargin(DEFAULT_SPACE);
-    layout->setAlignment(Qt::AlignTop);
+        QVBoxLayout *layout = new QVBoxLayout(this);
+        QHBoxLayout *layoutTop = new QHBoxLayout();
 
-    layoutTop->setSpacing(DEFAULT_SPACE);
-    layoutTop->addWidget(date, Qt::AlignLeft);
-    layoutTop->addWidget(cancel, Qt::AlignRight);
+        layout->setSpacing(DEFAULT_SPACE);
+        layout->setMargin(DEFAULT_SPACE);
+        layout->setAlignment(Qt::AlignTop);
 
-    layout->addLayout(layoutTop);
+        layoutTop->setSpacing(DEFAULT_SPACE);
+        layoutTop->addWidget(date, Qt::AlignLeft);
+        layoutTop->addWidget(cancel, Qt::AlignRight);
 
-    layout->addWidget(totalPrice);
-    layout->addWidget(description);
+        layout->addLayout(layoutTop);
+
+        layout->addWidget(totalPrice);
+        layout->addWidget(description);
+    }
+    else {
+        //UNABLE TO LOAD THE ORDER
+    }
 }
 
 OrderPreview::~OrderPreview()

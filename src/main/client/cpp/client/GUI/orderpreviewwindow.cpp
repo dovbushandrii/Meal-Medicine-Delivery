@@ -6,6 +6,7 @@
 #include "orderpreviewwindow.h"
 #include "mainwindow.h"
 #include "itemtab.h"
+#include "../model/daos/OrderDAO.h"
 
 #include <QScrollBar>
 #include <QHBoxLayout>
@@ -74,12 +75,12 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
 
     layoutMain->addWidget(scrollArea);
 
-    // TODO create order widgets with their respective IDs
-    // fill orders
-    // for testing purposes only
-    for (int i = 0; i < 5; i++)
+    OrderDAO ordDAO;
+    std::vector<long> orderIds = ordDAO.readOrdersId();
+
+    for (int i = 0; i < (int)orderIds.size(); i++)
     {
-        orders.push_back(new OrderPreview(this, 0));
+        orders.push_back(new OrderPreview(this, orderIds[i]));
         layout->addWidget(orders.back());
     }
 
@@ -127,7 +128,7 @@ void OrderPreviewWindow::updateAll()
     if (rows == 0 || columns == 0)
         return;
 
-    for (int i = 0; i < orders.size(); i++)
+    for (int i = 0; i < (int)orders.size(); i++)
         layout->addWidget(orders[i], i / columns, i % columns);
 
     for(int c=0; c < layout->columnCount(); c++) layout->setColumnStretch(c,1);
@@ -137,7 +138,7 @@ void OrderPreviewWindow::updateAll()
 void OrderPreviewWindow::deleteOrderItem(OrderPreview *to_delete)
 {
     layout->removeWidget(to_delete);
-    for (int i = 0; i < orders.size(); i++)
+    for (int i = 0; i < (int)orders.size(); i++)
         if (orders[i] == to_delete)
         {
             orders.erase(orders.begin() + i);

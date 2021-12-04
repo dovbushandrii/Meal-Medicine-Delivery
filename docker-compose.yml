@@ -1,0 +1,15 @@
+version: "3"
+services:
+  mmds-app-db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=anbevuto2n
+    ports:
+    - 5432:5432
+  mmds-app:
+    image: adovbush/mmd-system:1.0
+    ports:
+    - "80:80"
+    depends_on:
+      - mmds-app-db

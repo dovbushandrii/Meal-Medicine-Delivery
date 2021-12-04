@@ -193,9 +193,9 @@ void ItemWindow::sizeChanged(QSize size)
     for(int r=0; r < layout->rowCount(); r++)  layout->setRowStretch(r,1);
 }
 
-void ItemWindow::updateFacility(long new_id)
+void ItemWindow::updateFacility(long facilityId)
 {
-    facilityID = new_id;
+    facilityID = facilityId;
     // clear whole layout and create a new one
     for(auto widget : foodTabs)
     {
@@ -214,7 +214,9 @@ void ItemWindow::updateFacility(long new_id)
             std::vector<Meal> meals = facility->getMealList();
             for (int i = 0; i < (int)meals.size(); i++)
             {
-                foodTabs.push_back(new ItemTab(this, facilityID, meals[i]));
+                ItemTab* newItemTab = new ItemTab(this, facilityID, meals[i]);
+                newItemTab->setAmount(getAmountFromList(pendingOrder->getMealIds(),meals[i].getId()));
+                foodTabs.push_back(newItemTab);
             }
         }
         //If it is medicine menu -> load medicine
@@ -222,7 +224,9 @@ void ItemWindow::updateFacility(long new_id)
             std::vector<Medicine> medicines = facility->getMedicineList();
             for (int i = 0; i < (int)medicines.size(); i++)
             {
-                foodTabs.push_back(new ItemTab(this, facilityID, medicines[i]));
+                ItemTab* newItemTab = new ItemTab(this, facilityID, medicines[i]);
+                newItemTab->setAmount(getAmountFromList(pendingOrder->getMedicineIds(),medicines[i].getId()));
+                foodTabs.push_back(newItemTab);
             }
         }
     }
