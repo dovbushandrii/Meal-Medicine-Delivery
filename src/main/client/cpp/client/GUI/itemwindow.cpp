@@ -144,8 +144,6 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingO
     else{
         //UNABLE TO LOAD FACILITY
     }
-
-    emit changeName_s(QString::fromStdString("Objednávanie jedla"));
 }
 
 ItemWindow::~ItemWindow()
@@ -163,6 +161,8 @@ void ItemWindow::paintEvent(QPaintEvent *)
 
 void ItemWindow::sizeChanged(QSize size)
 {
+    emit changeName_s(QString::fromStdString("Objednávanie jedla"));
+
     for (auto widget : foodTabs)
         layout->removeWidget(widget);
 

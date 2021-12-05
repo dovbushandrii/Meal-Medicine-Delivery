@@ -104,9 +104,6 @@ LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
 
     setStyleSheet(".LoginScreen {color: qlineargradient(spread:pad, x1:0 y1:0, x2:1 y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255)); background: qlineargradient( x1:0 y1:0, x2:1 y2:1, stop:1 #55EE55, stop:0 #999999);}");
 
-    emit NameChanged("Prihlasovacie okno");
-
-
 }
 
 LoginScreen::~LoginScreen(){
@@ -166,5 +163,6 @@ void LoginScreen::PasswordAmend(QString text) {
 }
 
 void LoginScreen::SizeChanged(QSize size) {
+    emit NameChanged("Prihlasovacie okno");
     setFixedSize(size);
 }
