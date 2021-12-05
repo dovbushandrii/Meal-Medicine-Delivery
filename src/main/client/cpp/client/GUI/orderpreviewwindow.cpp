@@ -137,6 +137,8 @@ void OrderPreviewWindow::updateAll()
 
 void OrderPreviewWindow::deleteOrderItem(OrderPreview *to_delete)
 {
+    OrderDAO dao;
+    dao.deleteOrderById(to_delete->orderID);
     layout->removeWidget(to_delete);
     for (int i = 0; i < (int)orders.size(); i++)
         if (orders[i] == to_delete)

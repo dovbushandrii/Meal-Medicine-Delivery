@@ -19,8 +19,9 @@ public:
     OrderPreview(QWidget *, long);
     ~OrderPreview();
 
-private:
     long orderID;
+private:
+
 
     QLabel *date;
     QPushButton *cancel;
