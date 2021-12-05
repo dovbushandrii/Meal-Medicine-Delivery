@@ -59,7 +59,7 @@ OrderPreview::OrderPreview(QWidget *parent, long orderID) : QWidget(parent)
         totalPrice = new QLabel(this);
         totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignLeft; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
         totalPrice->setFixedSize(2 * TITLE_WIDTH + AMOUNT_WIDTH + DEFAULT_SPACE, TITLE_HEIGHT);
-        totalPrice->setText(QString::fromStdString(std::to_string(order->getTotalSum())));
+        totalPrice->setText(QString::fromStdString(DECIMALJESUS(order->getTotalSum())));
 
         QVBoxLayout *layout = new QVBoxLayout(this);
         QHBoxLayout *layoutTop = new QHBoxLayout();
