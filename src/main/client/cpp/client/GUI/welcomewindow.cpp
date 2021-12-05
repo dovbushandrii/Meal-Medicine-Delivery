@@ -45,8 +45,6 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) : QWidget(parent)
     layout->addWidget(medicineWindow, 0, 1);
     layout->addWidget(ordersWindow, 1, 0);
     layout->addWidget(medicineSchedule, 1, 1);
-
-    emit changeName_s("Domov");
 }
 
 WelcomeWindow::~WelcomeWindow()
@@ -64,6 +62,8 @@ void WelcomeWindow::paintEvent(QPaintEvent *)
 
 void WelcomeWindow::sizeChanged(QSize size)
 {
+    emit changeName_s("Domov");
+
     setFixedSize(size);
     mainWidget->setFixedSize(size);
     size.setWidth(size.width() - (3 * DEFAULT_SPACE));

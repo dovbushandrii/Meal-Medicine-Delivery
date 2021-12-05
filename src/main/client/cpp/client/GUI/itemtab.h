@@ -46,12 +46,15 @@ private:
     QHBoxLayout *layoutAmount;
     QHBoxLayout *layoutPicture;
 
+    double unitPrice;
+
     // custom override for transparency
     void paintEvent(QPaintEvent *);
 
 signals:
-    void minusClicked_s();
-    void plusClicked_s();
+    // propagating change in price
+    void minusClicked_s(double);
+    void plusClicked_s(double);
 
 private slots:
     void minusClicked();

@@ -36,8 +36,6 @@ WaitingScreen::WaitingScreen(QWidget *parent, QString description) : QWidget(par
 
     layout->addWidget(loader);
     layout->addWidget(label);
-
-    emit changeName_s("Načítavanie");
 }
 
 WaitingScreen::~WaitingScreen()
@@ -52,6 +50,8 @@ void WaitingScreen::start()
 
 void WaitingScreen::sizeChanged(QSize size)
 {
+    emit changeName_s("Načítavanie");
+
     size.setWidth(size.width());
     setFixedSize(size);
     mainWidget->setFixedSize(size);

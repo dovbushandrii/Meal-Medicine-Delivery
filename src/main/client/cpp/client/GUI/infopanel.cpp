@@ -29,12 +29,12 @@ InfoPanel::InfoPanel(QWidget *parent, long id) : QWidget(parent)
 
     personalDetails = new QLabel(QString::fromStdString("Osobné údaje"), this);
     personalDetails->setFixedSize(INFO_PANEL_WIDTH - TITLE_WIDTH, TITLE_HEIGHT / 2);
-    personalDetails->setStyleSheet("* {font: bold italic underline \"Times New Roman\"; qproperty-alignment: AlignCenter; font-size: 14pt;background-color: rgba(0,0,0,0);}");
+    personalDetails->setStyleSheet("* {font: bold italic \"Times New Roman\"; qproperty-alignment: AlignCenter; font-size: 13pt;background-color: rgba(0,0,0,0);}");
 
     hideButton = new QPushButton(this);
     hideButton->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
     hideButton->setStyleSheet(
-                "* {font-size: 11pt; color: black; background-color: rgba(0,255,0,180); image: url(../imgs/return_mirrored_transparent.png);} \
+                "* {font-size: 13pt; color: black; background-color: rgba(0,255,0,180); image: url(../imgs/return_mirrored_transparent.png);} \
                 *::hover {border: 1.5px solid black; color: white; background-color: rgba(0,155,0,220);}");
     QObject::connect(hideButton, SIGNAL(clicked()), this, SLOT(openIcons()));
 

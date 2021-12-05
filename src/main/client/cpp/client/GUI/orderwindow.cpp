@@ -21,6 +21,7 @@ OrderWindow::OrderWindow(QWidget *parent, PendingOrder* pendingOrder , OrderWind
 {
     this->pendingOrder = pendingOrder;
     this->type = type;
+    this->sumPrice = 0;
 
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
@@ -173,16 +174,18 @@ void OrderWindow::confirmOrder()
     emit confirmOrder_s(0);
 }
 
-void OrderWindow::minusClicked()
+void OrderWindow::minusClicked(double price_changed)
 {
     // TODO update total price
-    totalPrice->setText("Plus");
+    sumPrice += price_changed;
+    totalPrice->setText(QString::fromStdString(std::to_string(sumPrice)));
 }
 
-void OrderWindow::plusClicked()
+void OrderWindow::plusClicked(double price_changed)
 {
     // TODO update total price
-    totalPrice->setText("Minus");
+    sumPrice += price_changed;
+    totalPrice->setText(QString::fromStdString(std::to_string(sumPrice)));
 }
 
 void OrderWindow::paintEvent(QPaintEvent *)

@@ -19,6 +19,7 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Meal meal) : QWidget(parent)
     this->facilityID = facilityID;
     this->mealID = meal.getId();
     this->type = MEAL;
+    this->unitPrice = meal.getPrice();
 
 //    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
 //    setGraphicsEffect(shadow);
@@ -27,8 +28,8 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Meal meal) : QWidget(parent)
     setAttribute(Qt::WA_StyledBackground, true);
     setStyleSheet(".ItemTab {background-color: rgba(0,0,0,20); border-radius: 30px;}");
 
-    QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
-    QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
+    QObject::connect(this, SIGNAL(minusClicked_s(double)), parent, SLOT(minusClicked(double)));
+    QObject::connect(this, SIGNAL(plusClicked_s(double)), parent, SLOT(plusClicked(double)));
 
     picture = new QLabel(this);
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
@@ -108,6 +109,7 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Medicine medicine) : QWidget(
     this->facilityID = facilityID;
     this->mealID = medicine.getId();
     this->type = MEDICINE;
+    this->unitPrice = medicine.getPrice();
 
 //    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
 //    setGraphicsEffect(shadow);
@@ -216,12 +218,14 @@ void ItemTab::paintEvent(QPaintEvent *)
 
 void ItemTab::minusClicked()
 {
+    if (amount->text().toInt() != 0)
+        emit minusClicked_s(-(unitPrice));
+
     amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
-    emit minusClicked_s();
 }
 
 void ItemTab::plusClicked()
 {
-    amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
-    emit plusClicked_s();
+    amount->setText(QString::fromStdString(std::to_string(std::stoi(amount->text().toStdString()) + 1)));
+    emit plusClicked_s(unitPrice);
 }

@@ -21,7 +21,7 @@ SettingsButton::SettingsButton(QWidget *parent) : QWidget(parent)
 
     label = new QPushButton("Nastavenia", this);
     label->setFixedSize(INFO_PANEL_WIDTH, TITLE_HEIGHT);
-    label->setStyleSheet("* {font: bold italic \"Times New Roman\"; font-size: 11pt; color: black; background-color: rgba(0,0,0,0);}\
+    label->setStyleSheet("* {font: bold italic \"Times New Roman\"; font-size: 13pt; color: black; background-color: rgba(0,0,0,0);}\
                             .QPushButton::hover{text-decoration: underline;}");
     QObject::connect(label, SIGNAL(clicked()), this, SLOT(openSettings()));
     QVBoxLayout *layout = new QVBoxLayout(this);
