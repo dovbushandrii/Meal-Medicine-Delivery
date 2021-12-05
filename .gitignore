@@ -25,6 +25,8 @@
 #Logs
 *.log
 
+GUI.pro.user*
+
 #IDE files
 *.iml
 .qmake.stash
