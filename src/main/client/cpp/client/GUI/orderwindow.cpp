@@ -178,14 +178,14 @@ void OrderWindow::minusClicked(double price_changed)
 {
     // TODO update total price
     sumPrice += price_changed;
-    totalPrice->setText(QString::fromStdString(std::to_string(sumPrice)));
+    totalPrice->setText(QString::fromStdString(DECIMALJESUS(sumPrice)));
 }
 
 void OrderWindow::plusClicked(double price_changed)
 {
     // TODO update total price
     sumPrice += price_changed;
-    totalPrice->setText(QString::fromStdString(std::to_string(sumPrice)));
+    totalPrice->setText(QString::fromStdString(DECIMALJESUS(sumPrice)));
 }
 
 void OrderWindow::paintEvent(QPaintEvent *)

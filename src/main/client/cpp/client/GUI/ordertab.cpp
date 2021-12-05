@@ -59,7 +59,7 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
     price->setMinimumWidth(2 * TITLE_WIDTH);
 
     unitPrice = medicine.getPrice();
-    price->setText(QString::fromStdString("Cena za kus:" + std::to_string(medicine.getPrice())));
+    price->setText(QString::fromStdString("Cena za kus:" + DECIMALJESUS(medicine.getPrice())));
 
     // TODO change accordingly to the ID
     totalPrice = new QLabel(this);
@@ -67,7 +67,7 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
 
     totalSum = medicine.getPrice() * (*initialAmount);
-    totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
+    totalPrice->setText(QString::fromStdString("Celková cena:" + DECIMALJESUS(totalSum)));
 
     // TODO change accordingly to the ID
     description = new QLabel(this);
@@ -76,7 +76,7 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
     description->setText(QString::fromStdString(medicine.getDescription()));
 
     this->unitPrice = medicine.getPrice();
-    totalPrice->setText(QString::fromStdString(std::to_string(unitPrice * (*initialAmount))));
+    totalPrice->setText(QString::fromStdString(DECIMALJESUS(unitPrice * (*initialAmount))));
 
     // TODO change accordingly to the ID
     amount = new QLabel(QString::fromStdString(std::to_string(*initialAmount)), this);
@@ -167,7 +167,7 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
     price->setMinimumWidth(2 * TITLE_WIDTH);
 
     unitPrice = meal.getPrice();
-    price->setText(QString::fromStdString("Cena za kus:" + std::to_string(meal.getPrice())));
+    price->setText(QString::fromStdString("Cena za kus:" + DECIMALJESUS(meal.getPrice())));
 
     // TODO change accordingly to the ID
     totalPrice = new QLabel(this);
@@ -175,7 +175,7 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
 
     totalSum = meal.getPrice() * (*initialAmount);
-    totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
+    totalPrice->setText(QString::fromStdString("Celková cena:" + DECIMALJESUS(totalSum)));
 
     // TODO change accordingly to the ID
     description = new QLabel(this);
@@ -259,7 +259,7 @@ void OrderTab::minusClicked()
         return;
 
     totalSum -= unitPrice;
-    totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
+    totalPrice->setText(QString::fromStdString("Celková cena:" + DECIMALJESUS(totalSum)));
 
     amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
     (*amountOf)--;
@@ -269,7 +269,7 @@ void OrderTab::minusClicked()
 void OrderTab::plusClicked()
 {
     totalSum += unitPrice;
-    totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
+    totalPrice->setText(QString::fromStdString("Celková cena:" + DECIMALJESUS(totalSum)));
 
     amount->setText(QString::fromStdString(std::to_string(std::stoi(amount->text().toStdString()) + 1)));
     (*amountOf)++;

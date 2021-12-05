@@ -101,13 +101,13 @@ else if (typ == regi) {
     message->setText("Prihlasovacie meno");
     message->setWordWrap(true);
     message->setAlignment(Qt::AlignLeft);
-    message->setStyleSheet("* {font : bold 'Arial'; font-size : 14pt;}");
+    message->setStyleSheet("* {font : bold 'Arial'; font-size : 16pt;}");
 
     line = new QLineEdit();
     line->setFixedSize(600,60);
     line->setPlaceholderText("Prihlasovacie meno");
     line->setStyleSheet("QLineEdit {  border: 2px solid gray;"
-                                            "font-size : 16pt;"
+                                            "font-size : 18pt;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
 
@@ -115,14 +115,14 @@ else if (typ == regi) {
     password->setText("Heslo");
     password->setWordWrap(true);
     password->setAlignment(Qt::AlignLeft);
-    password->setStyleSheet("* {font : bold 'Arial'; font-size : 14pt;}");
+    password->setStyleSheet("* {font : bold 'Arial'; font-size : 16pt;}");
 
     pass_line = new QLineEdit();
     pass_line->setFixedSize(600,60);
     pass_line->setEchoMode(QLineEdit::Password);
     pass_line->setPlaceholderText("Heslo");
     pass_line->setStyleSheet("QLineEdit {  border: 2px solid gray;"
-                                            "font-size : 16pt;"
+                                            "font-size : 18pt;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
 
@@ -130,13 +130,13 @@ else if (typ == regi) {
     email->setText("Emailová adresa");
     email->setWordWrap(true);
     email->setAlignment(Qt::AlignLeft);
-    email->setStyleSheet("* {font : bold 'Arial'; font-size : 14pt;}");
+    email->setStyleSheet("* {font : bold 'Arial'; font-size : 16pt;}");
 
     email_line = new QLineEdit();
     email_line->setFixedSize(600,60);
     email_line->setPlaceholderText("Email");
     email_line->setStyleSheet("QLineEdit {  border: 2px solid gray;"
-                                            "font-size : 16pt;"
+                                            "font-size : 18pt;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
 
@@ -144,14 +144,14 @@ else if (typ == regi) {
     confirm->setText("Potvrdiť heslo");
     confirm->setWordWrap(true);
     confirm->setAlignment(Qt::AlignLeft);
-    confirm->setStyleSheet("* {font : bold 'Arial'; font-size : 14pt;}");
+    confirm->setStyleSheet("* {font : bold 'Arial'; font-size : 16pt;}");
 
     QLineEdit *confirm_line = new QLineEdit();
     confirm_line->setEchoMode(QLineEdit::Password);
     confirm_line->setFixedSize(600,60);
     confirm_line->setPlaceholderText("Potvrďte heslo");
     confirm_line->setStyleSheet("QLineEdit {  border: 2px solid gray;"
-                                            "font-size : 16pt;"
+                                            "font-size : 18pt;"
                                             "background-color: rgba(255, 255, 255, 120);"
                                             "border-radius: 10px;}");
 
@@ -159,13 +159,13 @@ else if (typ == regi) {
     accept->setText("Vytvoriť");
     accept->setFixedSize(260, 60);
     accept->setStyleSheet("* {font : bold 'Arial Black'; border-radius: 10px;"
-                                      "font-size: 16pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
+                                      "font-size: 18pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
 
     decline = new QPushButton();
     decline->setText("Zrušiť");
     decline->setFixedSize(260, 60);
     decline->setStyleSheet("* {font : bold 'Arial Black'; border-radius: 10px;"
-                                      "font-size: 16pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
+                                      "font-size: 18pt; background-color: rgba(0,0,0,40)} *::hover{background-color: rgba(0,0,0,100)}");
 
 
     /**

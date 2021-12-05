@@ -4,6 +4,7 @@
  * @brief This file contains implementation of class ItemTab
  */
 #include "itemtab.h"
+#include "mainwindow.h"
 #include "../model/daos/MealDAO.h"
 #include "../model/entities/Meal.h"
 #include "../model/daos/MedicineDAO.h"
@@ -12,6 +13,7 @@
 #include <QStyleOption>
 #include <QPainter>
 #include <QGraphicsDropShadowEffect>
+#include <string>
 
 //TODO: Constructor for Meal and Medicine
 ItemTab::ItemTab(QWidget *parent, long facilityID, Meal meal) : QWidget(parent)
@@ -99,7 +101,7 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Meal meal) : QWidget(parent)
     }
     description->setText(QString::fromStdString(meal.getDescription()));
     weight->setText(QString::fromStdString("Hmotnosť: "+std::to_string(meal.getWeight())));
-    price->setText(QString::fromStdString("Cena za porciu: "+std::to_string(meal.getPrice())));
+    price->setText(QString::fromStdString("Cena za porciu: "+DECIMALJESUS(meal.getPrice())));
     amount->setText("0");
 
 }
@@ -118,8 +120,8 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Medicine medicine) : QWidget(
     setAttribute(Qt::WA_StyledBackground, true);
     setStyleSheet(".ItemTab {background-color: rgba(0,0,0,20); border-radius: 30px;}");
 
-    QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
-    QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
+    QObject::connect(this, SIGNAL(minusClicked_s(double)), parent, SLOT(minusClicked(double)));
+    QObject::connect(this, SIGNAL(plusClicked_s(double)), parent, SLOT(plusClicked(double)));
 
     picture = new QLabel(this);
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
@@ -190,7 +192,8 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Medicine medicine) : QWidget(
         picture->setStyleSheet("* {image: url(../imgs/medicine_default.png);}");
     }
     description->setText(QString::fromStdString(medicine.getDescription()));
-    price->setText(QString::fromStdString("Cena za porciu: "+std::to_string(medicine.getPrice())));
+    unitPrice = medicine.getPrice();
+    price->setText(QString::fromStdString("Cena za porciu: "+DECIMALJESUS(medicine.getPrice())));
     amount->setText("0");
 }
 

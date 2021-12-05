@@ -27,7 +27,7 @@ LoginScreen::LoginScreen(QWidget *parent): QWidget(parent){
     box = new QVBoxLayout();
     QHBoxLayout *button_layout = new QHBoxLayout();
 
-    QFont lineFont("Arial", 18);
+    QFont lineFont("Arial", 22);
     QFont buttonFont("Arial Black", 16);
 
     user_name = new QLineEdit();
