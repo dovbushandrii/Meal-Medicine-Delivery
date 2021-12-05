@@ -70,7 +70,7 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
 
     layout = new QGridLayout(tabs);
     layout->setSpacing(DEFAULT_SPACE);
-    layout->setAlignment(Qt::AlignCenter);
+    layout->setAlignment(Qt::AlignLeft);
     layout->setMargin(DEFAULT_SPACE);
 
     layoutMain->addWidget(scrollArea);
@@ -83,6 +83,7 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
         orders.push_back(new OrderPreview(this, orderIds[i]));
         layout->addWidget(orders.back());
     }
+    updateAll();
 }
 
 OrderPreviewWindow::~OrderPreviewWindow()
@@ -124,6 +125,8 @@ void OrderPreviewWindow::updateAll()
                                       (width() - (2 * layout->margin() + columns * (orders[0]->width() + DEFAULT_SPACE))) / columns);
 
     tabs->setFixedSize(width(), rows * (orders[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
+
+    layout->setAlignment(Qt::AlignLeft);
 
     if (rows == 0 || columns == 0)
         return;

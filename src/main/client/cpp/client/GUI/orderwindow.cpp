@@ -34,7 +34,8 @@ OrderWindow::OrderWindow(QWidget *parent, PendingOrder* pendingOrder , OrderWind
     mainWidget->setStyleSheet("*{background-color: transparent}");
 
     totalPrice = new QLabel(this);
-    totalPrice->setStyleSheet("* {font : 'Arial'; font-size: 12pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,60);}");
+    totalPrice->setAlignment(Qt::AlignCenter);
+    totalPrice->setStyleSheet("* {font : 'Arial'; font-size: 15pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,60);}");
     totalPrice->setFixedSize(TAB_WIDTH, TITLE_HEIGHT);
 
     tabs = new QWidget(this);
@@ -50,7 +51,7 @@ OrderWindow::OrderWindow(QWidget *parent, PendingOrder* pendingOrder , OrderWind
 
     order->setFixedSize(2 * TITLE_WIDTH, TITLE_HEIGHT);
     order->setStyleSheet(
-                             "* {font : 'Arial'; font-size: 13pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,80);} \
+                             "* {font : 'Arial'; font-size: 14pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,80);} \
                              *::hover {border: solid black 2px; background-color: rgba(0,0,0,120);}");
 
     QObject::connect(order, SIGNAL(clicked()), this, SLOT(confirmOrder()));
@@ -144,23 +145,30 @@ void OrderWindow::updateAll()
     MealDAO mealDAO;
     MedicineDAO medicineDAO;
 
+    sumPrice = 0.0;
+
     for (int i = 0; i < (int)meals.size(); i++)
     {
         Meal* meal = mealDAO.readMeal(meals[i].first);
         if(meal){
             orderTabs.push_back(new OrderTab(this, *meal , &(meals[i].second)));
             layout->addWidget(orderTabs.back());
+            sumPrice += meals[i].second * orderTabs.back()->getPrice();
         }
     }
+
     for (int i = 0; i < (int)medicines.size(); i++)
     {
         Medicine* medicine = medicineDAO.readMedicine(medicines[i].first);
         if(medicine){
             orderTabs.push_back(new OrderTab(this, *medicine , &(medicines[i].second)));
             layout->addWidget(orderTabs.back());
+            sumPrice += medicines[i].second * orderTabs.back()->getPrice();
         }
     }
 
+
+    totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(sumPrice) + " CZK"));
 
     // TODO update totalPrice
 
@@ -178,14 +186,14 @@ void OrderWindow::minusClicked(double price_changed)
 {
     // TODO update total price
     sumPrice += price_changed;
-    totalPrice->setText(QString::fromStdString(DECIMALJESUS(sumPrice)));
+    totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(sumPrice) + " CZK"));
 }
 
 void OrderWindow::plusClicked(double price_changed)
 {
     // TODO update total price
     sumPrice += price_changed;
-    totalPrice->setText(QString::fromStdString(DECIMALJESUS(sumPrice)));
+    totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(sumPrice) + " CZK"));
 }
 
 void OrderWindow::paintEvent(QPaintEvent *)

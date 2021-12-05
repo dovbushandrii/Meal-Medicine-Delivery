@@ -26,10 +26,10 @@ WelcomeWindow::WelcomeWindow(QWidget *parent) : QWidget(parent)
     ordersWindow = new QPushButton("Prehľad objednávok", mainWidget);
     medicineSchedule = new QPushButton("Rozvrh liekov", mainWidget);
 
-    foodWindow->setStyleSheet("*{font-size: 30px; border: 2px solid black; border-radius: 20px; background-color: rgba(0,0,0,80)} *::hover{border: 5px solid black; background-color: rgba(0,0,0,120)}");
-    medicineWindow->setStyleSheet("*{font-size: 30px; border: 2px solid black; border-radius: 20px; background-color: rgba(0,0,0,80)} *::hover{border: 5px solid black; background-color: rgba(0,0,0,120)}");
-    ordersWindow->setStyleSheet("*{font-size: 30px; border: 2px solid black; border-radius: 20px; background-color: rgba(0,0,0,80)} *::hover{border: 5px solid black; background-color: rgba(0,0,0,120)}");
-    medicineSchedule->setStyleSheet("*{font-size: 30px; border: 2px solid black; border-radius: 20px; background-color: rgba(0,0,0,80)} *::hover{border: 5px solid black; background-color: rgba(0,0,0,120)}");
+    foodWindow->setStyleSheet("*{font-size: 34px; border: 2px solid black; border-radius: 20px; background-color: rgba(0,0,0,80)} *::hover{border: 5px solid black; background-color: rgba(0,0,0,120)}");
+    medicineWindow->setStyleSheet("*{font-size: 34px; border: 2px solid black; border-radius: 20px; background-color: rgba(0,0,0,80)} *::hover{border: 5px solid black; background-color: rgba(0,0,0,120)}");
+    ordersWindow->setStyleSheet("*{font-size: 34px; border: 2px solid black; border-radius: 20px; background-color: rgba(0,0,0,80)} *::hover{border: 5px solid black; background-color: rgba(0,0,0,120)}");
+    medicineSchedule->setStyleSheet("*{font-size: 34px; border: 2px solid black; border-radius: 20px; background-color: rgba(0,0,0,80)} *::hover{border: 5px solid black; background-color: rgba(0,0,0,120)}");
 
     QObject::connect(foodWindow, SIGNAL(clicked()), parent, SLOT(orderFood()));
     QObject::connect(medicineWindow, SIGNAL(clicked()), parent, SLOT(orderMedicine()));

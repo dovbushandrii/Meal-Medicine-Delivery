@@ -46,7 +46,8 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingO
     mainWidget->setFixedSize(width(), height());
 
     totalPreview = new QLabel(this);
-    totalPreview->setStyleSheet("* {font-size: 12pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,60);}");
+    totalPreview->setAlignment(Qt::AlignCenter);
+    totalPreview->setStyleSheet("* {font-size: 15pt; color: black; border-radius: 20px; background-color: rgba(0,0,0,60);}");
     totalPreview->setFixedSize(TAB_WIDTH, TITLE_HEIGHT);
 
     tabs = new QWidget(this);
@@ -211,10 +212,6 @@ void ItemWindow::updateFacility(long facilityId)
 
     std::vector<std::pair<long,int>> meals = pendingOrder->getMealIds();
 
-    for (int i = 0; i < (int)meals.size(); i++) {
-        qDebug() << meals[i].second <<  "\n";
-    }
-
     foodTabs.clear();
 
     FacilityDAO dao;
@@ -244,6 +241,8 @@ void ItemWindow::updateFacility(long facilityId)
                 ItemTab* newItemTab = new ItemTab(this, facilityID, medicines[i]);
                 newItemTab->setAmount(getAmountFromList(pendingOrder->getMedicineIds(),medicines[i].getId()));
                 foodTabs.push_back(newItemTab);
+                totalPrice += newItemTab->getAmount().second * medicines[i].getPrice();
+                totalOrder += newItemTab->getAmount().second;
             }
         }
     }
@@ -256,7 +255,7 @@ void ItemWindow::updateFacility(long facilityId)
         order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
     else
         order->setText("Objednať");
-    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice)));
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + " CZK"));
 
     //sizeChanged(QSize(width(), height()));
 }
@@ -309,7 +308,7 @@ void ItemWindow::minusClicked(double price_change)
         order->setText("Objednať");
 
     totalPrice+=price_change;
-    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + "CZK"));
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + " CZK"));
 }
 
 void ItemWindow::plusClicked(double price_change)
@@ -318,5 +317,5 @@ void ItemWindow::plusClicked(double price_change)
     order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
 
     totalPrice+=price_change;
-    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + "CZK"));
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + " CZK"));
 }

@@ -38,19 +38,19 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Meal meal) : QWidget(parent)
     picture->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     description = new QLabel(this);
-    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setFixedWidth(TAB_WIDTH);
 
     weight = new QLabel(this);
-    weight->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    weight->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     weight->setFixedWidth(TAB_WIDTH);
 
     price = new QLabel(this);
-    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setFixedWidth(TAB_WIDTH);
 
     amount = new QLabel(this);
-    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
+    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
 
     minus = new QPushButton("-",this);
@@ -100,8 +100,8 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Meal meal) : QWidget(parent)
         picture->setStyleSheet("* {image: url(../imgs/food_default.png);}");
     }
     description->setText(QString::fromStdString(meal.getDescription()));
-    weight->setText(QString::fromStdString("Hmotnosť: "+std::to_string(meal.getWeight())));
-    price->setText(QString::fromStdString("Cena za porciu: "+DECIMALJESUS(meal.getPrice())));
+    weight->setText(QString::fromStdString("Hmotnosť: "+std::to_string(meal.getWeight()) + "g"));
+    price->setText(QString::fromStdString("Cena za porciu: "+DECIMALJESUS(meal.getPrice()) + " CZK"));
     amount->setText("0");
 
 }
@@ -128,19 +128,19 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Medicine medicine) : QWidget(
     picture->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     description = new QLabel(this);
-    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setFixedWidth(TAB_WIDTH);
 
     weight = new QLabel(this);
-    weight->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    weight->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     weight->setFixedWidth(TAB_WIDTH);
 
     price = new QLabel(this);
-    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setFixedWidth(TAB_WIDTH);
 
     amount = new QLabel(this);
-    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
+    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
 
     minus = new QPushButton("-",this);
@@ -193,7 +193,7 @@ ItemTab::ItemTab(QWidget *parent, long facilityID, Medicine medicine) : QWidget(
     }
     description->setText(QString::fromStdString(medicine.getDescription()));
     unitPrice = medicine.getPrice();
-    price->setText(QString::fromStdString("Cena za porciu: "+DECIMALJESUS(medicine.getPrice())));
+    price->setText(QString::fromStdString("Cena za porciu: "+DECIMALJESUS(medicine.getPrice()) + " CZK"));
     amount->setText("0");
 }
 

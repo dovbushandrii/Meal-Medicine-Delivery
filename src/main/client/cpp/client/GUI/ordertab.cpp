@@ -55,32 +55,32 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
 
     // TODO change accordingly to the ID
     price = new QLabel(this);
-    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
 
     unitPrice = medicine.getPrice();
-    price->setText(QString::fromStdString("Cena za kus:" + DECIMALJESUS(medicine.getPrice())));
+    price->setText(QString::fromStdString("Cena za kus:\n" + DECIMALJESUS(medicine.getPrice()) + " CZK"));
 
     // TODO change accordingly to the ID
     totalPrice = new QLabel(this);
-    totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
 
     totalSum = medicine.getPrice() * (*initialAmount);
-    totalPrice->setText(QString::fromStdString("Celková cena:" + DECIMALJESUS(totalSum)));
+
 
     // TODO change accordingly to the ID
     description = new QLabel(this);
-    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setMinimumWidth(2 * TITLE_WIDTH);
     description->setText(QString::fromStdString(medicine.getDescription()));
 
     this->unitPrice = medicine.getPrice();
-    totalPrice->setText(QString::fromStdString(DECIMALJESUS(unitPrice * (*initialAmount))));
+    totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(totalSum)) + " CZK");
 
     // TODO change accordingly to the ID
     amount = new QLabel(QString::fromStdString(std::to_string(*initialAmount)), this);
-    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
+    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
 
     minus = new QPushButton("-",this);
@@ -136,8 +136,8 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
     setAttribute(Qt::WA_StyledBackground, true);
     setStyleSheet(".OrderTab {background-color: rgba(0,0,0,20); border-radius: 30px;}");
 
-    QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
-    QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
+    QObject::connect(this, SIGNAL(minusClicked_s(double)), parent, SLOT(minusClicked(double)));
+    QObject::connect(this, SIGNAL(plusClicked_s(double)), parent, SLOT(plusClicked(double)));
     QObject::connect(this, SIGNAL(deleteOrderItem_s(OrderTab *)), parent, SLOT(deleteOrderItem(OrderTab *)));
 
     //TODO UNDERSTAND WHAT IS GOING ON
@@ -163,29 +163,29 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
 
     // TODO change accordingly to the ID
     price = new QLabel(this);
-    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
 
     unitPrice = meal.getPrice();
-    price->setText(QString::fromStdString("Cena za kus:" + DECIMALJESUS(meal.getPrice())));
+    price->setText(QString::fromStdString("Cena za kus:\n" + DECIMALJESUS(meal.getPrice()) + " CZK"));
 
     // TODO change accordingly to the ID
     totalPrice = new QLabel(this);
-    totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
 
     totalSum = meal.getPrice() * (*initialAmount);
-    totalPrice->setText(QString::fromStdString("Celková cena:" + DECIMALJESUS(totalSum)));
+    totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(totalSum)) + " CZK");
 
     // TODO change accordingly to the ID
     description = new QLabel(this);
-    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black; background-color: rgba(0,0,0,40)}");
     description->setMinimumWidth(2 * TITLE_WIDTH);
     description->setText(QString::fromStdString(meal.getDescription()));
 
     // TODO change accordingly to the ID
     amount = new QLabel(QString::fromStdString(std::to_string(*initialAmount)), this);
-    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black;}");
+    amount->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 15pt; color: black;}");
     amount->setFixedSize(AMOUNT_WIDTH, AMOUNT_HEIGHT);
 
     minus = new QPushButton("-",this);
@@ -235,6 +235,10 @@ OrderTab::~OrderTab()
 
 }
 
+double OrderTab::getPrice() {
+    return unitPrice;
+}
+
 void OrderTab::CreatePopup() {
     Popup *check = new Popup(this, discard);
     check->show();
@@ -255,21 +259,25 @@ void OrderTab::sizeChanged(QSize size)
 
 void OrderTab::minusClicked()
 {
-    if (amount->text().toInt() == 0)
-        return;
+
 
     totalSum -= unitPrice;
-    totalPrice->setText(QString::fromStdString("Celková cena:" + DECIMALJESUS(totalSum)));
+    totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(totalSum)) + " CZK");
 
     amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
     (*amountOf)--;
     emit minusClicked_s(-unitPrice);
+
+    if (amount->text().toInt() == 0)
+    {
+        deleteOrderItem();
+    }
 }
 
 void OrderTab::plusClicked()
 {
     totalSum += unitPrice;
-    totalPrice->setText(QString::fromStdString("Celková cena:" + DECIMALJESUS(totalSum)));
+    totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(totalSum)) + " CZK");
 
     amount->setText(QString::fromStdString(std::to_string(std::stoi(amount->text().toStdString()) + 1)));
     (*amountOf)++;

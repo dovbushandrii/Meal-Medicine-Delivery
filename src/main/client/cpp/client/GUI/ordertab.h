@@ -25,6 +25,8 @@ public:
     OrderTab(QWidget *, Meal, int*);
     ~OrderTab();
 
+    double getPrice();
+
     long itemID;
     ItemType type;
     int* amountOf;
