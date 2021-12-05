@@ -162,7 +162,7 @@ void ItemWindow::paintEvent(QPaintEvent *)
 
 void ItemWindow::sizeChanged(QSize size)
 {
-    emit changeName_s(QString::fromStdString("Objednávanie jedla"));
+    emit changeName_s(QString::fromStdString("Objednávanie"));
 
     for (auto widget : foodTabs)
         layout->removeWidget(widget);

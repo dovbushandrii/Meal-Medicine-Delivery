@@ -218,11 +218,11 @@ void ItemTab::minusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
     if (amount->text().toInt() != 0)
-        emit minusClicked_s(-(amount->text().toDouble()));
+        emit minusClicked_s(-(price->text().toDouble()));
 }
 
 void ItemTab::plusClicked()
 {
-    amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
-    emit plusClicked_s(amount->text().toDouble());
+    amount->setText(QString::fromStdString(std::to_string(std::stoi(amount->text().toStdString()) + 1)));
+    emit plusClicked_s(price->text().toDouble());
 }
