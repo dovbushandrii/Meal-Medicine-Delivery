@@ -219,6 +219,9 @@ void ItemWindow::updateFacility(long facilityId)
     FacilityDAO dao;
     Facility* facility = dao.readFacility(facilityID);
 
+    totalPrice = 0;
+    totalOrder = 0;
+
     if(facility){
         //If it is meal menu -> load meals
         if(type == MEAL){
@@ -228,6 +231,8 @@ void ItemWindow::updateFacility(long facilityId)
                 ItemTab* newItemTab = new ItemTab(this, facilityID, meals[i]);
                 newItemTab->setAmount(getAmountFromList(pendingOrder->getMealIds(), meals[i].getId()));
                 foodTabs.push_back(newItemTab);
+                totalPrice += newItemTab->getAmount().second * meals[i].getPrice();
+                totalOrder += newItemTab->getAmount().second;
             }
         }
         //If it is medicine menu -> load medicine
@@ -244,6 +249,13 @@ void ItemWindow::updateFacility(long facilityId)
     else{
         //UNABLE TO LOAD FACILITY
     }
+
+    // update header widgets
+    if (totalOrder)
+        order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
+    else
+        order->setText("Objednať");
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
 
     //sizeChanged(QSize(width(), height()));
 }
