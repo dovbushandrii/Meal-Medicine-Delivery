@@ -23,15 +23,15 @@ NextMeal::NextMeal(QWidget *parent) : QWidget(parent)
                     *::hover {background-color: rgba(20,20,20,100);}");
 
     title = new QLabel("Najbližšia objednávka:", this);
-    title->setStyleSheet("* {font: bold italic \"Times New Roman\"; font-size: 13pt; color: black; qproperty-alignment: AlignLeft; background-color: rgba(0,0,0,0);}");
+    title->setStyleSheet("* {font: bold italic \"Times New Roman\"; font-size: 15pt; color: black; qproperty-alignment: AlignLeft; background-color: rgba(0,0,0,0);}");
     title->setFixedSize(INFO_PANEL_WIDTH, TITLE_HEIGHT / 2);
 
     time = new QLabel(this);
-    time->setStyleSheet("* {font-size: 11pt; color: black; qproperty-alignment: AlignLeft; background-color: rgba(0,0,0,0);}");
+    time->setStyleSheet("* {font-size: 14pt; color: black; qproperty-alignment: AlignLeft; background-color: rgba(0,0,0,0);}");
     time->setFixedSize(INFO_PANEL_WIDTH, TITLE_HEIGHT / 2);
 
     details = new QLabel("rozkliknite pre viac detailov", this);
-    details->setStyleSheet("* {font-size: 13pt; color: black; qproperty-alignment: AlignLeft; background-color: rgba(0,0,0,0);}");
+    details->setStyleSheet("* {font-size: 14pt; color: black; qproperty-alignment: AlignLeft; background-color: rgba(0,0,0,0);}");
     details->setFixedSize(INFO_PANEL_WIDTH, TITLE_HEIGHT / 2);
 
     layout = new QVBoxLayout(this);
