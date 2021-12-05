@@ -93,7 +93,7 @@ CONFIG += lrelease
 CONFIG += embed_translations
 
 INCLUDEPATH += connect/json/include
-LIBS += -LC:\Qt\5.12.12\mingw73_64\lib -lcurl
+LIBS += -LD:\Qt\5.12.12\mingw73_64\lib -lcurl
 
 DEFINES += CURL_STATICLIB
 

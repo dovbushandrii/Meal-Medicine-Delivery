@@ -36,7 +36,7 @@ signals:
 
 public slots:
     void changeName(QString);
-    void sizeChanged(QSize);
+    void sizeChangedTitle(QSize);
     void showMinimized();
     void fullScreen();
     void moveWindow(QPair<int, int>);

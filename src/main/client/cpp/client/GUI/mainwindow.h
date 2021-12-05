@@ -33,6 +33,8 @@
 #define AMOUNT_HEIGHT AMOUNT_WIDTH
 #define ICON_WIDTH 80
 #define ICON_HEIGHT ICON_WIDTH
+#define DECIMALJESUS(a) (std::to_string((a)).substr(0,std::to_string((a)).find(".") + 3))
+
 
 enum ItemType {MEAL, MEDICINE};
 

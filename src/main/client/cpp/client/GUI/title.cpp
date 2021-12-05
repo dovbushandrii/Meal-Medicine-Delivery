@@ -30,7 +30,7 @@ Title::Title(QWidget *parent, QApplication *app) : QWidget(parent)
     QObject::connect(this, SIGNAL(stepBack_s()), parent, SLOT(stepBack()));
 
     QObject::connect(parent, SIGNAL(changeName_s(QString)), this, SLOT(changeName(QString)));
-    QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
+    QObject::connect(parent, SIGNAL(sizeChangedTitle_s(QSize)), this, SLOT(sizeChangedTitle(QSize)));
 
     QHBoxLayout *layoutTitle = new QHBoxLayout(this);
     QHBoxLayout *layoutTitleBar = new QHBoxLayout();
@@ -66,7 +66,7 @@ void Title::changeName(QString new_name)
     name_label->setText(new_name);
 }
 
-void Title::sizeChanged(QSize size)
+void Title::sizeChangedTitle(QSize size)
 {
     name_label->setFixedSize((size.width() - 4 * TITLE_WIDTH) / 2, TITLE_HEIGHT);
 }

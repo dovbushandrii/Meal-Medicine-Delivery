@@ -15,7 +15,7 @@ InfoPanel::InfoPanel(QWidget *parent, long id) : QWidget(parent)
 
     timePanel = new QLabel(dateTime.currentDateTime().toString("H:mm:ss dd.MM.yyyy"), this);
     timePanel->setFixedSize(INFO_PANEL_WIDTH, TITLE_HEIGHT);
-    timePanel->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 15pt; color: black; border: 2px solid black; border-radius: 10px; background-color: rgba(20,20,20,120);}");
+    timePanel->setStyleSheet("* {qproperty-alignment: AlignCenter; font-size: 16pt; color: black; border: 2px solid black; border-radius: 10px; background-color: rgba(20,20,20,120);}");
 
     mainPanel = new QWidget(parent);
     supportPanel = new QLabel("Telefónne číslo na podporu\nxxxx xxx xxx", this);
@@ -29,7 +29,7 @@ InfoPanel::InfoPanel(QWidget *parent, long id) : QWidget(parent)
 
     personalDetails = new QLabel(QString::fromStdString("Osobné údaje"), this);
     personalDetails->setFixedSize(INFO_PANEL_WIDTH - TITLE_WIDTH, TITLE_HEIGHT / 2);
-    personalDetails->setStyleSheet("* {font: bold italic \"Times New Roman\"; qproperty-alignment: AlignCenter; font-size: 13pt;background-color: rgba(0,0,0,0);}");
+    personalDetails->setStyleSheet("* {font: bold italic \"Times New Roman\"; qproperty-alignment: AlignCenter; font-size: 16pt;background-color: rgba(0,0,0,0);}");
 
     hideButton = new QPushButton(this);
     hideButton->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);

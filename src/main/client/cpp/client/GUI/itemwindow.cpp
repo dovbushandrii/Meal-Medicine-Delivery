@@ -5,6 +5,7 @@
  */
 #include "itemwindow.h"
 #include "infopanel.h"
+#include "mainwindow.h"
 
 #include "../model/daos/MealDAO.h"
 #include "../model/daos/MedicineDAO.h"
@@ -255,7 +256,7 @@ void ItemWindow::updateFacility(long facilityId)
         order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
     else
         order->setText("Objednať");
-    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice)));
 
     //sizeChanged(QSize(width(), height()));
 }
@@ -308,7 +309,7 @@ void ItemWindow::minusClicked(double price_change)
         order->setText("Objednať");
 
     totalPrice+=price_change;
-    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + "CZK"));
 }
 
 void ItemWindow::plusClicked(double price_change)
@@ -317,5 +318,5 @@ void ItemWindow::plusClicked(double price_change)
     order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
 
     totalPrice+=price_change;
-    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + "CZK"));
 }
