@@ -3,12 +3,9 @@ Meal and Medicine Delivery System
 Basic info:
 - Authors: Andrii Dovbush, Samuel Hribik, Rastislav Budinsky
 
-- Used technologies: *TO BE UPDATED*
+- Used technologies: C++,Qt, cURL, nlohmann/json, Java,Spring Boot, Hibernate, PostgreSQL, Docker, AWS
 
-- IDE: *TO BE UPDATED*
-
-Description:
-*TO BE UPDATED*
+- IDE: VSCode, Qt Creator, Intellij IDEA
 
 GitHub:  https://github.com/dovbushandrii/Meal-Medicine-Delivery
 
