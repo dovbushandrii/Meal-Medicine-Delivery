@@ -32,6 +32,7 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingO
     this->facilityID = facilityID;
     this->type = type;
     this->pendingOrder = pendingOrder;
+    this->totalPrice = 0;
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
@@ -284,7 +285,7 @@ void ItemWindow::makeOrder()
     emit makeOrder_s(0, type);
 }
 
-void ItemWindow::minusClicked()
+void ItemWindow::minusClicked(double price_change)
 {
     if (totalOrder == 0)
         return;
@@ -293,10 +294,16 @@ void ItemWindow::minusClicked()
         order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
     else
         order->setText("Objednať");
+
+    totalPrice+=price_change;
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
 }
 
-void ItemWindow::plusClicked()
+void ItemWindow::plusClicked(double price_change)
 {
     totalOrder++;
     order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
+
+    totalPrice+=price_change;
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
 }
