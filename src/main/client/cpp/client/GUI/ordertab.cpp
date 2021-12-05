@@ -57,6 +57,8 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
     price = new QLabel(this);
     price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
+
+    unitPrice = medicine.getPrice();
     price->setText(QString::fromStdString("Cena za kus:" + std::to_string(medicine.getPrice())));
 
     // TODO change accordingly to the ID
@@ -163,6 +165,8 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
     price = new QLabel(this);
     price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
+
+    unitPrice = meal.getPrice();
     price->setText(QString::fromStdString("Cena za kus:" + std::to_string(meal.getPrice())));
 
     // TODO change accordingly to the ID
@@ -267,7 +271,7 @@ void OrderTab::plusClicked()
     totalSum += unitPrice;
     totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
 
-    amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
+    amount->setText(QString::fromStdString(std::to_string(std::stoi(amount->text().toStdString()) + 1)));
     (*amountOf)++;
     emit plusClicked_s(unitPrice);
 }
