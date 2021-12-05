@@ -46,6 +46,8 @@ private:
     QHBoxLayout *layoutAmount;
     QHBoxLayout *layoutPicture;
 
+    double unitPrice;
+
     // custom override for transparency
     void paintEvent(QPaintEvent *);
 
