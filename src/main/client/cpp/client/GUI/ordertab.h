@@ -43,11 +43,14 @@ private:
     QPushButton *minus;
     QPushButton *plus;
 
+    double unitPrice;
+    double totalSum;
+
     void paintEvent(QPaintEvent *);
 
 signals:
-    void minusClicked_s();
-    void plusClicked_s();
+    void minusClicked_s(double);
+    void plusClicked_s(double);
     void deleteOrderItem_s(OrderTab *);
 
 public slots:

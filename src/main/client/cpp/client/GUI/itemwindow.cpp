@@ -32,6 +32,7 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingO
     this->facilityID = facilityID;
     this->type = type;
     this->pendingOrder = pendingOrder;
+    this->totalPrice = 0;
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
@@ -144,8 +145,6 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingO
     else{
         //UNABLE TO LOAD FACILITY
     }
-
-    emit changeName_s(QString::fromStdString("Objednávanie jedla"));
 }
 
 ItemWindow::~ItemWindow()
@@ -163,6 +162,8 @@ void ItemWindow::paintEvent(QPaintEvent *)
 
 void ItemWindow::sizeChanged(QSize size)
 {
+    emit changeName_s(QString::fromStdString("Objednávanie"));
+
     for (auto widget : foodTabs)
         layout->removeWidget(widget);
 
@@ -218,6 +219,9 @@ void ItemWindow::updateFacility(long facilityId)
     FacilityDAO dao;
     Facility* facility = dao.readFacility(facilityID);
 
+    totalPrice = 0;
+    totalOrder = 0;
+
     if(facility){
         //If it is meal menu -> load meals
         if(type == MEAL){
@@ -227,6 +231,8 @@ void ItemWindow::updateFacility(long facilityId)
                 ItemTab* newItemTab = new ItemTab(this, facilityID, meals[i]);
                 newItemTab->setAmount(getAmountFromList(pendingOrder->getMealIds(), meals[i].getId()));
                 foodTabs.push_back(newItemTab);
+                totalPrice += newItemTab->getAmount().second * meals[i].getPrice();
+                totalOrder += newItemTab->getAmount().second;
             }
         }
         //If it is medicine menu -> load medicine
@@ -243,6 +249,13 @@ void ItemWindow::updateFacility(long facilityId)
     else{
         //UNABLE TO LOAD FACILITY
     }
+
+    // update header widgets
+    if (totalOrder)
+        order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
+    else
+        order->setText("Objednať");
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
 
     //sizeChanged(QSize(width(), height()));
 }
@@ -284,7 +297,7 @@ void ItemWindow::makeOrder()
     emit makeOrder_s(0, type);
 }
 
-void ItemWindow::minusClicked()
+void ItemWindow::minusClicked(double price_change)
 {
     if (totalOrder == 0)
         return;
@@ -293,10 +306,16 @@ void ItemWindow::minusClicked()
         order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
     else
         order->setText("Objednať");
+
+    totalPrice+=price_change;
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
 }
 
-void ItemWindow::plusClicked()
+void ItemWindow::plusClicked(double price_change)
 {
     totalOrder++;
     order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
+
+    totalPrice+=price_change;
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + std::to_string(totalPrice) + "CZK"));
 }

@@ -83,8 +83,6 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
         orders.push_back(new OrderPreview(this, orderIds[i]));
         layout->addWidget(orders.back());
     }
-
-    emit changeName_s(QString::fromStdString("Prehľad objednávok"));
 }
 
 OrderPreviewWindow::~OrderPreviewWindow()
@@ -100,6 +98,8 @@ void OrderPreviewWindow::openOrder(PendingOrder order)
 
 void OrderPreviewWindow::sizeChanged(QSize size)
 {
+    emit changeName_s(QString::fromStdString("Prehľad objednávok"));
+
     // +4 @width for offsetting the borders and scrollbar
     setFixedSize(size.width() + 4, size.height());
     mainWidget->setFixedSize(size.width() + 4, size.height());

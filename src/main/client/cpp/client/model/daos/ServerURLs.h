@@ -1,7 +1,7 @@
 #ifndef _SERVER_URL_
 #define _SERVER_URL_
 
-#define SERVER_URL "http://localhost:80"
+#define SERVER_URL "http://ec2-3-69-28-176.eu-central-1.compute.amazonaws.com"
 
 #define CLIENTS_URL     SERVER_URL"/clients"
 #define MEALS_URL       SERVER_URL"/meals"

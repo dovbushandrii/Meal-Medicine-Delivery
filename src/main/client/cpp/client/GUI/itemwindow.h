@@ -40,6 +40,7 @@ private:
     void paintEvent(QPaintEvent *);
 
     int totalOrder;
+    double totalPrice;
 
 signals:
     // for changing name of window
@@ -49,8 +50,8 @@ signals:
 public slots:
     void sizeChanged(QSize);
     void updateFacility(long);
-    void minusClicked();
-    void plusClicked();
+    void minusClicked(double);
+    void plusClicked(double);
     void makeOrder();
 };
 
