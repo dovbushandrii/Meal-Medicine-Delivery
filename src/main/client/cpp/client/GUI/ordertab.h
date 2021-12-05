@@ -44,6 +44,7 @@ private:
     QPushButton *plus;
 
     double unitPrice;
+    double totalSum;
 
     void paintEvent(QPaintEvent *);
 

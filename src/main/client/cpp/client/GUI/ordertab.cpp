@@ -34,6 +34,7 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
 
     picture = new QLabel(this);
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
+    picture->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     std::string image = medicine.getImage();
     QByteArray* loadImage = new QByteArray(image.c_str(),image.length());
@@ -45,7 +46,6 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
         picture->setPixmap(QPixmap::fromImage(img));
         picture->setScaledContents( true );
 
-        picture->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
         //picture.show()?
     }
     else{
@@ -54,21 +54,24 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
 
 
     // TODO change accordingly to the ID
-    description = new QLabel(this);
-    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
-    description->setMinimumWidth(2 * TITLE_WIDTH);
-    description->setText(QString::fromStdString(medicine.getDescription()));
-
-    // TODO change accordingly to the ID
     price = new QLabel(this);
     price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
-    price->setText(QString::fromStdString(std::to_string(medicine.getPrice())));
+    price->setText(QString::fromStdString("Cena za kus:" + std::to_string(medicine.getPrice())));
 
     // TODO change accordingly to the ID
     totalPrice = new QLabel(this);
     totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
+
+    totalSum = medicine.getPrice() * (*initialAmount);
+    totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
+
+    // TODO change accordingly to the ID
+    description = new QLabel(this);
+    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setMinimumWidth(2 * TITLE_WIDTH);
+    description->setText(QString::fromStdString(medicine.getDescription()));
 
     this->unitPrice = medicine.getPrice();
     totalPrice->setText(QString::fromStdString(std::to_string(unitPrice * (*initialAmount))));
@@ -110,12 +113,12 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
     layoutAmount->addWidget(plus);
     layoutAmount->addWidget(amount);
     layoutAmount->addWidget(minus);
-    layoutRightTop->addWidget(price);
+    layoutRightTop->addWidget(totalPrice);
     layoutRightTop->addWidget(cancel, Qt::AlignLeft);
     layoutRight->addLayout(layoutRightTop);
-    layoutRight->addWidget(totalPrice);
+    layoutRight->addWidget(description);
     layout->addWidget(picture);
-    layout->addWidget(description);
+    layout->addWidget(price);
     layout->addLayout(layoutAmount);
     layout->addLayout(layoutRight);
 }
@@ -139,6 +142,8 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
 
     picture = new QLabel(this);
     picture->setFixedSize(PIC_WIDTH, PIC_HEIGHT);
+    picture->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed);
+
     std::string image = meal.getImage();
     QByteArray* loadImage = new QByteArray(image.c_str(),image.length());
 
@@ -148,8 +153,6 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
         img.loadFromData(QByteArray::fromBase64(*loadImage));
         picture->setPixmap(QPixmap::fromImage(img));
         picture->setScaledContents( true );
-
-        picture->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
         //picture.show()?
     }
     else{
@@ -157,22 +160,24 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
     }
 
     // TODO change accordingly to the ID
-    description = new QLabel(this);
-    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
-    description->setMinimumWidth(2 * TITLE_WIDTH);
-    description->setText(QString::fromStdString(meal.getDescription()));
-
-    // TODO change accordingly to the ID
     price = new QLabel(this);
     price->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     price->setMinimumWidth(2 * TITLE_WIDTH);
-    price->setText(QString::fromStdString(std::to_string(meal.getPrice())));
+    price->setText(QString::fromStdString("Cena za kus:" + std::to_string(meal.getPrice())));
 
     // TODO change accordingly to the ID
     totalPrice = new QLabel(this);
     totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
-    totalPrice->setText(QString::fromStdString(std::to_string(meal.getPrice() * (*initialAmount))));
+
+    totalSum = meal.getPrice() * (*initialAmount);
+    totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
+
+    // TODO change accordingly to the ID
+    description = new QLabel(this);
+    description->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
+    description->setMinimumWidth(2 * TITLE_WIDTH);
+    description->setText(QString::fromStdString(meal.getDescription()));
 
     // TODO change accordingly to the ID
     amount = new QLabel(QString::fromStdString(std::to_string(*initialAmount)), this);
@@ -211,12 +216,12 @@ OrderTab::OrderTab(QWidget *parent, Meal meal, int* initialAmount) : QWidget(par
     layoutAmount->addWidget(plus);
     layoutAmount->addWidget(amount);
     layoutAmount->addWidget(minus);
-    layoutRightTop->addWidget(price);
+    layoutRightTop->addWidget(totalPrice);
     layoutRightTop->addWidget(cancel, Qt::AlignLeft);
     layoutRight->addLayout(layoutRightTop);
-    layoutRight->addWidget(totalPrice);
+    layoutRight->addWidget(description);
     layout->addWidget(picture);
-    layout->addWidget(description);
+    layout->addWidget(price);
     layout->addLayout(layoutAmount);
     layout->addLayout(layoutRight);
 }
@@ -246,6 +251,12 @@ void OrderTab::sizeChanged(QSize size)
 
 void OrderTab::minusClicked()
 {
+    if (amount->text().toInt() == 0)
+        return;
+
+    totalSum -= unitPrice;
+    totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
+
     amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
     (*amountOf)--;
     emit minusClicked_s(-unitPrice);
@@ -253,6 +264,9 @@ void OrderTab::minusClicked()
 
 void OrderTab::plusClicked()
 {
+    totalSum += unitPrice;
+    totalPrice->setText(QString::fromStdString("Celková cena:" + std::to_string(totalSum)));
+
     amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
     (*amountOf)++;
     emit plusClicked_s(unitPrice);
