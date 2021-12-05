@@ -37,6 +37,8 @@ private:
     QLabel *totalPrice;
     std::vector<OrderTab *> orderTabs;  // vector of displayed items in order
 
+    double sumPrice;
+
     // custom override for transparency
     void paintEvent(QPaintEvent *);
 
@@ -52,8 +54,9 @@ signals:
 
 public slots:
     void sizeChanged(QSize);
-    void minusClicked();
-    void plusClicked();
+    // propagating the change in price
+    void minusClicked(double);
+    void plusClicked(double);
     void deleteOrderItem(OrderTab *);
     void confirmOrder();
 };

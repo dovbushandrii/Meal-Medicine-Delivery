@@ -26,8 +26,8 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
     setAttribute(Qt::WA_StyledBackground, true);
     setStyleSheet(".OrderTab {background-color: rgba(0,0,0,20); border-radius: 30px;}");
 
-    QObject::connect(this, SIGNAL(minusClicked_s()), parent, SLOT(minusClicked()));
-    QObject::connect(this, SIGNAL(plusClicked_s()), parent, SLOT(plusClicked()));
+    QObject::connect(this, SIGNAL(minusClicked_s(double)), parent, SLOT(minusClicked(double)));
+    QObject::connect(this, SIGNAL(plusClicked_s(double)), parent, SLOT(plusClicked(double)));
     QObject::connect(this, SIGNAL(deleteOrderItem_s(OrderTab *)), parent, SLOT(deleteOrderItem(OrderTab *)));
 
     //TODO UNDERSTAND WHAT IS GOING ON
@@ -69,7 +69,9 @@ OrderTab::OrderTab(QWidget *parent, Medicine medicine, int* initialAmount) : QWi
     totalPrice = new QLabel(this);
     totalPrice->setStyleSheet("* {font : 'Arial'; border-radius: 10px; qproperty-alignment: AlignCenter; font-size: 13pt; color: black; background-color: rgba(0,0,0,40)}");
     totalPrice->setMinimumWidth(2 * TITLE_WIDTH);
-    totalPrice->setText(QString::fromStdString(std::to_string(medicine.getPrice() * (*initialAmount))));
+
+    this->unitPrice = medicine.getPrice();
+    totalPrice->setText(QString::fromStdString(std::to_string(unitPrice * (*initialAmount))));
 
     // TODO change accordingly to the ID
     amount = new QLabel(QString::fromStdString(std::to_string(*initialAmount)), this);
@@ -246,14 +248,14 @@ void OrderTab::minusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::max(0, amount->text().toInt() - 1))));
     (*amountOf)--;
-    emit minusClicked_s();
+    emit minusClicked_s(-unitPrice);
 }
 
 void OrderTab::plusClicked()
 {
     amount->setText(QString::fromStdString(std::to_string(std::min(MAX_AMOUNT, std::stoi(amount->text().toStdString()) + 1))));
     (*amountOf)++;
-    emit plusClicked_s();
+    emit plusClicked_s(unitPrice);
 }
 
 void OrderTab::deleteOrderItem()
