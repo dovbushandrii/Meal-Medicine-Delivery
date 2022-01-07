@@ -19,7 +19,9 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QDebug>
+#include <QtConcurrent>
 #include <iostream>
+#include <QMovie>
 
 int getAmountFromList(std::vector<std::pair<long,int>> list, long id) {
     for (int i = 0; i < (int)list.size(); i++) {
@@ -38,6 +40,8 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingO
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
     QObject::connect(this, SIGNAL(makeOrder_s(long, ItemType)), parent, SLOT(makeOrder(long, ItemType)));
+    QObject::connect(this, SIGNAL(updateItems_s(Facility*)), this, SLOT(updateItems(Facility*)));
+
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
     setStyleSheet(".ItemWindow {background-color: rgba(0,0,0,0);}");
 
@@ -62,7 +66,6 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingO
                              *::hover {border: solid black 2px; background-color: rgba(0,0,0,120);}");
 
     QObject::connect(order, SIGNAL(clicked()), this, SLOT(makeOrder()));
-//    QObject::connect(this, SIGNAL(makeOrder_s(std::vector<Order>)), parent, SLOT(makeOrder(std::vector<Order>)));
 
     scrollArea = new QScrollArea(this);
     scrollArea->setStyleSheet(".QScrollArea {border: 2px solid black; border-radius: 10px; background-color: rgba(0,0,0,60);}");
@@ -117,36 +120,7 @@ ItemWindow::ItemWindow(QWidget *parent, long facilityID, ItemType type, PendingO
 
     layoutMain->addLayout(layoutUpper);
     layoutMain->addWidget(scrollArea);
-
-
-    FacilityDAO dao;
-    Facility* facility = dao.readFacility(facilityID);
-
-    if(facility){
-        //If it is meal menu -> load meals
-        if(type == MEAL){
-            std::vector<Meal> meals = facility->getMealList();
-            for (int i = 0; i < (int)meals.size(); i++)
-            {
-                ItemTab* newItemTab = new ItemTab(this, facilityID, meals[i]);
-                newItemTab->setAmount(getAmountFromList(pendingOrder->getMealIds(),meals[i].getId()));
-                foodTabs.push_back(newItemTab);
-            }
-        }
-        //If it is medicine menu -> load medicine
-        else{
-            std::vector<Medicine> medicines = facility->getMedicineList();
-            for (int i = 0; i < (int)medicines.size(); i++)
-            {
-                ItemTab* newItemTab = new ItemTab(this, facilityID, medicines[i]);
-                newItemTab->setAmount(getAmountFromList(pendingOrder->getMedicineIds(),medicines[i].getId()));
-                foodTabs.push_back(newItemTab);
-            }
-        }
-    }
-    else{
-        //UNABLE TO LOAD FACILITY
-    }
+    updateCurrentFacility();
 }
 
 ItemWindow::~ItemWindow()
@@ -162,6 +136,22 @@ void ItemWindow::paintEvent(QPaintEvent *)
      style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+void ItemWindow::updatePendingOrder() {
+    totalPrice = 0;
+    totalOrder = 0;
+    for(auto itemTab : foodTabs) {
+        if(itemTab->type == MEAL){
+            itemTab->setAmount(getAmountFromList(*(pendingOrder->getMealIds()), itemTab->mealID));
+        }
+        else {
+            itemTab->setAmount(getAmountFromList(*(pendingOrder->getMedicineIds()), itemTab->mealID));
+        }
+
+        totalPrice += itemTab->getAmount().second * itemTab->unitPrice;
+        totalOrder += itemTab->getAmount().second;
+    }
+}
+
 void ItemWindow::sizeChanged(QSize size)
 {
     emit changeName_s(QString::fromStdString("Objednávanie"));
@@ -169,7 +159,6 @@ void ItemWindow::sizeChanged(QSize size)
     for (auto widget : foodTabs)
         layout->removeWidget(widget);
 
-    updateFacility(facilityID);
     // +4 @width for off-setting the borders and scrollbar
     setFixedSize(size.width() + 4, size.height());
     mainWidget->setFixedSize(size.width() + 4, size.height());
@@ -177,48 +166,42 @@ void ItemWindow::sizeChanged(QSize size)
 
     scrollArea->setFixedSize(size.width(), size.height() - (2 * TITLE_HEIGHT));
 
-    if (foodTabs.empty())
+    //updateCurrentFacility();
+    updatePendingOrder();
+
+    if (foodTabs.empty()) {
         return;
+    }
+    else {
 
-    int columns = size.width() - (2 * layout->margin());
-    columns = std::floor(1.0 * columns / (foodTabs[0]->width() + DEFAULT_SPACE));
-    int rows = std::ceil(1.0 * foodTabs.size() / columns);
+        // update header widgets
+        if (totalOrder)
+            order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
+        else
+            order->setText("Objednať");
+        totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + " CZK"));
 
-    layout->setHorizontalSpacing(columns <= 0 ? DEFAULT_SPACE :
-                                      (size.width() - (2 * layout->margin() + columns * (foodTabs[0]->width() + DEFAULT_SPACE))) / columns);
+        int columns = size.width() - (2 * layout->margin());
+        columns = std::floor(1.0 * columns / (foodTabs[0]->width() + DEFAULT_SPACE));
+        int rows = std::ceil(1.0 * foodTabs.size() / columns);
 
-    tabs->setFixedSize(size.width(), rows * (foodTabs[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
+        layout->setHorizontalSpacing(columns <= 0 ? DEFAULT_SPACE :
+                                          (size.width() - (2 * layout->margin() + columns * (foodTabs[0]->width() + DEFAULT_SPACE))) / columns);
 
-    if (rows == 0 || columns == 0)
-        return;
+        tabs->setFixedSize(size.width(), rows * (foodTabs[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
 
-    for (int i = 0; i < (int)foodTabs.size(); i++)
-        layout->addWidget(foodTabs[i], i / columns, i % columns);
+        if (rows == 0 || columns == 0)
+            return;
 
-    for(int c=0; c < layout->columnCount(); c++) layout->setColumnStretch(c,1);
-    for(int r=0; r < layout->rowCount(); r++)  layout->setRowStretch(r,1);
+        for (int i = 0; i < (int)foodTabs.size(); i++)
+            layout->addWidget(foodTabs[i], i / columns, i % columns);
 
+        for(int c=0; c < layout->columnCount(); c++) layout->setColumnStretch(c,1);
+        for(int r=0; r < layout->rowCount(); r++)  layout->setRowStretch(r,1);
+    }
 }
 
-void ItemWindow::updateFacility(long facilityId)
-{
-    facilityID = facilityId;
-    // clear whole layout and create a new one
-    for(auto widget : foodTabs)
-    {
-        layout->removeWidget(widget);
-        delete widget;
-    }
-
-    std::vector<std::pair<long,int>> meals = pendingOrder->getMealIds();
-
-    foodTabs.clear();
-
-    FacilityDAO dao;
-    Facility* facility = dao.readFacility(facilityID);
-
-    totalPrice = 0;
-    totalOrder = 0;
+void ItemWindow::updateItems(Facility* facility){
 
     if(facility){
         //If it is meal menu -> load meals
@@ -227,7 +210,7 @@ void ItemWindow::updateFacility(long facilityId)
             for (int i = 0; i < (int)meals.size(); i++)
             {
                 ItemTab* newItemTab = new ItemTab(this, facilityID, meals[i]);
-                newItemTab->setAmount(getAmountFromList(pendingOrder->getMealIds(), meals[i].getId()));
+                newItemTab->setAmount(getAmountFromList(*(pendingOrder->getMealIds()), meals[i].getId()));
                 foodTabs.push_back(newItemTab);
                 totalPrice += newItemTab->getAmount().second * meals[i].getPrice();
                 totalOrder += newItemTab->getAmount().second;
@@ -239,7 +222,7 @@ void ItemWindow::updateFacility(long facilityId)
             for (int i = 0; i < (int)medicines.size(); i++)
             {
                 ItemTab* newItemTab = new ItemTab(this, facilityID, medicines[i]);
-                newItemTab->setAmount(getAmountFromList(pendingOrder->getMedicineIds(),medicines[i].getId()));
+                newItemTab->setAmount(getAmountFromList(*(pendingOrder->getMedicineIds()),medicines[i].getId()));
                 foodTabs.push_back(newItemTab);
                 totalPrice += newItemTab->getAmount().second * medicines[i].getPrice();
                 totalOrder += newItemTab->getAmount().second;
@@ -257,7 +240,61 @@ void ItemWindow::updateFacility(long facilityId)
         order->setText("Objednať");
     totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + " CZK"));
 
-    //sizeChanged(QSize(width(), height()));
+    QSize size = QSize(width(),height());
+    int columns = size.width() - (2 * layout->margin());
+    columns = std::floor(1.0 * columns / (foodTabs[0]->width() + DEFAULT_SPACE));
+    int rows = std::ceil(1.0 * foodTabs.size() / columns);
+
+    layout->setHorizontalSpacing(columns <= 0 ? DEFAULT_SPACE :
+                                      (size.width() - (2 * layout->margin() + columns * (foodTabs[0]->width() + DEFAULT_SPACE))) / columns);
+
+    tabs->setFixedSize(size.width(), rows * (foodTabs[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
+
+    if (rows == 0 || columns == 0)
+        return;
+
+    for (int i = 0; i < (int)foodTabs.size(); i++)
+        layout->addWidget(foodTabs[i], i / columns, i % columns);
+
+    for(int c=0; c < layout->columnCount(); c++) layout->setColumnStretch(c,1);
+    for(int r=0; r < layout->rowCount(); r++)  layout->setRowStretch(r,1);
+}
+
+void ItemWindow::updateListOfItems() {
+    FacilityDAO dao;
+    Facility* facility = dao.readFacility(facilityID);
+    emit updateItems_s(facility);
+}
+
+void ItemWindow::updateCurrentFacility() {
+    updateFacility(facilityID);
+}
+
+void ItemWindow::updateFacility(long facilityId)
+{
+    facilityID = facilityId;
+    // clear whole layout and create a new one
+    for(auto widget : foodTabs)
+    {
+        layout->removeWidget(widget);
+        delete widget;
+    }
+
+    std::vector<std::pair<long,int>> meals = *(pendingOrder->getMealIds());
+
+    foodTabs.clear();
+    totalPrice = 0;
+    totalOrder = 0;
+
+    //updateListOfItems(facilityId);
+    QtConcurrent::run(this, &ItemWindow::updateListOfItems);
+
+    // update header widgets
+    if (totalOrder)
+        order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
+    else
+        order->setText("Objednať");
+    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + " CZK"));
 }
 
 void upsertItemToList( std::vector<std::pair<long, int>>* list, std::pair<long, int> item) {
@@ -274,10 +311,10 @@ void ItemWindow::makeOrder()
 {
     std::vector<std::pair<long, int>> update;
     if(type == MEAL) {
-       update = pendingOrder->getMealIds();
+       update = *(pendingOrder->getMealIds());
     }
     else {
-       update = pendingOrder->getMedicineIds();
+       update = *(pendingOrder->getMedicineIds());
     }
 
     for (auto item: foodTabs)

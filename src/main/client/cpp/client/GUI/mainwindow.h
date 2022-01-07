@@ -95,6 +95,8 @@ signals:
     // this should be used in async waiting
     void start_s();
 
+    void orderChanged_s();
+
 public slots:
     // to got fullscreen
     void fullScreen();

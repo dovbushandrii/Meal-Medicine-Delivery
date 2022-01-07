@@ -5,9 +5,7 @@
  */
 #include "itemtab.h"
 #include "mainwindow.h"
-#include "../model/daos/MealDAO.h"
 #include "../model/entities/Meal.h"
-#include "../model/daos/MedicineDAO.h"
 #include "../model/entities/Medicine.h"
 
 #include <QStyleOption>

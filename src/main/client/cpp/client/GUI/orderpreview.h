@@ -11,15 +11,16 @@
 #include <QLabel>
 #include <QPushButton>
 #include "../model/entities/PendingOrder.h"
+#include "../model/entities/Order.h"
 
 class OrderPreview : public QWidget
 {
     Q_OBJECT
 public:
-    OrderPreview(QWidget *, long);
+    OrderPreview(QWidget *, Order);
     ~OrderPreview();
 
-    long orderID;
+    Order order;
 private:
 
 

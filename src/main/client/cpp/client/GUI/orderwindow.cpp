@@ -26,6 +26,7 @@ OrderWindow::OrderWindow(QWidget *parent, PendingOrder* pendingOrder , OrderWind
 
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
+    QObject::connect(this, SIGNAL(orderChanged_s()), parent, SIGNAL(orderChanged_s()));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
     setStyleSheet(".OrderWindow {background-color: rgba(0,0,0,0);}");
     setContentsMargins(0, 0, 0, 0);
@@ -140,30 +141,30 @@ void OrderWindow::updateAll()
     orderTabs.clear();
 
 
-    std::vector<std::pair<long,int>> meals = pendingOrder->getMealIds();
-    std::vector<std::pair<long,int>> medicines = pendingOrder->getMedicineIds();
+    std::vector<std::pair<long,int>>* meals = pendingOrder->getMealIds();
+    std::vector<std::pair<long,int>>* medicines = pendingOrder->getMedicineIds();
     MealDAO mealDAO;
     MedicineDAO medicineDAO;
 
     sumPrice = 0.0;
 
-    for (int i = 0; i < (int)meals.size(); i++)
+    for (int i = 0; i < (int)meals->size(); i++)
     {
-        Meal* meal = mealDAO.readMeal(meals[i].first);
+        Meal* meal = mealDAO.readMeal((*meals)[i].first);
         if(meal){
-            orderTabs.push_back(new OrderTab(this, *meal , &(meals[i].second)));
+            orderTabs.push_back(new OrderTab(this, *meal , &((*meals)[i].second)));
             layout->addWidget(orderTabs.back());
-            sumPrice += meals[i].second * orderTabs.back()->getPrice();
+            sumPrice += (*meals)[i].second * orderTabs.back()->getPrice();
         }
     }
 
-    for (int i = 0; i < (int)medicines.size(); i++)
+    for (int i = 0; i < (int)medicines->size(); i++)
     {
-        Medicine* medicine = medicineDAO.readMedicine(medicines[i].first);
+        Medicine* medicine = medicineDAO.readMedicine((*medicines)[i].first);
         if(medicine){
-            orderTabs.push_back(new OrderTab(this, *medicine , &(medicines[i].second)));
+            orderTabs.push_back(new OrderTab(this, *medicine , &((*medicines)[i].second)));
             layout->addWidget(orderTabs.back());
-            sumPrice += medicines[i].second * orderTabs.back()->getPrice();
+            sumPrice += (*medicines)[i].second * orderTabs.back()->getPrice();
         }
     }
 
@@ -187,6 +188,7 @@ void OrderWindow::minusClicked(double price_changed)
     // TODO update total price
     sumPrice += price_changed;
     totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(sumPrice) + " CZK"));
+    emit orderChanged_s();
 }
 
 void OrderWindow::plusClicked(double price_changed)
@@ -194,6 +196,7 @@ void OrderWindow::plusClicked(double price_changed)
     // TODO update total price
     sumPrice += price_changed;
     totalPrice->setText(QString::fromStdString("Celková cena: " + DECIMALJESUS(sumPrice) + " CZK"));
+    emit orderChanged_s();
 }
 
 void OrderWindow::paintEvent(QPaintEvent *)
@@ -216,10 +219,10 @@ void OrderWindow::deleteOrderItem(OrderTab *to_delete)
 {
     std::vector<std::pair<long,int>> update;
     if(to_delete->type == MEAL){
-        update = pendingOrder->getMealIds();
+        update = *(pendingOrder->getMealIds());
     }
     else {
-        update = pendingOrder->getMedicineIds();
+        update = *(pendingOrder->getMedicineIds());
     }
     deleteFromList(to_delete->itemID, &update);
     if(to_delete->type == MEAL){
@@ -231,6 +234,7 @@ void OrderWindow::deleteOrderItem(OrderTab *to_delete)
 
     layout->removeWidget(to_delete);
     delete to_delete;
+    emit orderChanged_s();
 }
 
 

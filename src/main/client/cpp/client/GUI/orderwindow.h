@@ -51,6 +51,7 @@ signals:
     // for changing name of window
     void changeName_s(QString);
     void confirmOrder_s(long);
+    void orderChanged_s();
 
 public slots:
     void sizeChanged(QSize);

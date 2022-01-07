@@ -12,6 +12,8 @@
 #include <QHBoxLayout>
 #include <QStyleOption>
 #include <QPainter>
+#include <QtConcurrent>
+#include <QFuture>
 #include <cmath>
 
 OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidget(parent)
@@ -21,6 +23,7 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
     QObject::connect(parent, SIGNAL(sizeChanged_s(QSize)), this, SLOT(sizeChanged(QSize)));
     QObject::connect(this, SIGNAL(changeName_s(QString)), parent, SLOT(changeName(QString)));
     QObject::connect(this, SIGNAL(openOrder_s(PendingOrder)), parent, SLOT(openOrder(PendingOrder)));
+    QObject::connect(this, SIGNAL(updateOrders_s(std::vector<Order>*)), this, SLOT(updateOrders(std::vector<Order>*)));
     setFixedSize(TAB_WIDTH + TITLE_WIDTH, TAB_HEIGHT + TITLE_HEIGHT);
     setStyleSheet(".OrderPreviewWindow {background-color: rgba(0,0,0,0);}");
     setContentsMargins(0, 0, 0, 0);
@@ -75,20 +78,34 @@ OrderPreviewWindow::OrderPreviewWindow(QWidget *parent, long facilityID) : QWidg
 
     layoutMain->addWidget(scrollArea);
 
-    OrderDAO ordDAO;
-    std::vector<long> orderIds = ordDAO.readOrdersId();
+    QtConcurrent::run(this, &OrderPreviewWindow::loadOrders);
 
-    for (int i = 0; i < (int)orderIds.size(); i++)
-    {
-        orders.push_back(new OrderPreview(this, orderIds[i]));
-        layout->addWidget(orders.back());
-    }
     updateAll();
 }
 
 OrderPreviewWindow::~OrderPreviewWindow()
 {
 
+}
+
+void OrderPreviewWindow::loadOrders() {
+    OrderDAO ordDAO;
+    std::vector<Order> loadedOrders = ordDAO.readOrders();
+    std::vector<Order>* returned = new std::vector<Order>();
+    for(int i = 0; i < (int)loadedOrders.size(); i++) {
+        returned->push_back(loadedOrders[i]);
+    }
+    emit updateOrders_s(returned);
+}
+
+void OrderPreviewWindow::updateOrders(std::vector<Order>* loadedOrders) {
+    for (int i = 0; i < (int)loadedOrders->size(); i++)
+    {
+        orders.push_back(new OrderPreview(this, (*loadedOrders)[i]));
+        layout->addWidget(orders.back());
+    }
+
+    updateAll();
 }
 
 void OrderPreviewWindow::openOrder(PendingOrder order)
@@ -141,7 +158,7 @@ void OrderPreviewWindow::updateAll()
 void OrderPreviewWindow::deleteOrderItem(OrderPreview *to_delete)
 {
     OrderDAO dao;
-    dao.deleteOrderById(to_delete->orderID);
+    dao.deleteOrderById(to_delete->order.getId());
     layout->removeWidget(to_delete);
     for (int i = 0; i < (int)orders.size(); i++)
         if (orders[i] == to_delete)

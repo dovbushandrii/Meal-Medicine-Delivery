@@ -8,6 +8,7 @@
 
 #include "itemtab.h"
 #include "../model/entities/PendingOrder.h"
+#include "../model/entities/Facility.h"
 
 #include <QObject>
 #include <QWidget>
@@ -39,6 +40,10 @@ private:
     // custom override for transparency
     void paintEvent(QPaintEvent *);
 
+    void updateListOfItems();
+
+    void updatePendingOrder();
+
     int totalOrder;
     double totalPrice;
 
@@ -46,13 +51,16 @@ signals:
     // for changing name of window
     void changeName_s(QString);
     void makeOrder_s(long, ItemType);
+    void updateItems_s(Facility*);
 
 public slots:
     void sizeChanged(QSize);
     void updateFacility(long);
+    void updateCurrentFacility();
     void minusClicked(double);
     void plusClicked(double);
     void makeOrder();
+    void updateItems(Facility*);
 };
 
 #endif // ITEMWINDOW_H

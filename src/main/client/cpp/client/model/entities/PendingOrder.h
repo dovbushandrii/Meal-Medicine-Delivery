@@ -36,9 +36,8 @@ public:
 
         this->id = id;
         this->clientId = clientId;
-        this->mealIds = mealIds;
-        this->medicineIds = medicineIds;
-
+        setMealIds(mealIds);
+        setMedicineIds(medicineIds);
     }
 
     void fillFromOrder(Order order){
@@ -98,15 +97,15 @@ public:
         this->clientId = clientId;
     }
 
-    std::vector<std::pair<long,int>> getMealIds() {
-        return this->mealIds;
+    std::vector<std::pair<long,int>>* getMealIds() {
+        return &this->mealIds;
     }
     void setMealIds( std::vector<std::pair<long,int>> mealIds) {
         this->mealIds = mealIds;
     }
 
-    std::vector<std::pair<long,int>> getMedicineIds() {
-        return this->medicineIds;
+    std::vector<std::pair<long,int>>* getMedicineIds() {
+        return &this->medicineIds;
     }
     void setMedicineIds( std::vector<std::pair<long,int>> medicineIds) {
         this->medicineIds = medicineIds;

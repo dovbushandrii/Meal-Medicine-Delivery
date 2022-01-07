@@ -27,11 +27,13 @@ public:
 
     std::pair<long, int> getAmount();
     void setAmount(int amount);
+    long mealID;
+    double unitPrice;
+    ItemType type;
 
 private:
     long facilityID;
-    long mealID;
-    ItemType type;
+
 
     QLabel *picture;
     QLabel *description;
@@ -46,7 +48,7 @@ private:
     QHBoxLayout *layoutAmount;
     QHBoxLayout *layoutPicture;
 
-    double unitPrice;
+
 
     // custom override for transparency
     void paintEvent(QPaintEvent *);

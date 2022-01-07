@@ -34,7 +34,7 @@ public:
 	}
 
 	//DONE
-	std::vector<Order> readOrders() {
+    std::vector<Order> readOrders() {
 		HTTPSender send;
 		HTTPResponse* response = send.doRequest(ORDERS_URL, HTTPMethod::HTTP_GET);
 		std::vector<Order> orders;
@@ -42,10 +42,10 @@ public:
 		if (response->getStatusCode() == 200) {
 			nlohmann::json  j = nlohmann::json::parse(response->getResponse());
 			j.get_to<std::vector<Order>>(orders);
-		}
+        }
 
 		delete response;
-		return orders;
+        return orders;
 	}
 
     //DONE

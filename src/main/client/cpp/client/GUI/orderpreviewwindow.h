@@ -37,6 +37,7 @@ private:
 
     // for rearrangment of currently displayed widgets
     void updateAll();
+    void loadOrders();
 
 signals:
     // for changing name of window
@@ -44,10 +45,13 @@ signals:
     // for opening certain order
     void openOrder_s(PendingOrder);
 
+    void updateOrders_s(std::vector<Order>*);
+
 public slots:
     void sizeChanged(QSize);
     void openOrder(PendingOrder);
     void deleteOrderItem(OrderPreview *);   // to delete order from orders
+    void updateOrders(std::vector<Order>*);
 };
 
 #endif // ORDERPREVIEWWINDOW_H

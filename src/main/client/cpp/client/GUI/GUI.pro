@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -93,7 +94,7 @@ CONFIG += lrelease
 CONFIG += embed_translations
 
 INCLUDEPATH += connect/json/include
-LIBS += -LD:\Qt\5.12.12\mingw73_64\lib -lcurl
+LIBS += -LC:\Qt\5.12.12\mingw73_64\lib -lcurl
 
 DEFINES += CURL_STATICLIB
 
