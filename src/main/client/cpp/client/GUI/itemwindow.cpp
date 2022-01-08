@@ -228,36 +228,35 @@ void ItemWindow::updateItems(Facility* facility){
                 totalOrder += newItemTab->getAmount().second;
             }
         }
+        // update header widgets
+        if (totalOrder)
+            order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
+        else
+            order->setText("Objednať");
+        totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + " CZK"));
+
+        QSize size = QSize(width(),height());
+        int columns = size.width() - (2 * layout->margin());
+        columns = std::floor(1.0 * columns / (foodTabs[0]->width() + DEFAULT_SPACE));
+        int rows = std::ceil(1.0 * foodTabs.size() / columns);
+
+        layout->setHorizontalSpacing(columns <= 0 ? DEFAULT_SPACE :
+                                          (size.width() - (2 * layout->margin() + columns * (foodTabs[0]->width() + DEFAULT_SPACE))) / columns);
+
+        tabs->setFixedSize(size.width(), rows * (foodTabs[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
+
+        if (rows == 0 || columns == 0)
+            return;
+
+        for (int i = 0; i < (int)foodTabs.size(); i++)
+            layout->addWidget(foodTabs[i], i / columns, i % columns);
+
+        for(int c=0; c < layout->columnCount(); c++) layout->setColumnStretch(c,1);
+        for(int r=0; r < layout->rowCount(); r++)  layout->setRowStretch(r,1);
     }
     else{
         //UNABLE TO LOAD FACILITY
     }
-
-    // update header widgets
-    if (totalOrder)
-        order->setText(QString::fromStdString("Objednať\n(" + std::to_string(totalOrder) + ")"));
-    else
-        order->setText("Objednať");
-    totalPreview->setText(QString::fromStdString("Cena objednávky: " + DECIMALJESUS(totalPrice) + " CZK"));
-
-    QSize size = QSize(width(),height());
-    int columns = size.width() - (2 * layout->margin());
-    columns = std::floor(1.0 * columns / (foodTabs[0]->width() + DEFAULT_SPACE));
-    int rows = std::ceil(1.0 * foodTabs.size() / columns);
-
-    layout->setHorizontalSpacing(columns <= 0 ? DEFAULT_SPACE :
-                                      (size.width() - (2 * layout->margin() + columns * (foodTabs[0]->width() + DEFAULT_SPACE))) / columns);
-
-    tabs->setFixedSize(size.width(), rows * (foodTabs[0]->height() + DEFAULT_SPACE) + (3 * DEFAULT_SPACE));
-
-    if (rows == 0 || columns == 0)
-        return;
-
-    for (int i = 0; i < (int)foodTabs.size(); i++)
-        layout->addWidget(foodTabs[i], i / columns, i % columns);
-
-    for(int c=0; c < layout->columnCount(); c++) layout->setColumnStretch(c,1);
-    for(int r=0; r < layout->rowCount(); r++)  layout->setRowStretch(r,1);
 }
 
 void ItemWindow::updateListOfItems() {
